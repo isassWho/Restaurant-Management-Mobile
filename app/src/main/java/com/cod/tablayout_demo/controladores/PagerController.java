@@ -1,9 +1,13 @@
-package com.cod.tablayout_demo.Controlador;
+package com.cod.tablayout_demo.controladores;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+
+import com.cod.tablayout_demo.fragments.Contactos;
+import com.cod.tablayout_demo.fragments.Correos;
+import com.cod.tablayout_demo.fragments.Mensajes;
 
 public class PagerController extends FragmentPagerAdapter {
 

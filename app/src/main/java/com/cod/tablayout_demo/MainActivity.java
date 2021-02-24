@@ -7,9 +7,9 @@ import android.widget.Toast;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
-import com.cod.tablayout_demo.Controlador.PagerController;
+import com.cod.tablayout_demo.controladores.PagerController;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
 
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -33,27 +33,37 @@ public class MainActivity extends AppCompatActivity {
         pagerAdapter = new PagerController(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        // set de eventos
+        tabLayout.setOnTabSelectedListener(this);
 
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-                pagerAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-                Toast.makeText(MainActivity.this, "onTabReselected", Toast.LENGTH_SHORT).show();
-            }
-
-        });
         // change the active icon at the tab
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+    }
+
+    //EVENTOS
+    @Override
+    public void onTabSelected(TabLayout.Tab tab) {
+        viewPager.setCurrentItem(tab.getPosition());
+        pagerAdapter.notifyDataSetChanged();
+
+        // Toast solo para indentificar los eventos
+        Toast.makeText(MainActivity.this, "onTabSelected", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTabUnselected(TabLayout.Tab tab) {
+
+
+        // Toast solo para indentificar los eventos
+        Toast.makeText(MainActivity.this, "onTabUnselected", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onTabReselected(TabLayout.Tab tab) {
+
+
+        // Toast solo para indentificar los eventos
+        Toast.makeText(MainActivity.this, "onTabReselected", Toast.LENGTH_SHORT).show();
     }
 }

@@ -1,4 +1,4 @@
-package com.cod.tablayout_demo.Controlador;
+package com.cod.tablayout_demo.fragments;
 
 import android.os.Bundle;
 
@@ -8,14 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.cod.tablayout_demo.R;
+
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Mensajes#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Mensajes extends Fragment {
+public class Mensajes extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,5 +66,17 @@ public class Mensajes extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_mensajes, container, false);
+    }
+
+
+    // METODOS PARA WEB SERVICE
+    @Override
+    public void onErrorResponse(VolleyError error) {
+
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+
     }
 }
