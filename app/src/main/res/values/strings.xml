@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Manager Adobes</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="fragment1">LISTA ESPERA</string>
+    <string name="fragment2">COMANDAS</string>
+    <string name="fragment3">MESAS</string>
+</resources>
