@@ -8,18 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.cod.tablayout_demo.R;
-
-import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Mensajes#newInstance} factory method to
+ * Use the {@link ComandasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Mensajes extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class ComandasFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +26,7 @@ public class Mensajes extends Fragment implements Response.Listener<JSONObject>,
     private String mParam1;
     private String mParam2;
 
-    public Mensajes() {
+    public ComandasFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +36,11 @@ public class Mensajes extends Fragment implements Response.Listener<JSONObject>,
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Mensajes.
+     * @return A new instance of fragment ComandasFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Mensajes newInstance(String param1, String param2) {
-        Mensajes fragment = new Mensajes();
+    public static ComandasFragment newInstance(String param1, String param2) {
+        ComandasFragment fragment = new ComandasFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,18 +61,6 @@ public class Mensajes extends Fragment implements Response.Listener<JSONObject>,
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mensajes, container, false);
-    }
-
-
-    // METODOS PARA WEB SERVICE
-    @Override
-    public void onErrorResponse(VolleyError error) {
-
-    }
-
-    @Override
-    public void onResponse(JSONObject response) {
-
+        return inflater.inflate(R.layout.fragment_comandas, container, false);
     }
 }

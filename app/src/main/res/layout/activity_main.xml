@@ -3,7 +3,6 @@
 <LinearLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,7 +16,7 @@
         android:background="@color/accent">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabcontactos"
+            android:id="@+id/tablistadeespera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/icons"
@@ -25,14 +24,14 @@
             android:text="@string/fragment1" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabcorreos"
+            android:id="@+id/tabcomandas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/icono_correos"
             android:text="@string/fragment2" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabmensajes"
+            android:id="@+id/tabmesas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/icono_mensajes"

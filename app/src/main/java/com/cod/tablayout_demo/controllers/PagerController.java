@@ -1,13 +1,13 @@
-package com.cod.tablayout_demo.controladores;
+package com.cod.tablayout_demo.controllers;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.cod.tablayout_demo.fragments.Contactos;
-import com.cod.tablayout_demo.fragments.Correos;
-import com.cod.tablayout_demo.fragments.Mensajes;
+import com.cod.tablayout_demo.fragments.ComandasFragment;
+import com.cod.tablayout_demo.fragments.ListaDeEsperaFragment;
+import com.cod.tablayout_demo.fragments.MesasFragment;
 
 public class PagerController extends FragmentPagerAdapter {
 
@@ -23,11 +23,11 @@ public class PagerController extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new Contactos();
+                return new ListaDeEsperaFragment();
             case 1:
-                return new Correos();
+                return new ComandasFragment();
             case 2:
-                return new Mensajes();
+                return new MesasFragment();
             default:
                 return null;
         }

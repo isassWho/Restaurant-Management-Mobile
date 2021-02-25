@@ -8,14 +8,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.cod.tablayout_demo.R;
+
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Correos#newInstance} factory method to
+ * Use the {@link MesasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Correos extends Fragment {
+public class MesasFragment extends Fragment{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +30,7 @@ public class Correos extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Correos() {
+    public MesasFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +40,11 @@ public class Correos extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Correos.
+     * @return A new instance of fragment MesasFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Correos newInstance(String param1, String param2) {
-        Correos fragment = new Correos();
+    public static MesasFragment newInstance(String param1, String param2) {
+        MesasFragment fragment = new MesasFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +65,7 @@ public class Correos extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_correos, container, false);
+        return inflater.inflate(R.layout.fragment_mesas, container, false);
     }
+
 }

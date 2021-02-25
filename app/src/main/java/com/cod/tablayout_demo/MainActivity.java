@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
-import com.cod.tablayout_demo.controladores.PagerController;
+import com.cod.tablayout_demo.controllers.PagerController;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
 
@@ -22,13 +22,15 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        enforceIcon();
+
         tabLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.viewpager);
 
         // this not used
-        tab1 = findViewById(R.id.tabcontactos);
-        tab2 = findViewById(R.id.tabcorreos);
-        tab3 = findViewById(R.id.tabmensajes);
+        tab1 = findViewById(R.id.tablistadeespera);
+        tab2 = findViewById(R.id.tabcomandas);
+        tab3 = findViewById(R.id.tabmesas);
 
         pagerAdapter = new PagerController(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(pagerAdapter);
@@ -41,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
     }
 
+    private void enforceIcon() {
+        this.getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
+        this.getSupportActionBar().setDisplayUseLogoEnabled(true);
+    }
+
     //EVENTOS
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
@@ -48,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         pagerAdapter.notifyDataSetChanged();
 
         // Toast solo para indentificar los eventos
-        Toast.makeText(MainActivity.this, "onTabSelected", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, "onTabSelected", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -56,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
 
         // Toast solo para indentificar los eventos
-        Toast.makeText(MainActivity.this, "onTabUnselected", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, "onTabUnselected", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -64,6 +72,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
 
         // Toast solo para indentificar los eventos
-        Toast.makeText(MainActivity.this, "onTabReselected", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(MainActivity.this, "onTabReselected", Toast.LENGTH_SHORT).show();
     }
 }
