@@ -46,11 +46,13 @@ public class ListaEsperaAdapter extends RecyclerView.Adapter<ListaEsperaAdapter.
         return this.listaDeEspera.size();
     }
 
-
     // Clase Holder
+
     public class ListaEsperaHolder extends RecyclerView.ViewHolder {
 
-        TextView txtId, txtNombre, txtProfesion;
+        TextView txtId;
+        TextView txtNombre;
+        TextView txtProfesion;
 
         public ListaEsperaHolder(@NonNull View itemView) {
             super(itemView);

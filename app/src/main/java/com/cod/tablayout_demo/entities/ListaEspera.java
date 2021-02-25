@@ -29,4 +29,13 @@ public class ListaEspera {
     public void setProfesion(String profesion) {
         this.profesion = profesion;
     }
+
+    @Override
+    public String toString() {
+        return "ListaEspera{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", profesion='" + profesion + '\'' +
+                '}';
+    }
 }

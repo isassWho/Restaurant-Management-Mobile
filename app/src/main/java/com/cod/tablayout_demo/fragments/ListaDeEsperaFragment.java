@@ -82,13 +82,13 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
 
     @Override
     public void onAttach(@NonNull Context context) {
-        Toast.makeText(getContext(), "onAttach", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "onAttach", Toast.LENGTH_SHORT).show();
         super.onAttach(context);
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Toast.makeText(getContext(), "onCreate", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "onCreate", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -98,59 +98,57 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        Toast.makeText(getContext(), "onActivityCreated", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "onActivityCreated", Toast.LENGTH_SHORT).show();
         super.onActivityCreated(savedInstanceState);
     }
 
     @Override
     public void onStart() {
-        Toast.makeText(getContext(), "onStart", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "onStart", Toast.LENGTH_SHORT).show();
         super.onStart();
     }
 
     @Override
     public void onResume() {
-        Toast.makeText(getContext(), "onResume", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "onResume", Toast.LENGTH_SHORT).show();
         super.onResume();
     }
 
 
     @Override
     public void onPause() {
-        Toast.makeText(getContext(), "onPause", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "onPause", Toast.LENGTH_SHORT).show();
         super.onPause();
     }
 
     @Override
     public void onStop() {
-        Toast.makeText(getContext(), "onStop", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "onStop", Toast.LENGTH_SHORT).show();
         super.onStop();
     }
 
     @Override
     public void onDestroyView() {
-        Toast.makeText(getContext(), "onDestroyView", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "onDestroyView", Toast.LENGTH_SHORT).show();
         super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        Toast.makeText(getContext(), "onDestroy", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "onDestroy", Toast.LENGTH_SHORT).show();
         super.onDestroy();
     }
 
     @Override
     public void onDetach() {
-        Toast.makeText(getContext(), "onDetach", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "onDetach", Toast.LENGTH_SHORT).show();
         super.onDetach();
     }
 
-    // Implementaciones
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Toast.makeText(getContext(), "onCreateView", Toast.LENGTH_LONG).show();
-
+        //Toast.makeText(getContext(), "onCreateView", Toast.LENGTH_LONG).show();
         View vista = inflater.inflate(R.layout.fragment_lista_de_espera, container, false);
         
         arrayListaEspera = new ArrayList<>();
@@ -174,8 +172,6 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
         progreso.setMessage("Consultando...");
         progreso.show();
 
-
-
         String url = Utilities.IP_SERVER + ":" + Utilities.PORT + "/proyectos/Adobes%20Android/wsJSONConsultarLista.php";
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
@@ -183,6 +179,7 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
 
     }
 
+    // Implementaciones
     @Override
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getContext(), "No se puede conectar. " + error.toString(), Toast.LENGTH_LONG).show();
@@ -191,11 +188,13 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
 
     @Override
     public void onResponse(JSONObject response) {
+
         ListaEspera espera;
 
         JSONArray jsonArray = response.optJSONArray(Utilities.TABLA_LISTA_DE_ESPERA);
+
         try {
-            for (int i = 0; i< jsonArray.length(); i++){
+            for (int i = 0; i < jsonArray.length(); i++){
 
                 espera = new ListaEspera();
 
@@ -207,14 +206,16 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
                 espera.setProfesion(jsonObject.optString(Utilities.LISTA_DE_ESPERA_CAMPO_PROFESION));
                 arrayListaEspera.add(espera);
             }// fin for
-            progreso.hide();
 
             ListaEsperaAdapter listaEsperaAdapter = new ListaEsperaAdapter(arrayListaEspera);
             recyclerListaEspera.setAdapter(listaEsperaAdapter);
 
         } catch (JSONException e) {
             Toast.makeText(getContext(), "No se ha podido establecer la conexión con el servidor. " + response, Toast.LENGTH_LONG).show();
+
+        }finally {
             progreso.hide();
+            Toast.makeText(getContext(), "Longitud: " + jsonArray.length(), Toast.LENGTH_LONG).show();
         }
     }
 
