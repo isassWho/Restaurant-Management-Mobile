@@ -193,7 +193,7 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
     public void onResponse(JSONObject response) {
         ListaEspera espera;
 
-        JSONArray jsonArray = response.optJSONArray("usuario");
+        JSONArray jsonArray = response.optJSONArray(Utilities.TABLA_LISTA_DE_ESPERA);
         try {
             for (int i = 0; i< jsonArray.length(); i++){
 
@@ -202,9 +202,9 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
                 JSONObject jsonObject;
                 jsonObject = jsonArray.getJSONObject(i);
 
-                espera.setId(jsonObject.optInt("id"));
-                espera.setNombre(jsonObject.optString("nombre"));
-                espera.setProfesion(jsonObject.optString("profesion"));
+                espera.setId(jsonObject.optInt(Utilities.LISTA_DE_ESPERA_CAMPO_ID));
+                espera.setNombre(jsonObject.optString(Utilities.LISTA_DE_ESPERA_CAMPO_NOMBRE));
+                espera.setProfesion(jsonObject.optString(Utilities.LISTA_DE_ESPERA_CAMPO_PROFESION));
                 arrayListaEspera.add(espera);
             }// fin for
             progreso.hide();
