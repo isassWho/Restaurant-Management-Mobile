@@ -3,7 +3,7 @@ package com.cod.tablayout_demo.utilities;
 public class Utilities {
 
     // WEBSERVICE
-    public static final String IP_SERVER = "http://192.168.0.106";
+    public static final String IP_SERVER = "http://192.168.1.101";
     public static final String PORT = "8080";
 
     // Mensajes
@@ -25,10 +25,10 @@ public class Utilities {
 
     // Tabla Mesas
     public static final String TABLA_MESAS = "mesa";
-
-
-
-
+    // Campos tabla
+    public static final String MESAS_CAMPO_ID = "ID";
+    public static final String MESAS_CAMPO_NOMBRE = "nombre";
+    public static final String MESAS_CAMPO_PERSONAS = "personas";
 
 
 }

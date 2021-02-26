@@ -1,25 +1,51 @@
 package com.cod.tablayout_demo.fragments;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.cod.tablayout_demo.R;
+import com.cod.tablayout_demo.adapters.ComandaAdapter;
+import com.cod.tablayout_demo.adapters.MesaAdapter;
+import com.cod.tablayout_demo.entities.Mesa;
+import com.cod.tablayout_demo.utilities.Utilities;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MesasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MesasFragment extends Fragment{
+public class MesasFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
+
+    // Variables
+    RecyclerView recyclerMesas;
+    ArrayList<Mesa> arrayMesas;
+
+    ProgressDialog progreso;
+
+    RequestQueue requestQueue;
+
+    JsonObjectRequest  jsonObjectRequest;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,7 +91,71 @@ public class MesasFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_mesas, container, false);
+        View vista = inflater.inflate(R.layout.fragment_mesas, container, false);
+
+        arrayMesas = new ArrayList<>();
+
+        recyclerMesas = vista.findViewById(R.id.recyclerMesas);
+        recyclerMesas.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerMesas.setHasFixedSize(true);
+
+        // Web service
+        requestQueue = Volley.newRequestQueue(getContext());
+
+        this.cargarWebService();
+
+        return vista;
     }
 
+    private void cargarWebService() {
+        progreso = new ProgressDialog(getContext());
+        progreso.setMessage("Consultando");
+        progreso.show();
+
+        String url = Utilities.IP_SERVER + ":" + Utilities.PORT + "/proyectos/Adobes%20Android/wsJSONConsultarListaMesas.php";
+
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        requestQueue.add(jsonObjectRequest);
+
+    }
+
+
+    // Implementaciones
+    @Override
+    public void onErrorResponse(VolleyError error) {
+        Toast.makeText(getContext(), "No se puede conectar. " + error.toString(), Toast.LENGTH_LONG).show();
+        progreso.hide();
+    }
+
+    @Override
+    public void onResponse(JSONObject response) {
+        Mesa mesa;
+
+        JSONArray jsonArray = response.optJSONArray(Utilities.TABLA_MESAS);
+
+        try {
+            for(int i = 0; i < jsonArray.length(); i++){
+
+                mesa = new Mesa();
+
+                JSONObject jsonObject;
+                jsonObject = jsonArray.getJSONObject(i);
+
+                mesa.setId(jsonObject.optInt(Utilities.MESAS_CAMPO_ID));
+                mesa.setNombre(jsonObject.optString(Utilities.MESAS_CAMPO_NOMBRE));
+                mesa.setPersonas(jsonObject.optString(Utilities.MESAS_CAMPO_PERSONAS));
+
+                arrayMesas.add(mesa);
+            }
+
+            MesaAdapter mesaAdapter = new MesaAdapter(arrayMesas);
+            recyclerMesas.setAdapter(mesaAdapter);
+
+
+        }catch (Exception e){
+            Toast.makeText(getContext(), "No se ha podido establecer la conexión con el servidor. " + response, Toast.LENGTH_LONG).show();
+        }finally {
+            progreso.hide();
+        }
+    }
 }
