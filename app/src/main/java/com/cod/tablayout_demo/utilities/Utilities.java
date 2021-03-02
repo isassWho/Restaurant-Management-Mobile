@@ -2,11 +2,15 @@ package com.cod.tablayout_demo.utilities;
 
 public class Utilities {
 
-    // WEBSERVICE
-    public static final String IP_SERVER = "http://192.168.0.106";
-    public static final String PORT = "8080";
+    // Servidor
+    public static final String IP_SERVIDOR = "http://192.168.0.101";
+    // Puerto
+    public static final String PUERTO = "8080";
 
-    // Mensajes
+    // Url de WS
+    public static final String LOCATION_WS_CONSULTAR_LISTA_MESAS = "/proyectos/Adobes%20Android/wsJSONConsultarListaMesas.php";
+    public static final String URL_CONSULTAR_LISTA_MESAS = IP_SERVIDOR + ":" + PUERTO + LOCATION_WS_CONSULTAR_LISTA_MESAS;
+
 
     // TABLAS
     // Tabla ListaDeEspera
@@ -26,9 +30,18 @@ public class Utilities {
     // Tabla Mesas
     public static final String TABLA_MESAS = "mesa";
     // Campos tabla
-    public static final String MESAS_CAMPO_ID = "ID";
+    public static final String MESAS_CAMPO_ID = "id";
     public static final String MESAS_CAMPO_NOMBRE = "nombre";
     public static final String MESAS_CAMPO_PERSONAS = "personas";
+
+    // Vibracion
+    public static final int VIBRACION_LONG_CLICK = 100;
+
+    // Mensajes para WebService
+    public static final String MENSAJE_WS_CONSULTA = "Consultando ...";
+    public static final String MENSAJE_WS_ERROR_RESPONSE = "No se puede conectar.";
+    public static final String MENSAJE_WS_CONNECTION_FAILED = "No se ha podido establecer la conexión con el servidor.";
+
 
 
 }

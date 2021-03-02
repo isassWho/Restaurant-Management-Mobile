@@ -26,7 +26,7 @@ public class ComandaAdapter extends RecyclerView.Adapter<ComandaAdapter.ComandaH
     @NonNull
     @Override
     public ComandaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.comanda, parent, false);
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.comanda_item, parent, false);
 
         RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         vista.setLayoutParams(layoutParams);

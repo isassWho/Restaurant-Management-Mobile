@@ -1,12 +1,14 @@
 package com.cod.tablayout_demo.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.cod.tablayout_demo.R;
-import com.cod.tablayout_demo.adapters.ComandaAdapter;
 import com.cod.tablayout_demo.adapters.MesaAdapter;
 import com.cod.tablayout_demo.entities.Mesa;
 import com.cod.tablayout_demo.utilities.Utilities;
@@ -37,14 +38,18 @@ import java.util.ArrayList;
 public class MesasFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
 
     // Variables
-    RecyclerView recyclerMesas;
-    ArrayList<Mesa> arrayMesas;
+    private MesaAdapter mesaAdapter;
+    private RecyclerView recyclerMesas;
 
-    ProgressDialog progreso;
+    private ArrayList<Mesa> arrayMesas;
 
-    RequestQueue requestQueue;
+    private ProgressDialog progreso;
 
-    JsonObjectRequest  jsonObjectRequest;
+    private RequestQueue requestQueue;
+
+    private JsonObjectRequest  jsonObjectRequest;
+
+    private Vibrator vibrator;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -90,6 +95,9 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_mesas, container, false);
 
@@ -109,12 +117,10 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
 
     private void cargarWebService() {
         progreso = new ProgressDialog(getContext());
-        progreso.setMessage("Consultando");
+        progreso.setMessage(Utilities.MENSAJE_WS_CONSULTA);
         progreso.show();
 
-        String url = Utilities.IP_SERVER + ":" + Utilities.PORT + "/proyectos/Adobes%20Android/wsJSONConsultarListaMesas.php";
-
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_CONSULTAR_LISTA_MESAS, null, this, this);
         requestQueue.add(jsonObjectRequest);
 
     }
@@ -123,7 +129,7 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     // Implementaciones
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), "No se puede conectar. " + error.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), Utilities.MENSAJE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_LONG).show();
         progreso.hide();
     }
 
@@ -148,12 +154,23 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
                 arrayMesas.add(mesa);
             }
 
-            MesaAdapter mesaAdapter = new MesaAdapter(arrayMesas);
+            mesaAdapter = new MesaAdapter(arrayMesas, R.layout.mesa_item, new MesaAdapter.OnItemClickListener() {
+                @Override
+                public void OnItemClick(Mesa mesa, int position) {
+                    Toast.makeText(getContext(), "Click\nMesa: " + mesa + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void OnLongItemClick(Mesa mesa, int position) {
+                    Toast.makeText(getContext(), "Long Click\nMesa: " + mesa + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                    vibrator.vibrate(Utilities.VIBRACION_LONG_CLICK);
+                }
+            });
             recyclerMesas.setAdapter(mesaAdapter);
 
 
         }catch (Exception e){
-            Toast.makeText(getContext(), "No se ha podido establecer la conexión con el servidor. " + response, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), Utilities.MENSAJE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
         }finally {
             progreso.hide();
         }

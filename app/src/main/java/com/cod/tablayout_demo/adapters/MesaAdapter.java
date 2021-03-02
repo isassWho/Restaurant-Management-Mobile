@@ -4,39 +4,48 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cod.tablayout_demo.R;
+import com.cod.tablayout_demo.entities.Comanda;
 import com.cod.tablayout_demo.entities.Mesa;
 
 import java.util.List;
 
-public class MesaAdapter extends RecyclerView.Adapter<MesaAdapter.MesaHolder> {
+public class MesaAdapter extends RecyclerView.Adapter<MesaAdapter.ViewHolder>{
 
-    List<Mesa> listaMesas;
+    // a éste
 
-    public MesaAdapter(List<Mesa> listaMesas) {
+    private List<Mesa> listaMesas;
+    private int layout;
+    private OnItemClickListener itemClickListener;
+
+    public MesaAdapter(List<Mesa> listaMesas, int layout, OnItemClickListener itemClickListener) {
         this.listaMesas = listaMesas;
+        this.layout = layout;
+        this.itemClickListener = itemClickListener;
     }
 
+    /**
+     * Inflamos los datos
+     * */
     @NonNull
     @Override
-    public MesaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.mesa, parent, false);
-
-        RecyclerView.LayoutParams recyclerView = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        vista.setLayoutParams(recyclerView);
-
-        return new MesaHolder(vista);
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(this.layout, parent, false);
+        return new ViewHolder(v);
     }
 
+    /***
+     * Hace lo que es cambiar los datos.
+     * Tomamos nuestro modelo y lo volcamos en el textView
+     */
     @Override
-    public void onBindViewHolder(@NonNull MesaHolder holder, int position) {
-        holder.txtId.setText(listaMesas.get(position).getId().toString());
-        holder.txtNombre.setText(listaMesas.get(position).getNombre());
-        holder.txtPersonas.setText(listaMesas.get(position).getPersonas());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.bind(listaMesas.get(position), this.itemClickListener);
     }
 
     @Override
@@ -44,19 +53,51 @@ public class MesaAdapter extends RecyclerView.Adapter<MesaAdapter.MesaHolder> {
         return this.listaMesas.size();
     }
 
-    // Clase Holder
 
-    public class MesaHolder extends RecyclerView.ViewHolder {
-        TextView txtId;
-        TextView txtNombre;
-        TextView txtPersonas;
+    // clase holder
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView txtId;
+        public TextView txtPropietario;
+        public TextView txtPersonas;
 
-        public MesaHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtId = itemView.findViewById(R.id.frag_mesa_text_id);
-            txtNombre = itemView.findViewById(R.id.frag_mesa_text_nombre);
-            txtPersonas = itemView.findViewById(R.id.frag_mesa_text_personas);
+            this.txtId = itemView.findViewById(R.id.frag_mesa_text_id);
+            this.txtPropietario = itemView.findViewById(R.id.frag_mesa_text_propietario);
+            this.txtPersonas = itemView.findViewById(R.id.frag_mesa_text_personas);
+        }
+
+        public void bind(final Mesa mesa, final OnItemClickListener listener){
+            this.txtId.setText(mesa.getId().toString());
+            this.txtPropietario.setText(mesa.getNombre());
+            this.txtPersonas.setText(mesa.getPersonas());
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // le pasamos modelo y posicion
+                    listener.OnItemClick(mesa, getAdapterPosition());
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    // le pasamos modelo y posicion
+                    listener.OnLongItemClick(mesa, getAdapterPosition());
+                    return true;
+                }
+            });
 
         }
+
+    }
+
+    // interface
+    public interface OnItemClickListener{
+
+        void OnItemClick(Mesa mesa, int position);
+        void OnLongItemClick(Mesa mesa, int position);
+
     }
 }

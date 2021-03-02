@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     >
 
     <LinearLayout
@@ -25,7 +26,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/frag_listaEspera_text_id"
+                android:id="@+id/frag_mesa_text_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -41,15 +42,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Nombre:"
+                android:text="Propietario:"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/frag_listaEspera_text_nombre"
+                android:id="@+id/frag_mesa_text_propietario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Nombre" />
+                android:text="Propietario" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,15 +62,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Profesión:"
+                android:text="Personas:"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/frag_listaEspera_text_profesion"
+                android:id="@+id/frag_mesa_text_personas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Profesión" />
+                android:text="Personas" />
         </LinearLayout>
 
     </LinearLayout>

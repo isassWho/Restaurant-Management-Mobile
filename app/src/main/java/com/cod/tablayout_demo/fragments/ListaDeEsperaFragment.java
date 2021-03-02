@@ -172,7 +172,7 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
         progreso.setMessage("Consultando...");
         progreso.show();
 
-        String url = Utilities.IP_SERVER + ":" + Utilities.PORT + "/proyectos/Adobes%20Android/wsJSONConsultarLista.php";
+        String url = Utilities.IP_SERVIDOR + ":" + Utilities.PUERTO + "/proyectos/Adobes%20Android/wsJSONConsultarLista.php";
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         requestQueue.add(jsonObjectRequest);
@@ -208,14 +208,21 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
             }// fin for
 
             ListaEsperaAdapter listaEsperaAdapter = new ListaEsperaAdapter(arrayListaEspera);
+
+            listaEsperaAdapter.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Seleccionaste algo, aún no se que fué :/" , Toast.LENGTH_LONG).show();
+                }
+            });
+
             recyclerListaEspera.setAdapter(listaEsperaAdapter);
 
-        } catch (JSONException e) {
+        } catch (JSONException | NullPointerException e) {
             Toast.makeText(getContext(), "No se ha podido establecer la conexión con el servidor. " + response, Toast.LENGTH_LONG).show();
 
         }finally {
             progreso.hide();
-            Toast.makeText(getContext(), "Longitud: " + jsonArray.length(), Toast.LENGTH_LONG).show();
         }
     }
 

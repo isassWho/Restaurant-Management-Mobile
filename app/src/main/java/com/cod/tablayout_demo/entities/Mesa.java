@@ -29,4 +29,13 @@ public class Mesa {
     public void setPersonas(String personas) {
         this.personas = personas;
     }
+
+    @Override
+    public String toString() {
+        return "Mesa{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", personas='" + personas + '\'' +
+                '}';
+    }
 }
