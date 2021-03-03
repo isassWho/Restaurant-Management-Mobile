@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,8 @@ import com.cod.tablayout_demo.R;
 import com.cod.tablayout_demo.adapters.ListaEsperaAdapter;
 import com.cod.tablayout_demo.entities.ListaEspera;
 import com.cod.tablayout_demo.utilities.Utilities;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,16 +40,23 @@ import java.util.ArrayList;
  * Use the {@link ListaDeEsperaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListaDeEsperaFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject>{
+public class ListaDeEsperaFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject>, View.OnClickListener {
 
     // variables
-    RecyclerView recyclerListaEspera;
-    ArrayList<ListaEspera> arrayListaEspera;
+    private ListaEsperaAdapter listaEsperaAdapter;
+    private RecyclerView recyclerListaEspera;
 
-    ProgressDialog progreso;
+    private ArrayList<ListaEspera> arrayListaEspera;
 
-    RequestQueue requestQueue;
-    JsonObjectRequest jsonObjectRequest;
+    private ProgressDialog progreso;
+
+    private RequestQueue requestQueue;
+
+    private JsonObjectRequest jsonObjectRequest;
+
+    private Vibrator vibrator;
+
+    private FloatingActionButton btn_add_listaEspera;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -81,12 +91,6 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
     }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        //Toast.makeText(getContext(), "onAttach", Toast.LENGTH_SHORT).show();
-        super.onAttach(context);
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         //Toast.makeText(getContext(), "onCreate", Toast.LENGTH_SHORT).show();
         super.onCreate(savedInstanceState);
@@ -98,63 +102,24 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        //Toast.makeText(getContext(), "onActivityCreated", Toast.LENGTH_SHORT).show();
         super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        //Toast.makeText(getContext(), "onStart", Toast.LENGTH_SHORT).show();
-        super.onStart();
-    }
-
-    @Override
-    public void onResume() {
-        //Toast.makeText(getContext(), "onResume", Toast.LENGTH_SHORT).show();
-        super.onResume();
-    }
-
-
-    @Override
-    public void onPause() {
-        //Toast.makeText(getContext(), "onPause", Toast.LENGTH_SHORT).show();
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        //Toast.makeText(getContext(), "onStop", Toast.LENGTH_SHORT).show();
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroyView() {
-        //Toast.makeText(getContext(), "onDestroyView", Toast.LENGTH_SHORT).show();
-        super.onDestroyView();
-    }
-
-    @Override
-    public void onDestroy() {
-        //Toast.makeText(getContext(), "onDestroy", Toast.LENGTH_SHORT).show();
-        super.onDestroy();
-    }
-
-    @Override
-    public void onDetach() {
-        //Toast.makeText(getContext(), "onDetach", Toast.LENGTH_SHORT).show();
-        super.onDetach();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //Toast.makeText(getContext(), "onCreateView", Toast.LENGTH_LONG).show();
+
+        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
         View vista = inflater.inflate(R.layout.fragment_lista_de_espera, container, false);
+
+        btn_add_listaEspera = vista.findViewById(R.id.fab_listaEspera);
+        btn_add_listaEspera.setOnClickListener(this::onClick);
         
         arrayListaEspera = new ArrayList<>();
         
         recyclerListaEspera = vista.findViewById(R.id.recyclerListaEspera);
-        recyclerListaEspera.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerListaEspera.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerListaEspera.setHasFixedSize(true);
         
         // Web Service
@@ -169,12 +134,10 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
     private void cargarWebService() {
 
         progreso = new ProgressDialog(getContext());
-        progreso.setMessage("Consultando...");
+        progreso.setMessage(Utilities.MENSAJE_WS_CONSULTA);
         progreso.show();
 
-        String url = Utilities.IP_SERVIDOR + ":" + Utilities.PUERTO + "/proyectos/Adobes%20Android/wsJSONConsultarLista.php";
-
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_CONSULTAR_LISTA_DE_ESPERA, null, this, this);
         requestQueue.add(jsonObjectRequest);
 
     }
@@ -182,7 +145,7 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
     // Implementaciones
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), "No se puede conectar. " + error.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), Utilities.MENSAJE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_LONG).show();
         progreso.hide();
     }
 
@@ -204,26 +167,34 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
                 espera.setId(jsonObject.optInt(Utilities.LISTA_DE_ESPERA_CAMPO_ID));
                 espera.setNombre(jsonObject.optString(Utilities.LISTA_DE_ESPERA_CAMPO_NOMBRE));
                 espera.setProfesion(jsonObject.optString(Utilities.LISTA_DE_ESPERA_CAMPO_PROFESION));
+
                 arrayListaEspera.add(espera);
             }// fin for
 
-            ListaEsperaAdapter listaEsperaAdapter = new ListaEsperaAdapter(arrayListaEspera);
-
-            listaEsperaAdapter.setOnClickListener(new View.OnClickListener() {
+            listaEsperaAdapter = new ListaEsperaAdapter(arrayListaEspera, R.layout.lista_espera_item, new ListaEsperaAdapter.OnItemClickListener() {
                 @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Seleccionaste algo, aún no se que fué :/" , Toast.LENGTH_LONG).show();
+                public void OnItemClick(ListaEspera listaEspera, int position) {
+                    Toast.makeText(getContext(), "Click\nLista de Espera: " + listaEspera + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void OnLongItemClick(ListaEspera listaEspera, int position) {
+                    Toast.makeText(getContext(), "LongClick\nLista de Espera: " + listaEspera + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                    vibrator.vibrate(Utilities.VIBRACION_LONG_CLICK);
                 }
             });
 
             recyclerListaEspera.setAdapter(listaEsperaAdapter);
 
         } catch (JSONException | NullPointerException e) {
-            Toast.makeText(getContext(), "No se ha podido establecer la conexión con el servidor. " + response, Toast.LENGTH_LONG).show();
-
+            Toast.makeText(getContext(), Utilities.MENSAJE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
         }finally {
             progreso.hide();
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        Snackbar.make(v, "Añadir en Lista de Espera", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+    }
 }

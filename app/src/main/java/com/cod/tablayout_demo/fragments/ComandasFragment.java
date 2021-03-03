@@ -26,8 +26,10 @@ import com.cod.tablayout_demo.adapters.ComandaAdapter;
 import com.cod.tablayout_demo.entities.Comanda;
 import com.cod.tablayout_demo.utilities.Utilities;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -43,13 +45,13 @@ public class ComandasFragment extends Fragment implements Response.Listener<JSON
     private ComandaAdapter comandaAdapter;
     private RecyclerView recyclerComandas;
 
-    ArrayList<Comanda> arrayComandas;
+    private ArrayList<Comanda> arrayComandas;
 
-    ProgressDialog progreso;
+    private ProgressDialog progreso;
 
-    RequestQueue requestQueue;
+    private RequestQueue requestQueue;
 
-    JsonObjectRequest jsonObjectRequest;
+    private JsonObjectRequest jsonObjectRequest;
 
     private Vibrator vibrator;
 
@@ -129,12 +131,10 @@ public class ComandasFragment extends Fragment implements Response.Listener<JSON
     private void cargarWebService() {
 
         progreso = new ProgressDialog(getContext());
-        progreso.setMessage("Consultando");
+        progreso.setMessage(Utilities.MENSAJE_WS_CONSULTA);
         progreso.show();
 
-        String url = Utilities.IP_SERVIDOR + ":" + Utilities.PUERTO + "/proyectos/Adobes%20Android/wsJSONConsultarListaComandas.php";
-
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_CONSULTAR_LISTA_COMANDAS, null, this, this);
         requestQueue.add(jsonObjectRequest);
 
     }
@@ -166,7 +166,6 @@ public class ComandasFragment extends Fragment implements Response.Listener<JSON
                 comanda.setPersonas(jsonObject.getString(Utilities.COMANDAS_CAMPO_PERSONAS));
                 arrayComandas.add(comanda);
             } // fin for
-            // aqui continuo enseguida
             comandaAdapter = new ComandaAdapter(arrayComandas, R.layout.comanda_item, new ComandaAdapter.OnItemClickListener() {
                 @Override
                 public void OnItemClick(Comanda comanda, int position) {
@@ -180,9 +179,8 @@ public class ComandasFragment extends Fragment implements Response.Listener<JSON
             });
             recyclerComandas.setAdapter(comandaAdapter);
 
-        }catch (Exception e){
-            Toast.makeText(getContext(), "No se ha podido establecer la conexión con el servidor. " + response, Toast.LENGTH_LONG).show();
-
+        }catch (JSONException | NullPointerException e){
+            Toast.makeText(getContext(), Utilities.MENSAJE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
         }finally {
             progreso.hide();
         }
@@ -191,6 +189,7 @@ public class ComandasFragment extends Fragment implements Response.Listener<JSON
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(v.getContext(), "FloatingActionButton Comandas", Toast.LENGTH_SHORT).show();
+        Snackbar.make(v, "Añadir comanda", Snackbar.LENGTH_LONG)
+                .setAction("Deshacer", null).show();
     }
 }

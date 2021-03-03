@@ -25,8 +25,10 @@ import com.cod.tablayout_demo.adapters.MesaAdapter;
 import com.cod.tablayout_demo.entities.Mesa;
 import com.cod.tablayout_demo.utilities.Utilities;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -177,7 +179,7 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
             recyclerMesas.setAdapter(mesaAdapter);
 
 
-        }catch (Exception e){
+        }catch (JSONException | NullPointerException e){
             Toast.makeText(getContext(), Utilities.MENSAJE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
         }finally {
             progreso.hide();
@@ -187,6 +189,7 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     // Evento para el floatingActionButton
     @Override
     public void onClick(View v) {
-        Toast.makeText(v.getContext(), "FloatingActionButton Mesas", Toast.LENGTH_SHORT).show();
+        Snackbar.make(v, "Añadir mesa", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 }

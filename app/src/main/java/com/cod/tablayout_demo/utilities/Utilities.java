@@ -14,6 +14,9 @@ public class Utilities {
     public static final String LOCATION_WS_CONSULTAR_LISTA_COMANDAS = "/proyectos/Adobes%20Android/wsJSONConsultarListaComandas.php";
     public static final String URL_CONSULTAR_LISTA_COMANDAS = IP_SERVIDOR + ":" + PUERTO + LOCATION_WS_CONSULTAR_LISTA_COMANDAS;
 
+    public static final String LOCATION_WS_CONSULTAR_LISTA_DE_ESPERA = "/proyectos/Adobes%20Android/wsJSONConsultarLista.php";
+    public static final String URL_CONSULTAR_LISTA_DE_ESPERA = IP_SERVIDOR + ":" + PUERTO + LOCATION_WS_CONSULTAR_LISTA_DE_ESPERA;
+
 
     // TABLAS
     // Tabla ListaDeEspera

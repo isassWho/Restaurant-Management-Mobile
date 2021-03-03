@@ -17,8 +17,6 @@ import java.util.List;
 
 public class MesaAdapter extends RecyclerView.Adapter<MesaAdapter.ViewHolder>{
 
-    // a éste
-
     private List<Mesa> listaMesas;
     private int layout;
     private OnItemClickListener itemClickListener;
