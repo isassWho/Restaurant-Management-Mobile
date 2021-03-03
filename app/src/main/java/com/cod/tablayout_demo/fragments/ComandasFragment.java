@@ -117,7 +117,7 @@ public class ComandasFragment extends Fragment implements Response.Listener<JSON
         progreso.setMessage("Consultando");
         progreso.show();
 
-        String url = Utilities.IP_SERVER + ":" + Utilities.PORT + "/proyectos/Adobes%20Android/wsJSONConsultarListaComandas.php";
+        String url = Utilities.IP_SERVIDOR + ":" + Utilities.PUERTO + "/proyectos/Adobes%20Android/wsJSONConsultarListaComandas.php";
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         requestQueue.add(jsonObjectRequest);

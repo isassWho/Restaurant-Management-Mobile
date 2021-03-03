@@ -24,6 +24,7 @@ import com.cod.tablayout_demo.R;
 import com.cod.tablayout_demo.adapters.MesaAdapter;
 import com.cod.tablayout_demo.entities.Mesa;
 import com.cod.tablayout_demo.utilities.Utilities;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -35,7 +36,7 @@ import java.util.ArrayList;
  * Use the {@link MesasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MesasFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener{
+public class MesasFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
 
     // Variables
     private MesaAdapter mesaAdapter;
@@ -50,6 +51,8 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     private JsonObjectRequest  jsonObjectRequest;
 
     private Vibrator vibrator;
+
+    private FloatingActionButton btn_add_mesa;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -96,10 +99,15 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
+
         vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_mesas, container, false);
+
+        btn_add_mesa = vista.findViewById(R.id.fab_mesas);
+        btn_add_mesa.setOnClickListener(this::onClick);
 
         arrayMesas = new ArrayList<>();
 
@@ -174,5 +182,11 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
         }finally {
             progreso.hide();
         }
+    }
+
+    // Evento para el floatingActionButton
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(v.getContext(), "FloatingActionButton", Toast.LENGTH_SHORT).show();
     }
 }
