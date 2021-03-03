@@ -187,6 +187,6 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     // Evento para el floatingActionButton
     @Override
     public void onClick(View v) {
-        Toast.makeText(v.getContext(), "FloatingActionButton", Toast.LENGTH_SHORT).show();
+        Toast.makeText(v.getContext(), "FloatingActionButton Mesas", Toast.LENGTH_SHORT).show();
     }
 }

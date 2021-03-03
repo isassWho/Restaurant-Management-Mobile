@@ -1,12 +1,14 @@
 package com.cod.tablayout_demo.fragments;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import com.cod.tablayout_demo.R;
 import com.cod.tablayout_demo.adapters.ComandaAdapter;
 import com.cod.tablayout_demo.entities.Comanda;
 import com.cod.tablayout_demo.utilities.Utilities;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -34,10 +37,12 @@ import java.util.ArrayList;
  * Use the {@link ComandasFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ComandasFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener {
+public class ComandasFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
 
     // Variables
-    RecyclerView recyclerComandas;
+    private ComandaAdapter comandaAdapter;
+    private RecyclerView recyclerComandas;
+
     ArrayList<Comanda> arrayComandas;
 
     ProgressDialog progreso;
@@ -45,6 +50,10 @@ public class ComandasFragment extends Fragment implements Response.Listener<JSON
     RequestQueue requestQueue;
 
     JsonObjectRequest jsonObjectRequest;
+
+    private Vibrator vibrator;
+
+    private FloatingActionButton btn_add_comanda;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -94,20 +103,26 @@ public class ComandasFragment extends Fragment implements Response.Listener<JSON
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+
+        // infla la vista para el fragment
         View vista = inflater.inflate(R.layout.fragment_comandas, container, false);
+
+        btn_add_comanda = vista.findViewById(R.id.fab_comandas);
+        btn_add_comanda.setOnClickListener(this::onClick);
 
         arrayComandas = new ArrayList<>();
 
         recyclerComandas = vista.findViewById(R.id.recyclerComandas);
-        recyclerComandas.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerComandas.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerComandas.setHasFixedSize(true);
 
-        // WebService
+        // Web Service
         requestQueue = Volley.newRequestQueue(getContext());
 
         this.cargarWebService();
 
-        // Inflate the layout for this fragment
         return vista;
     }
 
@@ -127,7 +142,7 @@ public class ComandasFragment extends Fragment implements Response.Listener<JSON
     // Implementaciones
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), "No se puede conectar. " + error.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), Utilities.MENSAJE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_LONG).show();
         progreso.hide();
     }
 
@@ -151,8 +166,18 @@ public class ComandasFragment extends Fragment implements Response.Listener<JSON
                 comanda.setPersonas(jsonObject.getString(Utilities.COMANDAS_CAMPO_PERSONAS));
                 arrayComandas.add(comanda);
             } // fin for
+            // aqui continuo enseguida
+            comandaAdapter = new ComandaAdapter(arrayComandas, R.layout.comanda_item, new ComandaAdapter.OnItemClickListener() {
+                @Override
+                public void OnItemClick(Comanda comanda, int position) {
+                    Toast.makeText(getContext(), "Click\nComanda: " + comanda + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                }
 
-            ComandaAdapter comandaAdapter = new ComandaAdapter(arrayComandas);
+                @Override
+                public void OnLongItemClick(Comanda comanda, int position) {
+                    Toast.makeText(getContext(), "LongClick\nComanda: " + comanda + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                }
+            });
             recyclerComandas.setAdapter(comandaAdapter);
 
         }catch (Exception e){
@@ -162,5 +187,10 @@ public class ComandasFragment extends Fragment implements Response.Listener<JSON
             progreso.hide();
         }
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        Toast.makeText(v.getContext(), "FloatingActionButton Comandas", Toast.LENGTH_SHORT).show();
     }
 }
