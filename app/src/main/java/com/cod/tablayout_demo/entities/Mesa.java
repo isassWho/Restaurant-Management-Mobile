@@ -1,6 +1,10 @@
 package com.cod.tablayout_demo.entities;
 
-public class Mesa {
+import java.io.Serializable;
+
+public class Mesa implements Serializable {
+
+    private static final long serialVersionUID = 8799656478674716638L;
 
     private Integer id;
     private String nombre;

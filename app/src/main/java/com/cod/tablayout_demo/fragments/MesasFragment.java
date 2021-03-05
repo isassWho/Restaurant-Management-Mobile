@@ -2,6 +2,7 @@ package com.cod.tablayout_demo.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.cod.tablayout_demo.R;
+import com.cod.tablayout_demo.activities.EditarMesaActivity;
+import com.cod.tablayout_demo.activities.NuevaMesaActivity;
 import com.cod.tablayout_demo.adapters.MesaAdapter;
 import com.cod.tablayout_demo.entities.Mesa;
 import com.cod.tablayout_demo.utilities.Utilities;
@@ -101,8 +104,6 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-
         vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         // Inflate the layout for this fragment
@@ -167,12 +168,18 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
             mesaAdapter = new MesaAdapter(arrayMesas, R.layout.mesa_item, new MesaAdapter.OnItemClickListener() {
                 @Override
                 public void OnItemClick(Mesa mesa, int position) {
-                    Toast.makeText(getContext(), "Click\nMesa: " + mesa + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), "Click\nMesa: " + mesa + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                    // pasa como parametro el objeto seleccionado
+                    Intent intent = new Intent(getContext(), EditarMesaActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("mesa", mesa);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
 
                 @Override
                 public void OnLongItemClick(Mesa mesa, int position) {
-                    Toast.makeText(getContext(), "Long Click\nMesa: " + mesa + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), "Long Click\nMesa: " + mesa + "\nPosición: " + position, Toast.LENGTH_LONG).show();
                     vibrator.vibrate(Utilities.VIBRACION_LONG_CLICK);
                 }
             });
@@ -189,7 +196,10 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     // Evento para el floatingActionButton
     @Override
     public void onClick(View v) {
-        Snackbar.make(v, "Añadir mesa", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Intent i = new Intent(v.getContext(), NuevaMesaActivity.class);
+
+        startActivity(i);
+
+        Snackbar.make(v, "Añadir mesa", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 }

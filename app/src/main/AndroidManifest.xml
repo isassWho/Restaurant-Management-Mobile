@@ -2,12 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cod.tablayout_demo">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission-sdk-23 android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TabLayout_Demo">
+        <activity android:name=".activities.EditarMesaActivity"></activity>
+        <activity android:name=".activities.NuevaMesaActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

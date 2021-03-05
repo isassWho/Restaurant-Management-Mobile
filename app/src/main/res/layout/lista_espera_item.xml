@@ -4,6 +4,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="#dedede"
+    android:layout_marginBottom="@dimen/cardview_default_radius"
     >
 
     <LinearLayout
