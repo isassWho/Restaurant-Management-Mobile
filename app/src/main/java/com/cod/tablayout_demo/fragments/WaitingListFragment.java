@@ -45,9 +45,9 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
     // variables
     private WaitingListAdapter waitingListAdapter;
-    private RecyclerView recyclerListaEspera;
+    private RecyclerView recyclerViewWaitingList;
 
-    private ArrayList<WaitingList> arrayListaEspera;
+    private ArrayList<WaitingList> arrayWaitingList;
 
     private ProgressDialog progreso;
 
@@ -57,7 +57,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
     private Vibrator vibrator;
 
-    private FloatingActionButton btn_add_listaEspera;
+    private FloatingActionButton btn_add_waitingList;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -114,14 +114,14 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
         View vista = inflater.inflate(R.layout.fragment_waiting_list, container, false);
 
-        btn_add_listaEspera = vista.findViewById(R.id.fab_listaEspera);
-        btn_add_listaEspera.setOnClickListener(this::onClick);
+        btn_add_waitingList = vista.findViewById(R.id.fab_listaEspera);
+        btn_add_waitingList.setOnClickListener(this::onClick);
+
+        arrayWaitingList = new ArrayList<>();
         
-        arrayListaEspera = new ArrayList<>();
-        
-        recyclerListaEspera = vista.findViewById(R.id.recyclerListaEspera);
-        recyclerListaEspera.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerListaEspera.setHasFixedSize(true);
+        recyclerViewWaitingList = vista.findViewById(R.id.recyclerListaEspera);
+        recyclerViewWaitingList.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewWaitingList.setHasFixedSize(true);
         
         // Web Service
         requestQueue = Volley.newRequestQueue(getContext());
@@ -138,7 +138,9 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         progreso.setMessage(Utilities.MENSAJE_WS_CONSULTA);
         progreso.show();
 
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_CONSULTAR_LISTA_DE_ESPERA, null, this, this);
+        String url = "http://192.168.0.103:8080/proyectos/Adobes%20Android/WS_V0.2/wsJSONQueryWaitingList.php";
+
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         requestQueue.add(jsonObjectRequest);
 
     }
@@ -153,39 +155,52 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     @Override
     public void onResponse(JSONObject response) {
 
-        WaitingList espera;
+        WaitingList waitingList;
 
-        JSONArray jsonArray = response.optJSONArray(Utilities.TABLA_LISTA_DE_ESPERA);
+        JSONArray jsonArray = response.optJSONArray("tt_waiting_list");
 
         try {
             for (int i = 0; i < jsonArray.length(); i++){
 
-                espera = new WaitingList();
+                waitingList = new WaitingList();
 
                 JSONObject jsonObject;
                 jsonObject = jsonArray.getJSONObject(i);
 
-                espera.setId(jsonObject.optInt(Utilities.LISTA_DE_ESPERA_CAMPO_ID));
-                espera.setNombre(jsonObject.optString(Utilities.LISTA_DE_ESPERA_CAMPO_NOMBRE));
-                espera.setProfesion(jsonObject.optString(Utilities.LISTA_DE_ESPERA_CAMPO_PROFESION));
+                waitingList.setId(jsonObject.optInt("id"));
+                waitingList.setDate(jsonObject.optString("date"));
+                waitingList.setHour(jsonObject.optString("hour"));
+                waitingList.setAccountOwner(jsonObject.optString("account_owner"));
+                waitingList.setNoAdults(jsonObject.optString("no_adults"));
+                waitingList.setNoChildren(jsonObject.optString("no_children"));
+                waitingList.setStatus(jsonObject.optString("status"));
+                waitingList.setComments(jsonObject.optString("comments"));
 
-                arrayListaEspera.add(espera);
+                // no carga adecuadamente el boolean, por lo que se tuvo que usar esta solucion
+                boolean reservation = false;
+                reservation = jsonObject.optInt("is_reservation") == 1? true: false;
+                waitingList.setReservation(reservation);
+
+                waitingList.setPhone(jsonObject.optString("phone"));
+
+                arrayWaitingList.add(waitingList);
+
             }// fin for
 
-            waitingListAdapter = new WaitingListAdapter(arrayListaEspera, R.layout.waiting_list_item, new WaitingListAdapter.OnItemClickListener() {
+            waitingListAdapter = new WaitingListAdapter(arrayWaitingList, R.layout.waiting_list_item, new WaitingListAdapter.OnItemClickListener() {
                 @Override
                 public void OnItemClick(WaitingList waitinglist, int position) {
-                    Toast.makeText(getContext(), "Click\nLista de Espera: " + waitinglist + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Click\nWaiting List: " + waitinglist + "\nPosition: " + position, Toast.LENGTH_LONG).show();
                 }
 
                 @Override
                 public void OnLongItemClick(WaitingList waitinglist, int position) {
-                    Toast.makeText(getContext(), "LongClick\nLista de Espera: " + waitinglist + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "LongClick\nWaiting List: " + waitinglist + "\nPosition: " + position, Toast.LENGTH_LONG).show();
                     vibrator.vibrate(Utilities.VIBRACION_LONG_CLICK);
                 }
             });
 
-            recyclerListaEspera.setAdapter(waitingListAdapter);
+            recyclerViewWaitingList.setAdapter(waitingListAdapter);
 
         } catch (JSONException | NullPointerException e) {
             Toast.makeText(getContext(), Utilities.MENSAJE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
@@ -196,7 +211,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
     @Override
     public void onClick(View v) {
-        Snackbar.make(v, "Añadir en Lista de Espera", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        Snackbar.make(v, "Añadir en Waiting List", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         Intent intent = new Intent(getContext(), NewWaitingListActivity.class);
         startActivity(intent);
     }

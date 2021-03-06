@@ -25,7 +25,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/frag_listaEspera_text_id"
+                android:id="@+id/frag_waitingList_text_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -41,15 +41,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Nombre:"
+                android:text="Fecha:"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/frag_listaEspera_text_nombre"
+                android:id="@+id/frag_waitingList_text_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Nombre" />
+                android:text="Fecha" />
         </LinearLayout>
 
         <LinearLayout
@@ -61,16 +61,157 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Profesión:"
+                android:text="Hora:"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/frag_listaEspera_text_profesion"
+                android:id="@+id/frag_waitingList_text_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Profesión" />
+                android:text="Hora" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Propietario:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_accountOwner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Propietario" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="No. adultos:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_noAdults"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="No. adultos" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="No. niños:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_noChildren"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="No. niños" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Estatus:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Estatus" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Comentarios:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_comments"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Comentarios" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="¿Es reservación?:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_isReservation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="¿Es reservación?" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Teléfono:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Teléfono" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

@@ -1,10 +1,17 @@
 package com.cod.tablayout_demo.entities;
 
-public class WaitingList {
+public class WaitingList{
 
     private Integer id;
-    private String nombre;
-    private String profesion;
+    private String date;
+    private String hour;
+    private String accountOwner;
+    private String noAdults;
+    private String noChildren;
+    private String status;
+    private String comments;
+    private boolean is_reservation;
+    private String phone;
 
     public Integer getId() {
         return id;
@@ -14,28 +21,91 @@ public class WaitingList {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDate() {
+        return date;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getProfesion() {
-        return profesion;
+    public String getHour() {
+        return hour;
     }
 
-    public void setProfesion(String profesion) {
-        this.profesion = profesion;
+    public void setHour(String hour) {
+        this.hour = hour;
+    }
+
+    public String getAccountOwner() {
+        return accountOwner;
+    }
+
+    public void setAccountOwner(String accountOwner) {
+        this.accountOwner = accountOwner;
+    }
+
+    public String getNoAdults() {
+        return noAdults;
+    }
+
+    public void setNoAdults(String noAdults) {
+        this.noAdults = noAdults;
+    }
+
+    public String getNoChildren() {
+        return noChildren;
+    }
+
+    public void setNoChildren(String noChildren) {
+        this.noChildren = noChildren;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public boolean isReservation() {
+        return is_reservation;
+    }
+
+    public void setReservation(boolean is_reservation) {
+        this.is_reservation = is_reservation;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @Override
     public String toString() {
         return "WaitingList{" +
                 "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", profesion='" + profesion + '\'' +
+                ", date='" + date + '\'' +
+                ", hour='" + hour + '\'' +
+                ", accountOwner='" + accountOwner + '\'' +
+                ", noAdults='" + noAdults + '\'' +
+                ", noChildren='" + noChildren + '\'' +
+                ", status='" + status + '\'' +
+                ", comments='" + comments + '\'' +
+                ", is_reservation=" + is_reservation +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }
