@@ -1,6 +1,6 @@
 package com.cod.tablayout_demo.entities;
 
-public class ListaEspera {
+public class WaitingList {
 
     private Integer id;
     private String nombre;
@@ -32,7 +32,7 @@ public class ListaEspera {
 
     @Override
     public String toString() {
-        return "ListaEspera{" +
+        return "WaitingList{" +
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", profesion='" + profesion + '\'' +

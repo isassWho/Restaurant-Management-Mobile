@@ -4,33 +4,32 @@ public class Utilities {
 
     /**********  SERVIDOR ************/
     // Servidor
-    public static final String IP_SERVIDOR = "http://192.168.0.101";
+    public static final String SERVER_IP = "http://192.168.0.103";
     // Puerto
-    public static final String PUERTO = "8080";
+    public static final String PORT = "8080";
 
     /************* WEB SERVICES********************/
      // Url de WS
      // consultar lista de mesas
     public static final String LOCATION_WS_CONSULTAR_LISTA_MESAS = "/proyectos/Adobes%20Android/wsJSONConsultarListaMesas.php";
-    public static final String URL_CONSULTAR_LISTA_MESAS = IP_SERVIDOR + ":" + PUERTO + LOCATION_WS_CONSULTAR_LISTA_MESAS;
+    public static final String URL_CONSULTAR_LISTA_MESAS = SERVER_IP + ":" + PORT + LOCATION_WS_CONSULTAR_LISTA_MESAS;
 
     // consultar lista de comandas
     public static final String LOCATION_WS_CONSULTAR_LISTA_COMANDAS = "/proyectos/Adobes%20Android/wsJSONConsultarListaComandas.php";
-    public static final String URL_CONSULTAR_LISTA_COMANDAS = IP_SERVIDOR + ":" + PUERTO + LOCATION_WS_CONSULTAR_LISTA_COMANDAS;
+    public static final String URL_CONSULTAR_LISTA_COMANDAS = SERVER_IP + ":" + PORT + LOCATION_WS_CONSULTAR_LISTA_COMANDAS;
 
     // consultar lista de espera
     public static final String LOCATION_WS_CONSULTAR_LISTA_DE_ESPERA = "/proyectos/Adobes%20Android/wsJSONConsultarLista.php";
-    public static final String URL_CONSULTAR_LISTA_DE_ESPERA = IP_SERVIDOR + ":" + PUERTO + LOCATION_WS_CONSULTAR_LISTA_DE_ESPERA;
+    public static final String URL_CONSULTAR_LISTA_DE_ESPERA = SERVER_IP + ":" + PORT + LOCATION_WS_CONSULTAR_LISTA_DE_ESPERA;
 
     // editar mesa
-    //http://localhost:8080/proyectos/Adobes%20Android/wsJSONActualizacionMesa.php
     public static final String LOCATION_WS_ACTUALIZAR_MESA = "/proyectos/Adobes%20Android/wsJSONActualizacionMesa.php?";
-    public static final String URL_ACTUALIZAR_MESA = IP_SERVIDOR + ":" + PUERTO + LOCATION_WS_ACTUALIZAR_MESA;
+    public static final String URL_ACTUALIZAR_MESA = SERVER_IP + ":" + PORT + LOCATION_WS_ACTUALIZAR_MESA;
 
     // eliminar mesa
     //http://localhost:8080/proyectos/Adobes%20Android/wsJSONEliminarMesa.php?id=12
     public static final String LOCATION_WS_ELIMINAR_MESA = "/proyectos/Adobes%20Android/wsJSONEliminarMesa.php?";
-    public static final String URL_WS_ELIMINAR_MESA = IP_SERVIDOR + ":" + PUERTO + LOCATION_WS_ELIMINAR_MESA;
+    public static final String URL_WS_ELIMINAR_MESA = SERVER_IP + ":" + PORT + LOCATION_WS_ELIMINAR_MESA;
 
     /****************** TABLAS ******************/
     // Tabla ListaDeEspera

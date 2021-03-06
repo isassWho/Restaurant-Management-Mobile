@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.cod.tablayout_demo.fragments.ComandasFragment;
-import com.cod.tablayout_demo.fragments.ListaDeEsperaFragment;
+import com.cod.tablayout_demo.fragments.WaitingListFragment;
 import com.cod.tablayout_demo.fragments.MesasFragment;
 
 public class PagerController extends FragmentPagerAdapter {
@@ -23,7 +23,7 @@ public class PagerController extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new ListaDeEsperaFragment();
+                return new WaitingListFragment();
             case 1:
                 return new ComandasFragment();
             case 2:

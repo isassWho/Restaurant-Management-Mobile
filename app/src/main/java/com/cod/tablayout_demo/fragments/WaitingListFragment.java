@@ -2,9 +2,9 @@ package com.cod.tablayout_demo.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,8 +23,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.cod.tablayout_demo.R;
-import com.cod.tablayout_demo.adapters.ListaEsperaAdapter;
-import com.cod.tablayout_demo.entities.ListaEspera;
+import com.cod.tablayout_demo.activities.NewWaitingListActivity;
+import com.cod.tablayout_demo.adapters.WaitingListAdapter;
+import com.cod.tablayout_demo.entities.WaitingList;
 import com.cod.tablayout_demo.utilities.Utilities;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -37,16 +38,16 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ListaDeEsperaFragment#newInstance} factory method to
+ * Use the {@link WaitingListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ListaDeEsperaFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject>, View.OnClickListener {
+public class WaitingListFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject>, View.OnClickListener {
 
     // variables
-    private ListaEsperaAdapter listaEsperaAdapter;
+    private WaitingListAdapter waitingListAdapter;
     private RecyclerView recyclerListaEspera;
 
-    private ArrayList<ListaEspera> arrayListaEspera;
+    private ArrayList<WaitingList> arrayListaEspera;
 
     private ProgressDialog progreso;
 
@@ -68,7 +69,7 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
     private String mParam1;
     private String mParam2;
 
-    public ListaDeEsperaFragment() {
+    public WaitingListFragment() {
         // Required empty public constructor
     }
 
@@ -78,11 +79,11 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ListaDeEsperaFragment.
+     * @return A new instance of fragment WaitingListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ListaDeEsperaFragment newInstance(String param1, String param2) {
-        ListaDeEsperaFragment fragment = new ListaDeEsperaFragment();
+    public static WaitingListFragment newInstance(String param1, String param2) {
+        WaitingListFragment fragment = new WaitingListFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -111,7 +112,7 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
 
         vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
-        View vista = inflater.inflate(R.layout.fragment_lista_de_espera, container, false);
+        View vista = inflater.inflate(R.layout.fragment_waiting_list, container, false);
 
         btn_add_listaEspera = vista.findViewById(R.id.fab_listaEspera);
         btn_add_listaEspera.setOnClickListener(this::onClick);
@@ -152,14 +153,14 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
     @Override
     public void onResponse(JSONObject response) {
 
-        ListaEspera espera;
+        WaitingList espera;
 
         JSONArray jsonArray = response.optJSONArray(Utilities.TABLA_LISTA_DE_ESPERA);
 
         try {
             for (int i = 0; i < jsonArray.length(); i++){
 
-                espera = new ListaEspera();
+                espera = new WaitingList();
 
                 JSONObject jsonObject;
                 jsonObject = jsonArray.getJSONObject(i);
@@ -171,20 +172,20 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
                 arrayListaEspera.add(espera);
             }// fin for
 
-            listaEsperaAdapter = new ListaEsperaAdapter(arrayListaEspera, R.layout.lista_espera_item, new ListaEsperaAdapter.OnItemClickListener() {
+            waitingListAdapter = new WaitingListAdapter(arrayListaEspera, R.layout.waiting_list_item, new WaitingListAdapter.OnItemClickListener() {
                 @Override
-                public void OnItemClick(ListaEspera listaEspera, int position) {
-                    Toast.makeText(getContext(), "Click\nLista de Espera: " + listaEspera + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                public void OnItemClick(WaitingList waitinglist, int position) {
+                    Toast.makeText(getContext(), "Click\nLista de Espera: " + waitinglist + "\nPosición: " + position, Toast.LENGTH_LONG).show();
                 }
 
                 @Override
-                public void OnLongItemClick(ListaEspera listaEspera, int position) {
-                    Toast.makeText(getContext(), "LongClick\nLista de Espera: " + listaEspera + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                public void OnLongItemClick(WaitingList waitinglist, int position) {
+                    Toast.makeText(getContext(), "LongClick\nLista de Espera: " + waitinglist + "\nPosición: " + position, Toast.LENGTH_LONG).show();
                     vibrator.vibrate(Utilities.VIBRACION_LONG_CLICK);
                 }
             });
 
-            recyclerListaEspera.setAdapter(listaEsperaAdapter);
+            recyclerListaEspera.setAdapter(waitingListAdapter);
 
         } catch (JSONException | NullPointerException e) {
             Toast.makeText(getContext(), Utilities.MENSAJE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
@@ -196,5 +197,7 @@ public class ListaDeEsperaFragment extends Fragment implements Response.ErrorLis
     @Override
     public void onClick(View v) {
         Snackbar.make(v, "Añadir en Lista de Espera", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        Intent intent = new Intent(getContext(), NewWaitingListActivity.class);
+        startActivity(intent);
     }
 }

@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/icons"
-            android:icon="@drawable/icono_lista_espera"
+            android:icon="@drawable/ic_waiting_list"
             android:text="@string/fragmentListaEspera" />
 
         <com.google.android.material.tabs.TabItem

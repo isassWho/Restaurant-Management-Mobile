@@ -9,17 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cod.tablayout_demo.R;
-import com.cod.tablayout_demo.entities.ListaEspera;
+import com.cod.tablayout_demo.entities.WaitingList;
 
 import java.util.List;
-public class ListaEsperaAdapter extends RecyclerView.Adapter<ListaEsperaAdapter.ViewHolder>{
+public class WaitingListAdapter extends RecyclerView.Adapter<WaitingListAdapter.ViewHolder>{
 
-    private List<ListaEspera> listaEsperaList;
+    private List<WaitingList> listaEsperaList;
     private int layout;
     private OnItemClickListener itemClickListener;
 
-    public ListaEsperaAdapter(List<ListaEspera> listaEsperaList, int layout, OnItemClickListener itemClickListener) {
-        this.listaEsperaList = listaEsperaList;
+    public WaitingListAdapter(List<WaitingList> waitinglistList, int layout, OnItemClickListener itemClickListener) {
+        this.listaEsperaList = waitinglistList;
         this.layout = layout;
         this.itemClickListener = itemClickListener;
     }
@@ -62,16 +62,16 @@ public class ListaEsperaAdapter extends RecyclerView.Adapter<ListaEsperaAdapter.
             this.txtProfesion = itemView.findViewById(R.id.frag_listaEspera_text_profesion);
         }
 
-        public void bind(final ListaEspera listaEspera, final OnItemClickListener listener){
-            this.txtId.setText(listaEspera.getId().toString());
-            this.txtNombre.setText(listaEspera.getNombre());
-            this.txtProfesion.setText(listaEspera.getProfesion());
+        public void bind(final WaitingList waitinglist, final OnItemClickListener listener){
+            this.txtId.setText(waitinglist.getId().toString());
+            this.txtNombre.setText(waitinglist.getNombre());
+            this.txtProfesion.setText(waitinglist.getProfesion());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     // le pasamos modelo y posicion
-                    listener.OnItemClick(listaEspera, getAdapterPosition());
+                    listener.OnItemClick(waitinglist, getAdapterPosition());
                 }
             });
 
@@ -79,7 +79,7 @@ public class ListaEsperaAdapter extends RecyclerView.Adapter<ListaEsperaAdapter.
                 @Override
                 public boolean onLongClick(View v) {
                     // le pasamos modelo y posicion
-                    listener.OnLongItemClick(listaEspera, getAdapterPosition());
+                    listener.OnLongItemClick(waitinglist, getAdapterPosition());
                     return true;
                 }
             });
@@ -91,8 +91,8 @@ public class ListaEsperaAdapter extends RecyclerView.Adapter<ListaEsperaAdapter.
     // interface
     public interface OnItemClickListener{
 
-        void OnItemClick(ListaEspera listaEspera, int position);
-        void OnLongItemClick(ListaEspera listaEspera, int position);
+        void OnItemClick(WaitingList waitinglist, int position);
+        void OnLongItemClick(WaitingList waitinglist, int position);
 
     }
 }
