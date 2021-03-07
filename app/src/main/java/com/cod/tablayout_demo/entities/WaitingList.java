@@ -1,6 +1,10 @@
 package com.cod.tablayout_demo.entities;
 
-public class WaitingList{
+import java.io.Serializable;
+
+public class WaitingList implements Serializable {
+
+    private static final Long serialVersionUID = 100L;
 
     private Integer id;
     private String date;

@@ -128,7 +128,7 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
 
     private void cargarWebService() {
         progreso = new ProgressDialog(getContext());
-        progreso.setMessage(Utilities.MENSAJE_WS_CONSULTA);
+        progreso.setMessage(Utilities.MESSAGE_WS_QUERY);
         progreso.show();
 
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_CONSULTAR_LISTA_MESAS, null, this, this);
@@ -140,7 +140,7 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     // Implementaciones
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), Utilities.MENSAJE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), Utilities.MESSAGE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_LONG).show();
         progreso.hide();
     }
 
@@ -187,7 +187,7 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
 
 
         }catch (JSONException | NullPointerException e){
-            Toast.makeText(getContext(), Utilities.MENSAJE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), Utilities.MESSAGE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
         }finally {
             progreso.hide();
         }

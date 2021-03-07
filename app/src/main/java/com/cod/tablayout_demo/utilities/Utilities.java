@@ -9,7 +9,13 @@ public class Utilities {
     public static final String PORT = "8080";
 
     /************* WEB SERVICES********************/
-     // Url de WS
+    // Url de WS
+    // Query WaitingList
+    public static final String URL_WS_QUERY_WAITINGLIST = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONQueryWaitingList.php";
+    // Register WaitingList
+    public static final String URL_WS_REGISTER_WAITINGLIST = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONRegisterWaitingList.php?" ;
+
+
      // consultar lista de mesas
     public static final String LOCATION_WS_CONSULTAR_LISTA_MESAS = "/proyectos/Adobes%20Android/wsJSONConsultarListaMesas.php";
     public static final String URL_CONSULTAR_LISTA_MESAS = SERVER_IP + ":" + PORT + LOCATION_WS_CONSULTAR_LISTA_MESAS;
@@ -18,16 +24,11 @@ public class Utilities {
     public static final String LOCATION_WS_CONSULTAR_LISTA_COMANDAS = "/proyectos/Adobes%20Android/wsJSONConsultarListaComandas.php";
     public static final String URL_CONSULTAR_LISTA_COMANDAS = SERVER_IP + ":" + PORT + LOCATION_WS_CONSULTAR_LISTA_COMANDAS;
 
-    // consultar lista de espera
-    public static final String LOCATION_WS_CONSULTAR_LISTA_DE_ESPERA = "/proyectos/Adobes%20Android/wsJSONConsultarLista.php";
-    public static final String URL_CONSULTAR_LISTA_DE_ESPERA = SERVER_IP + ":" + PORT + LOCATION_WS_CONSULTAR_LISTA_DE_ESPERA;
-
     // editar mesa
     public static final String LOCATION_WS_ACTUALIZAR_MESA = "/proyectos/Adobes%20Android/wsJSONActualizacionMesa.php?";
     public static final String URL_ACTUALIZAR_MESA = SERVER_IP + ":" + PORT + LOCATION_WS_ACTUALIZAR_MESA;
 
     // eliminar mesa
-    //http://localhost:8080/proyectos/Adobes%20Android/wsJSONEliminarMesa.php?id=12
     public static final String LOCATION_WS_ELIMINAR_MESA = "/proyectos/Adobes%20Android/wsJSONEliminarMesa.php?";
     public static final String URL_WS_ELIMINAR_MESA = SERVER_IP + ":" + PORT + LOCATION_WS_ELIMINAR_MESA;
 
@@ -60,19 +61,29 @@ public class Utilities {
     /************** MENSAJES ****************/
 
     // Mensajes para WebService
-    public static final String MENSAJE_WS_CONSULTA = "Consultando ...";
-    public static final String MENSAJE_WS_ERROR_RESPONSE = "No se puede conectar.";
-    public static final String MENSAJE_WS_CONNECTION_FAILED = "No se ha podido establecer la conexión con el servidor.";
+    public static final String MESSAGE_WS_QUERY = "Consultando ...";
+
+    public static final String MESSAGE_WS_ERROR_RESPONSE = "No se puede conectar.";
+    public static final String MESSAGE_WS_CONNECTION_FAILED = "No se ha podido establecer la conexión con el servidor.";
 
     // mensaje Actualizaciones
-    public static final String MENSAJE_WS_ACTUALIZACION = "Actualizando ...";
-    public static final String MENSAJE_WS_ACTUALIZACION_EXITOSA = "Se actualizó exitosamente.";
-    public static final String MENSAJE_WS_ACTUALIZACION_FALLIDA = "No se pudo actualizar.";
+    public static final String MESSAGE_WS_UPDATE = "Actualizando ...";
+    public static final String MESSAGE_WS_UPDATE_SUCCESSFULLY = "Se actualizó exitosamente.";
+    public static final String MESSAGE_WS_UPDATE_FAILED = "No se pudo actualizar.";
 
     // mensaje Eliminaciones
-    public static final String MENSAJE_WS_ELIMINACION = "Eliminando ...";
-    public static final String MENSAJE_WS_ELIMINACION_EXITOSA = "Se eliminó exitosamente.";
-    public static final String MENSAJE_WS_ELIMINACION_FALLIDA = "No se pudo eliminar.";
+    public static final String MESSAGE_WS_DELETE = "Eliminando ...";
+    public static final String MESSAGE_WS_DELETE_SUCCESSFULLY = "Se eliminó exitosamente.";
+    public static final String MESSAGE_WS_DELETE_FAILED = "No se pudo eliminar.";
+
+    // mensaje registro
+    public static final String MESSAGE_WS_REGISTER = "Registrando ...";
+    public static final String MESSAGE_WS_REGISTER_SUCCESSFULLY = "Se registró exitosamente.";
+    public static final String MESSAGE_WS_REGISTER_FAILED = "No se pudo registrar.";
+
+    /****************** FORMATS *******************/
+    public static final String FORMAT_DATE = "yyyy/MM/dd";
+    public static final String FORMAT_TIME = "HH:mm:ss";
 
 
 }

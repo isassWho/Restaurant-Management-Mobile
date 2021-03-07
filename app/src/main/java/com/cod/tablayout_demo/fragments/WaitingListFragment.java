@@ -49,7 +49,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
     private ArrayList<WaitingList> arrayWaitingList;
 
-    private ProgressDialog progreso;
+    private ProgressDialog progress;
 
     private RequestQueue requestQueue;
 
@@ -134,13 +134,11 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
     private void cargarWebService() {
 
-        progreso = new ProgressDialog(getContext());
-        progreso.setMessage(Utilities.MENSAJE_WS_CONSULTA);
-        progreso.show();
+        progress = new ProgressDialog(getContext());
+        progress.setMessage(Utilities.MESSAGE_WS_QUERY);
+        progress.show();
 
-        String url = "http://192.168.0.103:8080/proyectos/Adobes%20Android/WS_V0.2/wsJSONQueryWaitingList.php";
-
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_WS_QUERY_WAITINGLIST, null, this, this);
         requestQueue.add(jsonObjectRequest);
 
     }
@@ -148,8 +146,8 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     // Implementaciones
     @Override
     public void onErrorResponse(VolleyError error) {
-        Toast.makeText(getContext(), Utilities.MENSAJE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_LONG).show();
-        progreso.hide();
+        Toast.makeText(getContext(), Utilities.MESSAGE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_LONG).show();
+        progress.hide();
     }
 
     @Override
@@ -177,7 +175,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                 waitingList.setComments(jsonObject.optString("comments"));
 
                 // no carga adecuadamente el boolean, por lo que se tuvo que usar esta solucion
-                boolean reservation = false;
+                boolean reservation;
                 reservation = jsonObject.optInt("is_reservation") == 1? true: false;
                 waitingList.setReservation(reservation);
 
@@ -203,9 +201,9 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
             recyclerViewWaitingList.setAdapter(waitingListAdapter);
 
         } catch (JSONException | NullPointerException e) {
-            Toast.makeText(getContext(), Utilities.MENSAJE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), Utilities.MESSAGE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
         }finally {
-            progreso.hide();
+            progress.hide();
         }
     }
 

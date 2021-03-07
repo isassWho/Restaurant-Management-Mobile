@@ -94,7 +94,7 @@ public class EditarMesaActivity extends AppCompatActivity implements View.OnClic
 
     private void cargarWebServiceActualizar() {
         progreso = new ProgressDialog(this);
-        progreso.setMessage(Utilities.MENSAJE_WS_ACTUALIZACION);
+        progreso.setMessage(Utilities.MESSAGE_WS_UPDATE);
         progreso.show();
 
         String id = this.editTextId.getText().toString();
@@ -116,18 +116,18 @@ public class EditarMesaActivity extends AppCompatActivity implements View.OnClic
                 progreso.hide();
 
                 if(response.trim().equalsIgnoreCase("actualiza")){
-                    Toast.makeText(EditarMesaActivity.this, Utilities.MENSAJE_WS_ACTUALIZACION_EXITOSA, Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditarMesaActivity.this, Utilities.MESSAGE_WS_UPDATE_SUCCESSFULLY, Toast.LENGTH_LONG).show();
                     // termina el activity
                     finish();
                 }else{
-                    Toast.makeText(EditarMesaActivity.this, Utilities.MENSAJE_WS_ACTUALIZACION_FALLIDA, Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditarMesaActivity.this, Utilities.MESSAGE_WS_UPDATE_FAILED, Toast.LENGTH_LONG).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progreso.hide();
-                Toast.makeText(EditarMesaActivity.this, Utilities.MENSAJE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditarMesaActivity.this, Utilities.MESSAGE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -138,7 +138,7 @@ public class EditarMesaActivity extends AppCompatActivity implements View.OnClic
 
     private void cargarWebServiceEliminar() {
         progreso = new ProgressDialog(this);
-        progreso.setMessage(Utilities.MENSAJE_WS_ELIMINACION);
+        progreso.setMessage(Utilities.MESSAGE_WS_DELETE);
         progreso.show();
 
         String id = this.editTextId.getText().toString();
@@ -154,18 +154,18 @@ public class EditarMesaActivity extends AppCompatActivity implements View.OnClic
                 progreso.hide();
 
                 if(response.trim().equalsIgnoreCase("elimina")){
-                    Toast.makeText(EditarMesaActivity.this, Utilities.MENSAJE_WS_ELIMINACION_EXITOSA, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditarMesaActivity.this, Utilities.MESSAGE_WS_DELETE_SUCCESSFULLY, Toast.LENGTH_SHORT).show();
                     // termina el activity
                     finish();
                 }else{
-                    Toast.makeText(EditarMesaActivity.this, Utilities.MENSAJE_WS_ELIMINACION_FALLIDA, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditarMesaActivity.this, Utilities.MESSAGE_WS_DELETE_FAILED, Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progreso.hide();
-                Toast.makeText(EditarMesaActivity.this, Utilities.MENSAJE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditarMesaActivity.this, Utilities.MESSAGE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_SHORT).show();
 
             }
         });

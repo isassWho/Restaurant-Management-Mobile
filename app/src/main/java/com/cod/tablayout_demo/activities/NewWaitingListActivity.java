@@ -2,6 +2,7 @@ package com.cod.tablayout_demo.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,7 +10,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.cod.tablayout_demo.R;
+import com.cod.tablayout_demo.utilities.Utilities;
 
 import java.sql.Time;
 import java.text.DateFormat;
@@ -27,12 +35,19 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
 
     private Button btnSave;
 
+    // WS
+    private RequestQueue requestQueue;
+    private StringRequest stringRequest;
+
+    private ProgressDialog progress;
+
     // valores predefinidos
 
     private DateFormat dateFormat;
     private DateFormat hourFormat;
     private String status;
     private boolean is_reservation;
+    private Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,26 +69,23 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
         // Set Event
         this.btnSave.setOnClickListener(this::onClick);
 
+        requestQueue = Volley.newRequestQueue(this);
 
     }
 
     // Init the default values
     private void initValues() {
-        Date date = new Date();
+        date = new Date();
 
         // date
-        this.dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        this.dateFormat = new SimpleDateFormat(Utilities.FORMAT_DATE);
         // time
-        this.hourFormat = new SimpleDateFormat("HH:mm:ss");
+        this.hourFormat = new SimpleDateFormat(Utilities.FORMAT_TIME);
         // status
         this.status = "active";
         // is_reservation
         this.is_reservation = true;
 
-        Toast.makeText(NewWaitingListActivity.this, "Fecha: " + dateFormat.format(date) +
-                "\nHora: " + hourFormat.format(date)
-                +"\nstatus: " + status
-                +"\nreservation: " + is_reservation, Toast.LENGTH_LONG).show();
     }
 
     // Events
@@ -82,14 +94,52 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
 
         switch (v.getId()){
             case R.id.act_newWaitingList_btn_save:
-                Toast.makeText(NewWaitingListActivity.this, "editTextAccountOwner: " + editTextAccountOwner.getText().toString()
-                        + "\neditTextNoAdults: " + editTextNoAdults.getText().toString()
-                        +"\neditTextNoChildren: " + editTextNoChildren.getText().toString()
-                        +"\neditTextComments: " + editTextComments.getText().toString()
-                        +"\neditTextPhone: " + editTextPhone.getText().toString()
-                        +"\n", Toast.LENGTH_LONG).show();
+                this.cargarWebServiceRegister();
                 break;
         }
+
+    }
+
+    private void cargarWebServiceRegister() {
+        progress = new ProgressDialog(this);
+        progress.setMessage(Utilities.MESSAGE_WS_REGISTER);
+        progress.show();
+
+        String url = Utilities.URL_WS_REGISTER_WAITINGLIST +
+                "date=" + dateFormat.format(date) +
+                "&hour=" + hourFormat.format(date) +
+                "&account_owner=" + this.editTextAccountOwner.getText().toString() +
+                "&no_adults=" + this.editTextNoAdults.getText().toString() +
+                "&no_children=" + this.editTextNoChildren.getText().toString() +
+                "&status=" + this.status +
+                "&comments=" + this.editTextComments.getText().toString() +
+                "&is_reservation=" + this.is_reservation +
+                "&phone=" + this.editTextPhone.getText().toString();
+
+        url = url.replace(" ", "%20");
+
+        this.stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progress.hide();
+                if(response.trim().equalsIgnoreCase("registra")){
+                    Toast.makeText(NewWaitingListActivity.this, Utilities.MESSAGE_WS_REGISTER_SUCCESSFULLY, Toast.LENGTH_LONG).show();
+                    // termina el activity
+                    finish();
+                }else{
+                    Toast.makeText(NewWaitingListActivity.this, Utilities.MESSAGE_WS_REGISTER_FAILED, Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progress.hide();
+                Toast.makeText(NewWaitingListActivity.this, Utilities.MESSAGE_WS_ERROR_RESPONSE + error, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        requestQueue.add(stringRequest);
+
 
     }
 }
