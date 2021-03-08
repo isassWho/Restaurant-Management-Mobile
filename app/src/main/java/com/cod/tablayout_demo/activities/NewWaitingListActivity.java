@@ -27,19 +27,19 @@ import java.util.Date;
 
 public class NewWaitingListActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText editTextAccountOwner;
-    private EditText editTextNoAdults;
-    private EditText editTextNoChildren;
-    private EditText editTextComments;
-    private EditText editTextPhone;
+        private EditText editTextAccountOwner;
+        private EditText editTextNoAdults;
+        private EditText editTextNoChildren;
+        private EditText editTextComments;
+        private EditText editTextPhone;
 
-    private Button btnSave;
+        private Button btnSave;
 
-    // WS
-    private RequestQueue requestQueue;
-    private StringRequest stringRequest;
+        // WS
+        private RequestQueue requestQueue;
+        private StringRequest stringRequest;
 
-    private ProgressDialog progress;
+        private ProgressDialog progress;
 
     // valores predefinidos
 

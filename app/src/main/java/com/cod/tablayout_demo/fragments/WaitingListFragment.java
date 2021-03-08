@@ -23,6 +23,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.cod.tablayout_demo.R;
+import com.cod.tablayout_demo.activities.EditWaitingListActivity;
 import com.cod.tablayout_demo.activities.NewWaitingListActivity;
 import com.cod.tablayout_demo.adapters.WaitingListAdapter;
 import com.cod.tablayout_demo.entities.WaitingList;
@@ -189,6 +190,13 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                 @Override
                 public void OnItemClick(WaitingList waitinglist, int position) {
                     Toast.makeText(getContext(), "Click\nWaiting List: " + waitinglist + "\nPosition: " + position, Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(getContext(), EditWaitingListActivity.class);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("waitinglist", waitinglist);
+
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                 }
 
                 @Override

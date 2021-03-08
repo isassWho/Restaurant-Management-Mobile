@@ -172,8 +172,10 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
                     // pasa como parametro el objeto seleccionado
                     Intent intent = new Intent(getContext(), EditarMesaActivity.class);
                     Bundle bundle = new Bundle();
+
                     bundle.putSerializable("mesa", mesa);
                     intent.putExtras(bundle);
+
                     startActivity(intent);
                 }
 
