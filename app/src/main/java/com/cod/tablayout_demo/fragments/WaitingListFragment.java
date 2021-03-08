@@ -189,7 +189,6 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
             waitingListAdapter = new WaitingListAdapter(arrayWaitingList, R.layout.waiting_list_item, new WaitingListAdapter.OnItemClickListener() {
                 @Override
                 public void OnItemClick(WaitingList waitinglist, int position) {
-                    Toast.makeText(getContext(), "Click\nWaiting List: " + waitinglist + "\nPosition: " + position, Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(getContext(), EditWaitingListActivity.class);
 
                     Bundle bundle = new Bundle();

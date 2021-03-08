@@ -4,7 +4,8 @@ public class Utilities {
 
     /**********  SERVIDOR ************/
     // Servidor
-    public static final String SERVER_IP = "http://192.168.0.103";
+    //public static final String SERVER_IP = "http://192.168.0.103";
+    public static final String SERVER_IP = "http://192.168.3.108";
     // Puerto
     public static final String PORT = "8080";
 
@@ -14,7 +15,8 @@ public class Utilities {
     public static final String URL_WS_QUERY_WAITINGLIST = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONQueryWaitingList.php";
     // Register WaitingList
     public static final String URL_WS_REGISTER_WAITINGLIST = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONRegisterWaitingList.php?" ;
-
+    // Update WaitingList
+    public static final String URL_WS_UPDATE_WAITINGLIST = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONUpdateWaitingList.php?";
 
      // consultar lista de mesas
     public static final String LOCATION_WS_CONSULTAR_LISTA_MESAS = "/proyectos/Adobes%20Android/wsJSONConsultarListaMesas.php";

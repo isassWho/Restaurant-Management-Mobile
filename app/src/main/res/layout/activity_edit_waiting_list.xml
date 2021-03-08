@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Nuevo en Lista de Espera"
+            android:text="Editar en Lista de Espera"
             android:textSize="20dp" />
 
 
