@@ -23,35 +23,7 @@ public class Utilities {
     public static final String URL_WS_REGISTER_RESERVATION  = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONRegisterReservation.php?";
 
 
-    // consultar lista de comandas
-    public static final String LOCATION_WS_CONSULTAR_LISTA_COMANDAS = "/proyectos/Adobes%20Android/wsJSONConsultarListaComandas.php";
-    public static final String URL_CONSULTAR_LISTA_COMANDAS = SERVER_IP + ":" + PORT + LOCATION_WS_CONSULTAR_LISTA_COMANDAS;
-
-    // eliminar mesa
-    public static final String LOCATION_WS_ELIMINAR_MESA = "/proyectos/Adobes%20Android/wsJSONEliminarMesa.php?";
-    public static final String URL_WS_ELIMINAR_MESA = SERVER_IP + ":" + PORT + LOCATION_WS_ELIMINAR_MESA;
-
-    /****************** TABLAS ******************/
-    // Tabla ListaDeEspera
-    public static final String TABLA_LISTA_DE_ESPERA = "usuario";
-    // Campos tabla
-    public static final String LISTA_DE_ESPERA_CAMPO_ID = "id";
-    public static final String LISTA_DE_ESPERA_CAMPO_NOMBRE = "nombre";
-    public static final String LISTA_DE_ESPERA_CAMPO_PROFESION = "profesion";
-
-    // Tabla Comandas
-    public static final String TABLA_COMANDAS = "comanda";
-    // Campos tabla
-    public static final String COMANDAS_CAMPO_ID = "id";
-    public static final String COMANDAS_CAMPO_PROPIETARIO = "propietario";
-    public static final String COMANDAS_CAMPO_PERSONAS = "personas";
-
-    // Tabla Mesas
-    public static final String TABLA_MESAS = "mesa";
-    // Campos tabla
-    public static final String MESAS_CAMPO_ID = "id";
-    public static final String MESAS_CAMPO_NOMBRE = "nombre";
-    public static final String MESAS_CAMPO_PERSONAS = "personas";
+    
 
     /**************** VIBRACION *******************/
     // Vibracion
