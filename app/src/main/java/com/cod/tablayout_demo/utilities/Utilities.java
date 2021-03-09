@@ -4,8 +4,8 @@ public class Utilities {
 
     /**********  SERVIDOR ************/
     // Servidor
-    //public static final String SERVER_IP = "http://192.168.0.103";
-    public static final String SERVER_IP = "http://192.168.3.108";
+    public static final String SERVER_IP = "http://192.168.0.103";
+    //public static final String SERVER_IP = "http://192.168.3.108";
     // Puerto
     public static final String PORT = "8080";
 
@@ -17,18 +17,15 @@ public class Utilities {
     public static final String URL_WS_REGISTER_WAITINGLIST = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONRegisterWaitingList.php?" ;
     // Update WaitingList
     public static final String URL_WS_UPDATE_WAITINGLIST = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONUpdateWaitingList.php?";
+    // Update Reservation
+    public static final String URL_WS_UPDATE_RESERVATION = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONUpdateReservation.php?";
+    // Register Reservation
+    public static final String URL_WS_REGISTER_RESERVATION  = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONRegisterReservation.php?";
 
-     // consultar lista de mesas
-    public static final String LOCATION_WS_CONSULTAR_LISTA_MESAS = "/proyectos/Adobes%20Android/wsJSONConsultarListaMesas.php";
-    public static final String URL_CONSULTAR_LISTA_MESAS = SERVER_IP + ":" + PORT + LOCATION_WS_CONSULTAR_LISTA_MESAS;
 
     // consultar lista de comandas
     public static final String LOCATION_WS_CONSULTAR_LISTA_COMANDAS = "/proyectos/Adobes%20Android/wsJSONConsultarListaComandas.php";
     public static final String URL_CONSULTAR_LISTA_COMANDAS = SERVER_IP + ":" + PORT + LOCATION_WS_CONSULTAR_LISTA_COMANDAS;
-
-    // editar mesa
-    public static final String LOCATION_WS_ACTUALIZAR_MESA = "/proyectos/Adobes%20Android/wsJSONActualizacionMesa.php?";
-    public static final String URL_ACTUALIZAR_MESA = SERVER_IP + ":" + PORT + LOCATION_WS_ACTUALIZAR_MESA;
 
     // eliminar mesa
     public static final String LOCATION_WS_ELIMINAR_MESA = "/proyectos/Adobes%20Android/wsJSONEliminarMesa.php?";

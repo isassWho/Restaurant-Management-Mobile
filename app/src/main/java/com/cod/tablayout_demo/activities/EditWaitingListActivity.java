@@ -28,7 +28,8 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
     private EditText editTextPhone;
 
     private Button btnSave;
-    private Button btnDelete;
+    private Button btnCancel;
+    private Button btnCreateCommand;
 
     private Bundle bundle;
 
@@ -53,11 +54,13 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
         this.editTextPhone = findViewById(R.id.act_editWaitingList_edit_phone);
 
         this.btnSave = findViewById(R.id.act_editWaitingList_btn_save);
-        this.btnDelete = findViewById(R.id.act_editWaitingList_btn_delete);
+        this.btnCancel = findViewById(R.id.act_editWaitingList_btn_cancel);
+        this.btnCreateCommand = findViewById(R.id.act_editWaitingList_btn_createCommand);
 
         // set Events
         this.btnSave.setOnClickListener(this);
-        this.btnDelete.setOnClickListener(this);
+        this.btnCancel.setOnClickListener(this);
+        this.btnCreateCommand.setOnClickListener(this);
 
         bundle = getIntent().getExtras();
 
@@ -81,8 +84,11 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
             case R.id.act_editWaitingList_btn_save:
                 this.cargarWebServiceUpdate();
                 break;
-            case R.id.act_editWaitingList_btn_delete:
-                Toast.makeText(this, "Delete", Toast.LENGTH_SHORT).show();
+            case R.id.act_editWaitingList_btn_cancel:
+                Toast.makeText(this, "Cancelar comanda", Toast.LENGTH_SHORT).show();
+                break;
+                case R.id.act_editWaitingList_btn_createCommand:
+                Toast.makeText(this, "Crear comanda", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

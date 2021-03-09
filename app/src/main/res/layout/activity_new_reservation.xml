@@ -6,7 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.EditWaitingListActivity">
+    android:orientation="vertical"
+    tools:context=".activities.NewReservationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,8 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Editar en Lista de Espera"
-            android:textSize="20dp" />
+            android:textSize="20dp"
+            android:text="Nuevo en Reservaciones" />
 
 
         <TextView
@@ -30,11 +31,11 @@
             android:text="Propietario:" />
 
         <EditText
-            android:id="@+id/act_editWaitingList_edit_accountOwner"
+            android:id="@+id/act_newReservation_edit_accountOwner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Propietario"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:hint="Propietario"/>
 
         <TextView
             android:id="@+id/textView8"
@@ -43,7 +44,7 @@
             android:text="No. de adultos:" />
 
         <EditText
-            android:id="@+id/act_editWaitingList_edit_noAdults"
+            android:id="@+id/act_newReservation_edit_noAdults"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="No. de adultos"
@@ -56,11 +57,12 @@
             android:text="No. de niños:" />
 
         <EditText
-            android:id="@+id/act_editWaitingList_edit_noChildren"
+            android:id="@+id/act_newReservation_edit_noChildren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="No. de niños"
             android:inputType="number" />
+
 
         <TextView
             android:id="@+id/textView11"
@@ -69,11 +71,11 @@
             android:text="Comentarios:" />
 
         <EditText
-            android:id="@+id/act_editWaitingList_edit_comments"
+            android:id="@+id/act_newReservation_edit_comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="start|top"
             android:hint="Comentarios"
+            android:gravity="start|top"
             android:inputType="textMultiLine" />
 
         <TextView
@@ -83,10 +85,9 @@
             android:text="Teléfono:" />
 
         <EditText
-            android:id="@+id/act_editWaitingList_edit_phone"
+            android:id="@+id/act_newReservation_edit_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:baselineAligned="false"
             android:hint="Teléfono"
             android:inputType="phone" />
 
@@ -99,23 +100,12 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/act_editWaitingList_btn_cancel"
+            android:id="@+id/act_newReservation_btn_save"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CANCELAR" />
-
-        <Button
-            android:id="@+id/act_editWaitingList_btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="GUARDAR" />
-
-        <Button
-            android:id="@+id/act_editWaitingList_btn_createCommand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CREAR COMANDA" />
+            android:text="Guardar" />
 
 
     </LinearLayout>
+
 </RelativeLayout>

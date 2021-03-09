@@ -22,10 +22,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.cod.tablayout_demo.R;
-import com.cod.tablayout_demo.activities.EditarMesaActivity;
-import com.cod.tablayout_demo.activities.NuevaMesaActivity;
-import com.cod.tablayout_demo.adapters.MesaAdapter;
-import com.cod.tablayout_demo.entities.Mesa;
+import com.cod.tablayout_demo.activities.EditReservationActivity;
+import com.cod.tablayout_demo.activities.NewReservationActivity;
+import com.cod.tablayout_demo.adapters.ReservationAdapter;
+import com.cod.tablayout_demo.entities.Reservation;
 import com.cod.tablayout_demo.utilities.Utilities;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -38,18 +38,18 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MesasFragment#newInstance} factory method to
+ * Use the {@link ReservationsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MesasFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
+public class ReservationsFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
 
     // Variables
-    private MesaAdapter mesaAdapter;
-    private RecyclerView recyclerMesas;
+    private ReservationAdapter reservationAdapter;
+    private RecyclerView recyclerView;
 
-    private ArrayList<Mesa> arrayMesas;
+    private ArrayList<Reservation> arrayReservations;
 
-    private ProgressDialog progreso;
+    private ProgressDialog progress;
 
     private RequestQueue requestQueue;
 
@@ -57,7 +57,7 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
 
     private Vibrator vibrator;
 
-    private FloatingActionButton btn_add_mesa;
+    private FloatingActionButton btn_add_reservation;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -69,7 +69,7 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     private String mParam1;
     private String mParam2;
 
-    public MesasFragment() {
+    public ReservationsFragment() {
         // Required empty public constructor
     }
 
@@ -79,11 +79,11 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MesasFragment.
+     * @return A new instance of fragment ReservationsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MesasFragment newInstance(String param1, String param2) {
-        MesasFragment fragment = new MesasFragment();
+    public static ReservationsFragment newInstance(String param1, String param2) {
+        ReservationsFragment fragment = new ReservationsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -107,16 +107,16 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
         vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         // Inflate the layout for this fragment
-        View vista = inflater.inflate(R.layout.fragment_mesas, container, false);
+        View vista = inflater.inflate(R.layout.fragment_reservations, container, false);
 
-        btn_add_mesa = vista.findViewById(R.id.fab_mesas);
-        btn_add_mesa.setOnClickListener(this::onClick);
+        btn_add_reservation = vista.findViewById(R.id.fab_mesas);
+        btn_add_reservation.setOnClickListener(this::onClick);
 
-        arrayMesas = new ArrayList<>();
+        arrayReservations = new ArrayList<>();
 
-        recyclerMesas = vista.findViewById(R.id.recyclerMesas);
-        recyclerMesas.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerMesas.setHasFixedSize(true);
+        recyclerView = vista.findViewById(R.id.recyclerReservations);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
 
         // Web service
         requestQueue = Volley.newRequestQueue(getContext());
@@ -127,11 +127,13 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     }
 
     private void cargarWebService() {
-        progreso = new ProgressDialog(getContext());
-        progreso.setMessage(Utilities.MESSAGE_WS_QUERY);
-        progreso.show();
+        progress = new ProgressDialog(getContext());
+        progress.setMessage(Utilities.MESSAGE_WS_QUERY);
+        progress.show();
 
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_CONSULTAR_LISTA_MESAS, null, this, this);
+        String url = "http://192.168.0.103:8080/proyectos/Adobes%20Android/WS_V0.2/wsJSONQueryReservations.php";
+
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
         requestQueue.add(jsonObjectRequest);
 
     }
@@ -141,64 +143,77 @@ public class MesasFragment extends Fragment implements Response.Listener<JSONObj
     @Override
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getContext(), Utilities.MESSAGE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_LONG).show();
-        progreso.hide();
+        progress.hide();
     }
 
     @Override
     public void onResponse(JSONObject response) {
-        Mesa mesa;
 
-        JSONArray jsonArray = response.optJSONArray(Utilities.TABLA_MESAS);
+        Reservation reservation;
+
+        JSONArray jsonArray = response.optJSONArray("tt_reservations");
 
         try {
             for(int i = 0; i < jsonArray.length(); i++){
 
-                mesa = new Mesa();
+                reservation = new Reservation();
 
                 JSONObject jsonObject;
                 jsonObject = jsonArray.getJSONObject(i);
 
-                mesa.setId(jsonObject.optInt(Utilities.MESAS_CAMPO_ID));
-                mesa.setNombre(jsonObject.optString(Utilities.MESAS_CAMPO_NOMBRE));
-                mesa.setPersonas(jsonObject.optString(Utilities.MESAS_CAMPO_PERSONAS));
+                reservation.setId(jsonObject.optInt("id"));
+                reservation.setDate(jsonObject.optString("date"));
+                reservation.setHour(jsonObject.optString("hour"));
+                reservation.setAccountOwner(jsonObject.optString("account_owner"));
+                reservation.setNoAdults(jsonObject.optString("no_adults"));
+                reservation.setNoChildren(jsonObject.optString("no_children"));
+                reservation.setStatus(jsonObject.optString("status"));
+                reservation.setComments(jsonObject.optString("comments"));
 
-                arrayMesas.add(mesa);
+                // no carga adecuadamente el boolean, por lo que se tuvo que usar esta solucion
+                boolean isReservation;
+                isReservation = jsonObject.optInt("is_reservation") == 1? true: false;
+                reservation.setReservation(isReservation);
+
+                reservation.setPhone(jsonObject.optString("phone"));
+
+                arrayReservations.add(reservation);
             }
 
-            mesaAdapter = new MesaAdapter(arrayMesas, R.layout.mesa_item, new MesaAdapter.OnItemClickListener() {
+            reservationAdapter = new ReservationAdapter(arrayReservations, R.layout.reservations_item, new ReservationAdapter.OnItemClickListener() {
                 @Override
-                public void OnItemClick(Mesa mesa, int position) {
+                public void OnItemClick(Reservation reservation, int position) {
                     //Toast.makeText(getContext(), "Click\nMesa: " + mesa + "\nPosición: " + position, Toast.LENGTH_LONG).show();
                     // pasa como parametro el objeto seleccionado
-                    Intent intent = new Intent(getContext(), EditarMesaActivity.class);
+                    Intent intent = new Intent(getContext(), EditReservationActivity.class);
                     Bundle bundle = new Bundle();
 
-                    bundle.putSerializable("mesa", mesa);
+                    bundle.putSerializable("reservation", reservation);
                     intent.putExtras(bundle);
 
                     startActivity(intent);
                 }
 
                 @Override
-                public void OnLongItemClick(Mesa mesa, int position) {
-                    //Toast.makeText(getContext(), "Long Click\nMesa: " + mesa + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                public void OnLongItemClick(Reservation reservation, int position) {
+                    Toast.makeText(getContext(), "Long Click\nMesa: " + reservation + "\nPosición: " + position, Toast.LENGTH_LONG).show();
                     vibrator.vibrate(Utilities.VIBRACION_LONG_CLICK);
                 }
             });
-            recyclerMesas.setAdapter(mesaAdapter);
+            recyclerView.setAdapter(reservationAdapter);
 
 
         }catch (JSONException | NullPointerException e){
             Toast.makeText(getContext(), Utilities.MESSAGE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
         }finally {
-            progreso.hide();
+            progress.hide();
         }
     }
 
     // Evento para el floatingActionButton
     @Override
     public void onClick(View v) {
-        Intent i = new Intent(v.getContext(), NuevaMesaActivity.class);
+        Intent i = new Intent(v.getContext(), NewReservationActivity.class);
 
         startActivity(i);
 

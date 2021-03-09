@@ -19,8 +19,8 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".activities.EditWaitingListActivity"></activity>
         <activity android:name=".activities.NewWaitingListActivity" />
-        <activity android:name=".activities.EditarMesaActivity" />
-        <activity android:name=".activities.NuevaMesaActivity" />
+        <activity android:name=".activities.EditReservationActivity" />
+        <activity android:name=".activities.NewReservationActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

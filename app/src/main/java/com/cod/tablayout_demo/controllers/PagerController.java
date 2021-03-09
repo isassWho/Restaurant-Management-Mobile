@@ -6,8 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.cod.tablayout_demo.fragments.ComandasFragment;
+import com.cod.tablayout_demo.fragments.ReservationsFragment;
 import com.cod.tablayout_demo.fragments.WaitingListFragment;
-import com.cod.tablayout_demo.fragments.MesasFragment;
 
 public class PagerController extends FragmentPagerAdapter {
 
@@ -27,7 +27,7 @@ public class PagerController extends FragmentPagerAdapter {
             case 1:
                 return new ComandasFragment();
             case 2:
-                return new MesasFragment();
+                return new ReservationsFragment();
             default:
                 return null;
         }
