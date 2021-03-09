@@ -3,6 +3,7 @@ package com.cod.tablayout_demo;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabItem;
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     TabItem tab1, tab2, tab3;
 
     PagerController pagerAdapter;
+
+    private int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,5 +76,32 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         // Toast solo para indentificar los eventos
         //Toast.makeText(MainActivity.this, "onTabReselected", Toast.LENGTH_SHORT).show();
+    }
+
+
+    // proteccion para salir de la aplicacion
+    @Override
+    public void onBackPressed() {
+
+        if (count == 0){
+            Toast.makeText(this, "Presione de nuevo para salir", Toast.LENGTH_SHORT).show();
+            count++;
+        }else{
+            super.onBackPressed();
+        }
+
+        new CountDownTimer(3000, 1000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // vacio
+            }
+
+            @Override
+            public void onFinish() {
+                count = 0;
+            }
+        }.start();
+
     }
 }
