@@ -183,7 +183,7 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
             reservationAdapter = new ReservationAdapter(arrayReservations, R.layout.reservations_item, new ReservationAdapter.OnItemClickListener() {
                 @Override
                 public void OnItemClick(Reservation reservation, int position) {
-                    //Toast.makeText(getContext(), "Click\nMesa: " + mesa + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), "Click\nMesa: " + reservation + "\nPosición: " + position, Toast.LENGTH_LONG).show();
                     // pasa como parametro el objeto seleccionado
                     Intent intent = new Intent(getContext(), EditReservationActivity.class);
                     Bundle bundle = new Bundle();

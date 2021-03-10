@@ -42,6 +42,8 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
     // icono
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
+    // cardView
+    implementation "androidx.cardview:cardview:1.0.0"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
