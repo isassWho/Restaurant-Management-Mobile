@@ -17,11 +17,12 @@ public class Utilities {
     public static final String URL_WS_REGISTER_WAITINGLIST = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONRegisterWaitingList.php?" ;
     // Update WaitingList
     public static final String URL_WS_UPDATE_WAITINGLIST = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONUpdateWaitingList.php?";
+    // Query Reservations
+    public static final String URL_WS_QUERY_RESERVATIONS = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONQueryReservations.php";
     // Update Reservation
     public static final String URL_WS_UPDATE_RESERVATION = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONUpdateReservation.php?";
     // Register Reservation
     public static final String URL_WS_REGISTER_RESERVATION  = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONRegisterReservation.php?";
-
 
     
 

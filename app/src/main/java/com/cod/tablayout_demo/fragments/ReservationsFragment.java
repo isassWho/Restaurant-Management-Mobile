@@ -131,9 +131,7 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
         progress.setMessage(Utilities.MESSAGE_WS_QUERY);
         progress.show();
 
-        String url = "http://192.168.0.103:8080/proyectos/Adobes%20Android/WS_V0.2/wsJSONQueryReservations.php";
-
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, this, this);
+        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_WS_QUERY_RESERVATIONS, null, this, this);
         requestQueue.add(jsonObjectRequest);
 
     }
