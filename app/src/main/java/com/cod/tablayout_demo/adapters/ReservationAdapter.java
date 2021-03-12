@@ -1,11 +1,17 @@
 package com.cod.tablayout_demo.adapters;
 
+import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cod.tablayout_demo.R;
@@ -51,7 +57,12 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
 
     // clase holder
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements  PopupMenu.OnMenuItemClickListener {
+
+        private static final String TAG = "ViewHolder";
+
+        public Reservation objReservation;
+
         public TextView txtId;
         public TextView txtDate;
         public TextView txtHour;
@@ -62,6 +73,8 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         public TextView txtComments;
         public TextView txtIsReservation;
         public TextView txtPhone;
+
+        public ImageButton imageButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -75,6 +88,8 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
             this.txtComments = itemView.findViewById(R.id.frag_reservation_text_comments);
             this.txtIsReservation = itemView.findViewById(R.id.frag_reservation_text_isReservation);
             this.txtPhone = itemView.findViewById(R.id.frag_reservation_text_phone);
+
+            this.imageButton = itemView.findViewById(R.id.frag_reservation_imgBtn_popup_menu);
         }
 
         public void bind(final Reservation reservation, final OnItemClickListener listener){
@@ -94,6 +109,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
                 public void onClick(View v) {
                     // le pasamos modelo y posicion
                     listener.OnItemClick(reservation, getAdapterPosition());
+
                 }
             });
 
@@ -106,8 +122,40 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
                 }
             });
 
+            this.imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.OnClickOptionButton(reservation, getAdapterPosition());
+                    objReservation = reservation;
+                    showPopupMenu(v);
+                }
+            });
+
+// here good
         }
 
+
+        private void showPopupMenu(View view){
+            PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
+            popupMenu.inflate(R.menu.popup_menu);
+            popupMenu.setOnMenuItemClickListener(this);
+
+            popupMenu.show();
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            switch (item.getItemId()){
+                case R.id.menu_createComand:
+                    Toast.makeText(itemView.getContext(), "Crear comanda para:  " + objReservation.getAccountOwner() +" - " + getAdapterPosition(), Toast.LENGTH_LONG).show();
+                    return true;
+                case R.id.menu_cancelComand:
+                    Toast.makeText(itemView.getContext(), "Cancelar: para:  " + objReservation.getAccountOwner() + " - " + getAdapterPosition(), Toast.LENGTH_LONG).show();
+                    return true;
+                default:
+                    return false;
+            }
+        }
     }
 
     // interface
@@ -115,6 +163,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
         void OnItemClick(Reservation mesa, int position);
         void OnLongItemClick(Reservation mesa, int position);
+        void OnClickOptionButton(Reservation mesa, int position);
 
     }
 }

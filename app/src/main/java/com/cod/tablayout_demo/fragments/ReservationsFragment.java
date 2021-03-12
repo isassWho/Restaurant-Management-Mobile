@@ -196,10 +196,16 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
 
                 @Override
                 public void OnLongItemClick(Reservation reservation, int position) {
-                    Toast.makeText(getContext(), "Long Click\nMesa: " + reservation + "\nPosición: " + position, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(getContext(), "Long Click\nMesa: " + reservation + "\nPosición: " + position, Toast.LENGTH_LONG).show();
                     vibrator.vibrate(Utilities.VIBRACION_LONG_CLICK);
                 }
+
+                @Override
+                public void OnClickOptionButton(Reservation reservation, int position) {
+                    // vacio pero obligatorio
+                }
             });
+
             recyclerView.setAdapter(reservationAdapter);
 
 
