@@ -202,8 +202,9 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
 
                 @Override
                 public void OnClickOptionButton(Reservation reservation, int position) {
-                    // vacio pero obligatorio
+
                 }
+
             });
 
             recyclerView.setAdapter(reservationAdapter);

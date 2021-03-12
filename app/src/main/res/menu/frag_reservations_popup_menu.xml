@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_createComand"
+        android:id="@+id/menu_create_comand"
         android:title="Crear Comanda" />
 
     <item
-        android:id="@+id/menu_cancelComand"
+        android:id="@+id/menu_cancel_comand"
         android:title="Cancelar Comanda"
         />
 

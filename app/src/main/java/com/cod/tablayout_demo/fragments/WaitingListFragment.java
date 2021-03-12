@@ -203,6 +203,11 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                     Toast.makeText(getContext(), "LongClick\nWaiting List: " + waitinglist + "\nPosition: " + position, Toast.LENGTH_LONG).show();
                     vibrator.vibrate(Utilities.VIBRACION_LONG_CLICK);
                 }
+
+                @Override
+                public void OnClickOptionButton(WaitingList waitingList, int position) {
+
+                }
             });
 
             recyclerViewWaitingList.setAdapter(waitingListAdapter);

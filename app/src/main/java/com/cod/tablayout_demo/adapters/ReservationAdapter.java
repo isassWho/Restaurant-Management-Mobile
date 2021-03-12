@@ -1,7 +1,5 @@
 package com.cod.tablayout_demo.adapters;
 
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,7 +16,6 @@ import com.cod.tablayout_demo.R;
 import com.cod.tablayout_demo.entities.Reservation;
 
 import java.util.List;
-
 public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.ViewHolder>{
 
     private List<Reservation> listReservations;
@@ -137,7 +134,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
         private void showPopupMenu(View view){
             PopupMenu popupMenu = new PopupMenu(view.getContext(), view);
-            popupMenu.inflate(R.menu.popup_menu);
+            popupMenu.inflate(R.menu.frag_reservations_popup_menu);
             popupMenu.setOnMenuItemClickListener(this);
 
             popupMenu.show();
@@ -146,10 +143,10 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
-                case R.id.menu_createComand:
+                case R.id.menu_create_comand:
                     Toast.makeText(itemView.getContext(), "Crear comanda para:  " + objReservation.getAccountOwner() +" - " + getAdapterPosition(), Toast.LENGTH_LONG).show();
                     return true;
-                case R.id.menu_cancelComand:
+                case R.id.menu_cancel_comand:
                     Toast.makeText(itemView.getContext(), "Cancelar: para:  " + objReservation.getAccountOwner() + " - " + getAdapterPosition(), Toast.LENGTH_LONG).show();
                     return true;
                 default:
@@ -161,9 +158,9 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     // interface
     public interface OnItemClickListener{
 
-        void OnItemClick(Reservation mesa, int position);
-        void OnLongItemClick(Reservation mesa, int position);
-        void OnClickOptionButton(Reservation mesa, int position);
+        void OnItemClick(Reservation reservation, int position);
+        void OnLongItemClick(Reservation reservation, int position);
+        void OnClickOptionButton(Reservation reservation, int position);
 
     }
 }
