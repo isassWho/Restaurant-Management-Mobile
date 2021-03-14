@@ -73,32 +73,22 @@ public class WaitingListAdapter extends RecyclerView.Adapter<WaitingListAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.txtId = itemView.findViewById(R.id.frag_waitingList_text_id);
-            this.txtDate = itemView.findViewById(R.id.frag_waitingList_text_date);
             this.txtHour = itemView.findViewById(R.id.frag_waitingList_text_hour);
             this.txtAccountOwner = itemView.findViewById(R.id.frag_waitingList_text_accountOwner);
             this.txtNoAdults = itemView.findViewById(R.id.frag_waitingList_text_noAdults);
             this.txtNoChildren = itemView.findViewById(R.id.frag_waitingList_text_noChildren);
             this.txtStatus = itemView.findViewById(R.id.frag_waitingList_text_status);
-            this.txtComments = itemView.findViewById(R.id.frag_waitingList_text_comments);
-            this.txtIsReservation = itemView.findViewById(R.id.frag_waitingList_text_isReservation);
-            this.txtPhone = itemView.findViewById(R.id.frag_waitingList_text_phone);
 
             this.imageButton = itemView.findViewById(R.id.frag_waitingList_imgBtn_popup_menu);
 
         }
 
         public void bind(final WaitingList waitinglist, final OnItemClickListener listener){
-            this.txtId.setText(waitinglist.getId().toString());
-            this.txtDate.setText(waitinglist.getDate().toString());
             this.txtHour.setText(waitinglist.getHour().toString());
             this.txtAccountOwner.setText(waitinglist.getAccountOwner().toString());
             this.txtNoAdults.setText(waitinglist.getNoAdults().toString());
             this.txtNoChildren.setText(waitinglist.getNoChildren().toString());
             this.txtStatus.setText(waitinglist.getStatus().toString());
-            this.txtComments.setText(waitinglist.getComments().toString());
-            this.txtIsReservation.setText(String.valueOf(waitinglist.isReservation()));
-            this.txtPhone.setText(waitinglist.getPhone());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -140,11 +130,8 @@ public class WaitingListAdapter extends RecyclerView.Adapter<WaitingListAdapter.
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
-                case R.id.menu_option_1:
-                    Toast.makeText(itemView.getContext(), "Option 1 para  " + objWaitingList.getAccountOwner() +" - " + getAdapterPosition(), Toast.LENGTH_LONG).show();
-                    return true;
-                case R.id.menu_option_2:
-                    Toast.makeText(itemView.getContext(), "Option 2 para:  " + objWaitingList.getAccountOwner() + " - " + getAdapterPosition(), Toast.LENGTH_LONG).show();
+                case R.id.frag_waitingList_menu_agregar:
+                    Toast.makeText(itemView.getContext(), "Agregar " + objWaitingList.getAccountOwner(), Toast.LENGTH_LONG).show();
                     return true;
                 default:
                     return false;

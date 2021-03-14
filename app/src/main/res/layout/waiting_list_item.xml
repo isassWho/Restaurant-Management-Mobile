@@ -34,14 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Identificador:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Fecha:"
+                android:text="Comanda a nombre de:"
                 android:textStyle="bold" />
 
             <TextView
@@ -49,13 +42,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Hora:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Propietario:"
                 android:textStyle="bold" />
 
             <TextView
@@ -79,27 +65,6 @@
                 android:text="Estatus:"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Comentarios:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="¿Es reservación?:"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Teléfono:"
-                android:textStyle="bold" />
-
         </LinearLayout>
 
         <LinearLayout
@@ -112,20 +77,12 @@
             >
 
             <TextView
-                android:id="@+id/frag_waitingList_text_id"
+                android:id="@+id/frag_waitingList_text_accountOwner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Identificador"
-                />
-
-            <TextView
-                android:id="@+id/frag_waitingList_text_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Fecha"
-                android:textStyle="italic"/>
+                android:text="Propietario"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/frag_waitingList_text_hour"
@@ -134,14 +91,6 @@
                 android:layout_weight="1"
                 android:text="Hora"
                 android:textStyle="italic"/>
-
-            <TextView
-                android:id="@+id/frag_waitingList_text_accountOwner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Propietario"
-                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/frag_waitingList_text_noAdults"
@@ -163,28 +112,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Estatus" />
-
-            <TextView
-                android:id="@+id/frag_waitingList_text_comments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Comentarios"
-                />
-
-            <TextView
-                android:id="@+id/frag_waitingList_text_isReservation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="¿Es reservación?" />
-
-            <TextView
-                android:id="@+id/frag_waitingList_text_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Teléfono" />
 
         </LinearLayout>
 

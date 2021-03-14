@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -30,6 +31,8 @@ import com.cod.tablayout_demo.entities.WaitingList;
 import com.cod.tablayout_demo.utilities.Utilities;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.trendyol.bubblescrollbarlib.BubbleScrollBar;
+import com.trendyol.bubblescrollbarlib.BubbleTextProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,13 +118,16 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
         View vista = inflater.inflate(R.layout.fragment_waiting_list, container, false);
 
+
+
         btn_add_waitingList = vista.findViewById(R.id.fab_listaEspera);
         btn_add_waitingList.setOnClickListener(this::onClick);
 
         arrayWaitingList = new ArrayList<>();
         
         recyclerViewWaitingList = vista.findViewById(R.id.recyclerListaEspera);
-        recyclerViewWaitingList.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerViewWaitingList.setLayoutManager(linearLayoutManager);
         recyclerViewWaitingList.setHasFixedSize(true);
         
         // Web Service

@@ -82,7 +82,7 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
         // time
         this.hourFormat = new SimpleDateFormat(Utilities.FORMAT_TIME);
         // status
-        this.status = "active";
+        this.status = "ACTIVA";
         // is_reservation
         this.is_reservation = false;
 

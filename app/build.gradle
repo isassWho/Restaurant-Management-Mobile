@@ -44,6 +44,8 @@ dependencies {
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
     // cardView
     implementation "androidx.cardview:cardview:1.0.0"
+    //scroll
+    implementation 'com.github.Trendyol:BubbleScrollBar:0.1'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
