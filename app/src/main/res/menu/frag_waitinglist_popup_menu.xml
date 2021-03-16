@@ -3,6 +3,6 @@
 
     <item
         android:id="@+id/frag_waitingList_menu_agregar"
-        android:title="Agregar" />
+        android:title="Ver" />
 
 </menu>

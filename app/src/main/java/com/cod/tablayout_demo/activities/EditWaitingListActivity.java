@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -31,6 +32,9 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
     private Button btnCancel;
     private Button btnCreateCommand;
 
+    private Switch switchEnable;
+    private Boolean flagEnableComponents;
+
     private Bundle bundle;
 
     private WaitingList waitingList;
@@ -52,15 +56,20 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
         this.editTextNoChildren = findViewById(R.id.act_editWaitingList_edit_noChildren);
         this.editTextComments = findViewById(R.id.act_editWaitingList_edit_comments);
         this.editTextPhone = findViewById(R.id.act_editWaitingList_edit_phone);
+        this.switchEnable = findViewById(R.id.act_editWaitingList_switch_enable);
 
         this.btnSave = findViewById(R.id.act_editWaitingList_btn_save);
         this.btnCancel = findViewById(R.id.act_editWaitingList_btn_cancel);
         this.btnCreateCommand = findViewById(R.id.act_editWaitingList_btn_createCommand);
 
+        this.disableComponents();
+
         // set Events
         this.btnSave.setOnClickListener(this);
         this.btnCancel.setOnClickListener(this);
         this.btnCreateCommand.setOnClickListener(this);
+
+        this.switchEnable.setOnClickListener(this::onClick);
 
         bundle = getIntent().getExtras();
 
@@ -77,6 +86,26 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
 
     }
 
+    private void disableComponents() {
+        this.editTextAccountOwner.setEnabled(false);
+        this.editTextNoAdults.setEnabled(false);
+        this.editTextNoChildren.setEnabled(false);
+        this.editTextComments.setEnabled(false);
+        this.editTextPhone.setEnabled(false);
+        this.btnSave.setEnabled(false);
+
+        this.flagEnableComponents = false;
+    }
+    private void enableComponents() {
+        this.editTextAccountOwner.setEnabled(true);
+        this.editTextNoAdults.setEnabled(true);
+        this.editTextNoChildren.setEnabled(true);
+        this.editTextComments.setEnabled(true);
+        this.editTextPhone.setEnabled(true);
+        this.btnSave.setEnabled(true);
+
+        this.flagEnableComponents = true;
+    }
 
     @Override
     public void onClick(View v) {
@@ -89,6 +118,13 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
                 break;
                 case R.id.act_editWaitingList_btn_createCommand:
                 Toast.makeText(this, "Crear comanda", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.act_editWaitingList_switch_enable:
+                if(flagEnableComponents){
+                    this.disableComponents();
+                }else{
+                    this.enableComponents();
+                }
                 break;
         }
     }

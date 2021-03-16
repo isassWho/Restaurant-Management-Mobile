@@ -31,8 +31,6 @@ import com.cod.tablayout_demo.entities.WaitingList;
 import com.cod.tablayout_demo.utilities.Utilities;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.trendyol.bubblescrollbarlib.BubbleScrollBar;
-import com.trendyol.bubblescrollbarlib.BubbleTextProvider;
 
 import org.json.JSONArray;
 import org.json.JSONException;

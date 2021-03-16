@@ -8,6 +8,9 @@
     android:layout_height="match_parent"
     tools:context=".activities.EditWaitingListActivity">
 
+
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -21,6 +24,14 @@
             android:gravity="center"
             android:text="Editar en Lista de Espera"
             android:textSize="20dp" />
+
+        <Switch
+            android:id="@+id/act_editWaitingList_switch_enable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Editar"
+            android:layout_gravity="right"
+            />
 
 
         <TextView
