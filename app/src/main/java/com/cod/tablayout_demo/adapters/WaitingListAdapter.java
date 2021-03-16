@@ -4,6 +4,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,15 +17,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cod.tablayout_demo.R;
 import com.cod.tablayout_demo.entities.WaitingList;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-public class WaitingListAdapter extends RecyclerView.Adapter<WaitingListAdapter.ViewHolder>{
+public class WaitingListAdapter extends RecyclerView.Adapter<WaitingListAdapter.ViewHolder> implements Filterable {
 
     private List<WaitingList> waitingList;
+    private List<WaitingList> waitingListAll;
     private int layout;
     private OnItemClickListener itemClickListener;
 
     public WaitingListAdapter(List<WaitingList> waitinglistList, int layout, OnItemClickListener itemClickListener) {
         this.waitingList = waitinglistList;
+        this.waitingListAll = new ArrayList<>(waitinglistList);
         this.layout = layout;
         this.itemClickListener = itemClickListener;
     }
@@ -51,6 +57,44 @@ public class WaitingListAdapter extends RecyclerView.Adapter<WaitingListAdapter.
     public int getItemCount() {
         return this.waitingList.size();
     }
+    // implements Filterable
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+
+        // run on background thread
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<WaitingList> filteredList = new ArrayList<>();
+
+            if(constraint.toString().isEmpty()){
+                filteredList.addAll(waitingListAll);
+            }else{
+                for (int i = 0; i < waitingList.size(); i++){
+                    if(waitingList.get(i).getAccountOwner().toLowerCase().contains(constraint.toString().toLowerCase().trim())){
+                        filteredList.add(waitingList.get(i));
+                    }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+
+
+            return filterResults;
+        }
+        // runs on a ui thread
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            waitingList.clear();
+            waitingList.addAll((Collection<? extends WaitingList>) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
 
     // clase holder
