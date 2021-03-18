@@ -15,7 +15,6 @@ import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -62,9 +61,6 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     private Vibrator vibrator;
 
     private FloatingActionButton btn_add_waitingList;
-
-    private SearchView searchView;
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -119,23 +115,6 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
 
         View vista = inflater.inflate(R.layout.fragment_waiting_list, container, false);
-
-        searchView = vista.findViewById(R.id.searchView_waitingList);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                Toast.makeText(getContext(), "newText: " + newText, Toast.LENGTH_LONG).show();
-                waitingListAdapter.getFilter().filter(newText);
-                return false;
-            }
-        });
-
 
         btn_add_waitingList = vista.findViewById(R.id.fab_listaEspera);
         btn_add_waitingList.setOnClickListener(this::onClick);
