@@ -277,7 +277,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                 }else{
                     addToArrayChildrenDeleteArrayParent(arrayWaitingList, arrayWaitingListFilterActivas, "ACTIVA");
                 }
-                this.waitingListAdapter.notifyDataSetChanged();
+                //this.waitingListAdapter.notifyDataSetChanged();
                 break;
 
             case R.id.frag_waitingList_check_cancelada:
@@ -286,7 +286,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                 }else{
                     addToArrayChildrenDeleteArrayParent(arrayWaitingList, arrayWaitingListFilterCanceladas, "CANCELADA");
                 }
-                this.waitingListAdapter.notifyDataSetChanged();
+                //this.waitingListAdapter.notifyDataSetChanged();
                 break;
         }
 
@@ -299,17 +299,24 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                 child.add(parent.get(i));
             }
         }// fin for
-        //Borra los datos del array hijo
+        //Borra los datos del array padre
         for (int i = 0; i < child.size(); i++) {
             parent.remove(child.get(i));
+            this.waitingListAdapter.notifyItemRemoved(parent.size());
+            this.linearLayoutManager.scrollToPosition(parent.size());
         }
+
     }
 
 
     private void addToArrayParentDeleteArrayChildren(ArrayList<WaitingList> parent,ArrayList<WaitingList> child) {
+
         for (int i = 0; i < child.size(); i++) {
             parent.add(child.get(i));
+            this.waitingListAdapter.notifyItemInserted(parent.size()-1);
+            this.linearLayoutManager.scrollToPosition(parent.size()-1);
         }
+
         child.clear();
     }
 
