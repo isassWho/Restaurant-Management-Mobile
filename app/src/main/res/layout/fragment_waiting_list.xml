@@ -6,15 +6,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.WaitingListFragment"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
+    android:paddingBottom="2dp"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:orientation="vertical"
     >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioGroup
+            android:id="@+id/frag_waitingList_radioGroup_estatus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="right"
+            >
+
+            <CheckBox
+                android:id="@+id/frag_waitingList_check_cancelada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CANCELADAS" />
+
+            <CheckBox
+                android:id="@+id/frag_waitingList_check_activa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="ACTIVAS" />
+        </RadioGroup>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_accountOwner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="Propietario"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_hour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Hora"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_noAdults"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="No. adultos" />
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_noChildren"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="No. niños" />
+
+            <TextView
+                android:id="@+id/frag_waitingList_text_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Estatus" />
+
+            <ImageButton
+                android:id="@+id/frag_waitingList_imgBtn_popup_menu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                />
+        </TableRow>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerListaEspera"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="83dp"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -15,6 +15,9 @@ import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -44,13 +47,15 @@ import java.util.ArrayList;
  * Use the {@link WaitingListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WaitingListFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject>, View.OnClickListener {
+public class WaitingListFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject>, View.OnClickListener,CompoundButton.OnCheckedChangeListener {
 
     // variables
     private WaitingListAdapter waitingListAdapter;
     private RecyclerView recyclerViewWaitingList;
 
     private ArrayList<WaitingList> arrayWaitingList;
+    private ArrayList<WaitingList> arrayWaitingListFilterActivas;
+    private ArrayList<WaitingList> arrayWaitingListFilterCanceladas;
 
     private ProgressDialog progress;
 
@@ -61,6 +66,11 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     private Vibrator vibrator;
 
     private FloatingActionButton btn_add_waitingList;
+
+    private RadioGroup radioGroup;
+
+    private CheckBox checkBoxCanceladas;
+    private CheckBox checkBoxActivas;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -120,12 +130,25 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         btn_add_waitingList.setOnClickListener(this::onClick);
 
         arrayWaitingList = new ArrayList<>();
-        
+        arrayWaitingListFilterActivas = new ArrayList<>();
+        arrayWaitingListFilterCanceladas = new ArrayList<>();
+
         recyclerViewWaitingList = vista.findViewById(R.id.recyclerListaEspera);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerViewWaitingList.setLayoutManager(linearLayoutManager);
         recyclerViewWaitingList.setHasFixedSize(true);
-        
+
+        this.radioGroup = vista.findViewById(R.id.frag_waitingList_radioGroup_estatus);
+        this.checkBoxActivas = vista.findViewById(R.id.frag_waitingList_check_activa);
+        this.checkBoxCanceladas = vista.findViewById(R.id.frag_waitingList_check_cancelada);
+
+
+        this.checkBoxCanceladas.setOnCheckedChangeListener(this::onCheckedChanged);
+        this.checkBoxActivas.setOnCheckedChangeListener(this::onCheckedChanged);
+
+
+
+
         // Web Service
         requestQueue = Volley.newRequestQueue(getContext());
         
@@ -227,4 +250,51 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         Intent intent = new Intent(getContext(), NewWaitingListActivity.class);
         startActivity(intent);
     }
+    // chekbox
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        switch (buttonView.getId()){
+            case R.id.frag_waitingList_check_activa:
+                if (isChecked){
+                    addToArrayParentDeleteArrayChildren(arrayWaitingList, arrayWaitingListFilterActivas);
+                }else{
+                    addToArrayChildrenDeleteArrayParent(arrayWaitingList, arrayWaitingListFilterActivas, "ACTIVA");
+                }
+                this.waitingListAdapter.notifyDataSetChanged();
+                break;
+
+            case R.id.frag_waitingList_check_cancelada:
+                if (isChecked){
+                    addToArrayParentDeleteArrayChildren(arrayWaitingList, arrayWaitingListFilterCanceladas);
+                }else{
+                    addToArrayChildrenDeleteArrayParent(arrayWaitingList, arrayWaitingListFilterCanceladas, "CANCELADA");
+                }
+                this.waitingListAdapter.notifyDataSetChanged();
+                break;
+        }
+
+    }
+
+    private void addToArrayChildrenDeleteArrayParent(ArrayList<WaitingList> parent,ArrayList<WaitingList> child, String status) {
+        // añade los datos del array padre al hijo
+        for (int i = 0; i < parent.size(); i++) {
+            if(parent.get(i).getStatus().equals(status)){
+                child.add(parent.get(i));
+            }
+        }// fin for
+        //Borra los datos del array hijo
+        for (int i = 0; i < child.size(); i++) {
+            parent.remove(child.get(i));
+        }
+    }
+
+
+    private void addToArrayParentDeleteArrayChildren(ArrayList<WaitingList> parent,ArrayList<WaitingList> child) {
+        for (int i = 0; i < child.size(); i++) {
+            parent.add(child.get(i));
+        }
+        child.clear();
+    }
+
 }
