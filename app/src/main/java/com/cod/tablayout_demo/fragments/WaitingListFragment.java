@@ -52,6 +52,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     // variables
     private WaitingListAdapter waitingListAdapter;
     private RecyclerView recyclerViewWaitingList;
+    private LinearLayoutManager linearLayoutManager;
 
     private ArrayList<WaitingList> arrayWaitingList;
     private ArrayList<WaitingList> arrayWaitingListFilterActivas;
@@ -122,45 +123,60 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        init();
 
         View vista = inflater.inflate(R.layout.fragment_waiting_list, container, false);
 
-        btn_add_waitingList = vista.findViewById(R.id.fab_listaEspera);
-        btn_add_waitingList.setOnClickListener(this::onClick);
+        mapping(vista);
 
-        arrayWaitingList = new ArrayList<>();
-        arrayWaitingListFilterActivas = new ArrayList<>();
-        arrayWaitingListFilterCanceladas = new ArrayList<>();
+        setProperties();
 
-        recyclerViewWaitingList = vista.findViewById(R.id.recyclerListaEspera);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        recyclerViewWaitingList.setLayoutManager(linearLayoutManager);
-        recyclerViewWaitingList.setHasFixedSize(true);
+        setEvents();
 
-        this.radioGroup = vista.findViewById(R.id.frag_waitingList_radioGroup_estatus);
-        this.checkBoxActivas = vista.findViewById(R.id.frag_waitingList_check_activa);
-        this.checkBoxCanceladas = vista.findViewById(R.id.frag_waitingList_check_cancelada);
-
-
-        this.checkBoxCanceladas.setOnCheckedChangeListener(this::onCheckedChanged);
-        this.checkBoxActivas.setOnCheckedChangeListener(this::onCheckedChanged);
-
-
-
-
-        // Web Service
-        requestQueue = Volley.newRequestQueue(getContext());
-        
-        this.cargarWebService();
+        loadWebService();
 
         // Inflate the layout for this fragment
         return vista;
     }
 
+    private void loadWebService() {
+        // Web Service
+        requestQueue = Volley.newRequestQueue(getContext());
+
+        this.cargarWebService();
+    }
+
+    private void init() {
+        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        progress = new ProgressDialog(getContext());
+        arrayWaitingList = new ArrayList<>();
+        arrayWaitingListFilterActivas = new ArrayList<>();
+        arrayWaitingListFilterCanceladas = new ArrayList<>();
+        linearLayoutManager = new LinearLayoutManager(getContext());
+    }
+
+    private void setProperties() {
+        recyclerViewWaitingList.setLayoutManager(linearLayoutManager);
+        recyclerViewWaitingList.setHasFixedSize(true);
+    }
+
+    private void mapping(View vista) {
+        this.recyclerViewWaitingList = vista.findViewById(R.id.recyclerListaEspera);
+        this.radioGroup = vista.findViewById(R.id.frag_waitingList_radioGroup_estatus);
+        this.checkBoxActivas = vista.findViewById(R.id.frag_waitingList_check_activa);
+        this.checkBoxCanceladas = vista.findViewById(R.id.frag_waitingList_check_cancelada);
+        this.btn_add_waitingList = vista.findViewById(R.id.fab_listaEspera);
+    }
+
+    private void setEvents() {
+        this.checkBoxCanceladas.setOnCheckedChangeListener(this::onCheckedChanged);
+        this.checkBoxActivas.setOnCheckedChangeListener(this::onCheckedChanged);
+        btn_add_waitingList.setOnClickListener(this::onClick);
+    }
+
+
     private void cargarWebService() {
 
-        progress = new ProgressDialog(getContext());
         progress.setMessage(Utilities.MESSAGE_WS_QUERY);
         progress.show();
 
@@ -250,7 +266,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         Intent intent = new Intent(getContext(), NewWaitingListActivity.class);
         startActivity(intent);
     }
-    // chekbox
+    // chekbox, FILTROS
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
@@ -296,5 +312,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         }
         child.clear();
     }
+
+
 
 }
