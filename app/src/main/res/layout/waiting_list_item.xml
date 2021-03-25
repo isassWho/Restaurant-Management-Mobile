@@ -74,7 +74,7 @@
                 android:id="@+id/frag_waitingList_imgBtn_popup_menu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:gravity="center"
                 card_view:srcCompat="@drawable/ic_more_vert" />
         </TableRow>

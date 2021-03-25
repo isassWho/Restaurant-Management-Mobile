@@ -1,4 +1,5 @@
 package com.cod.tablayout_demo.fragments;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +33,6 @@ import com.cod.tablayout_demo.adapters.WaitingListAdapter;
 import com.cod.tablayout_demo.entities.WaitingList;
 import com.cod.tablayout_demo.utilities.Utilities;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,7 +72,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     private CheckBox checkBoxCanceladas;
     private CheckBox checkBoxActivas;
 
-    private final int temp = 1111;
+    private final int temp = 1100;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -150,33 +150,11 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
         // Tuve que poner un temporizador para que los arrays de los check se rellenen
         if (this.checkBoxCanceladas.isChecked()){
-            new CountDownTimer(temp, temp){
-
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    // vacio
-                }
-
-                @Override
-                public void onFinish() {
-                    addToArrayParentDeleteArrayChildren(arrayWaitingList, arrayWaitingListFilterCanceladas);
-                }
-            }.start();
+            this.timer(arrayWaitingList, arrayWaitingListFilterCanceladas);
         }
 
         if (this.checkBoxActivas.isChecked()){
-            new CountDownTimer(temp, temp){
-
-                @Override
-                public void onTick(long millisUntilFinished) {
-                    // vacio
-                }
-
-                @Override
-                public void onFinish() {
-                    addToArrayParentDeleteArrayChildren(arrayWaitingList, arrayWaitingListFilterActivas);
-                }
-            }.start();
+            this.timer(arrayWaitingList, arrayWaitingListFilterActivas);
         }
 
     }
@@ -264,7 +242,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                 waitingList.setReservation(reservation);
 
                 waitingList.setPhone(jsonObject.optString("phone"));
-
+                // Rellena los arrays que van ligados con los checks.
                 switch (waitingList.getStatus()){
                     case "ACTIVA":
                         arrayWaitingListFilterActivas.add(waitingList);
@@ -315,6 +293,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         startActivity(intent);
     }
     // chekbox, FILTROS
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
@@ -381,6 +360,21 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         }
 
         child.clear();
+    }
+
+    private void timer(ArrayList<WaitingList> parent, ArrayList<WaitingList> child){
+        new CountDownTimer(this.temp, this.temp){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // vacio
+            }
+
+            @Override
+            public void onFinish() {
+                addToArrayParentDeleteArrayChildren(parent, child);
+            }
+        }.start();
     }
 
 

@@ -37,8 +37,9 @@
                 android:id="@+id/frag_waitingList_check_activa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="false"
-                android:text="ACTIVAS" />
+                android:text="ACTIVAS"
+                android:checked="true"
+                />
         </RadioGroup>
 
         <TableRow
@@ -52,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="Propietario"
+                android:text="A nombre de:"
                 android:textStyle="bold" />
 
             <TextView
@@ -92,7 +93,7 @@
                 android:id="@+id/frag_waitingList_imgBtn_popup_menu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.5"
                 android:gravity="center"
                 />
         </TableRow>

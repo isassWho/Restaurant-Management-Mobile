@@ -4,8 +4,8 @@ public class Utilities {
 
     /**********  SERVIDOR ************/
     // Servidor
-    public static final String SERVER_IP = "http://192.168.0.102";
-    //public static final String SERVER_IP = "http://192.168.3.108";
+    //public static final String SERVER_IP = "http://192.168.0.102";
+    public static final String SERVER_IP = "http://192.168.3.118";
     // Puerto
     public static final String PORT = "8080";
 
@@ -28,7 +28,7 @@ public class Utilities {
 
     /**************** VIBRACION *******************/
     // Vibracion
-    public static final int VIBRACION_LONG_CLICK = 100;
+    public static final int VIBRACION_LONG_CLICK = 200;
 
     /************** MENSAJES ****************/
 
