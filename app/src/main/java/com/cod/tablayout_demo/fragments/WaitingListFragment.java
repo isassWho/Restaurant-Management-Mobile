@@ -1,5 +1,4 @@
 package com.cod.tablayout_demo.fragments;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -7,10 +6,10 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.RadioGroup;
-import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -41,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -139,25 +138,74 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         return vista;
     }
 
+    @Override
+    public void onResume() {
+        validateCheckBox();
+        super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        validateCheckBox();
+    }
+
+    private void validateCheckBox() {
+        // Tuve que poner un temporizador para que los arrays de los check se rellenen
+        if (this.checkBoxCanceladas.isChecked()){
+            new CountDownTimer(1111, 1000){
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    // vacio
+                }
+
+                @Override
+                public void onFinish() {
+                    addToArrayParentDeleteArrayChildren(arrayWaitingList, arrayWaitingListFilterCanceladas);
+                }
+            }.start();
+        }
+
+        if (this.checkBoxActivas.isChecked()){
+            new CountDownTimer(1111, 1000){
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    // vacio
+                }
+
+                @Override
+                public void onFinish() {
+                    addToArrayParentDeleteArrayChildren(arrayWaitingList, arrayWaitingListFilterActivas);
+                }
+            }.start();
+        }
+
+
+
+
+    }
+
     private void loadWebService() {
         // Web Service
-        requestQueue = Volley.newRequestQueue(getContext());
+        this.requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
 
         this.cargarWebService();
     }
 
     private void init() {
-        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
-        progress = new ProgressDialog(getContext());
-        arrayWaitingList = new ArrayList<>();
-        arrayWaitingListFilterActivas = new ArrayList<>();
-        arrayWaitingListFilterCanceladas = new ArrayList<>();
-        linearLayoutManager = new LinearLayoutManager(getContext());
+        this.vibrator = (Vibrator) Objects.requireNonNull(getActivity()).getSystemService(Context.VIBRATOR_SERVICE);
+        this.progress = new ProgressDialog(getContext());
+        this.arrayWaitingList = new ArrayList<>();
+        this.arrayWaitingListFilterActivas = new ArrayList<>();
+        this.arrayWaitingListFilterCanceladas = new ArrayList<>();
+        this.linearLayoutManager = new LinearLayoutManager(getContext());
     }
 
     private void setProperties() {
-        recyclerViewWaitingList.setLayoutManager(linearLayoutManager);
-        recyclerViewWaitingList.setHasFixedSize(true);
+        this.recyclerViewWaitingList.setLayoutManager(linearLayoutManager);
+        this.recyclerViewWaitingList.setHasFixedSize(true);
     }
 
     private void mapping(View vista) {
@@ -169,19 +217,19 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     }
 
     private void setEvents() {
-        this.checkBoxCanceladas.setOnCheckedChangeListener(this::onCheckedChanged);
-        this.checkBoxActivas.setOnCheckedChangeListener(this::onCheckedChanged);
-        btn_add_waitingList.setOnClickListener(this::onClick);
+        this.checkBoxCanceladas.setOnCheckedChangeListener(this);
+        this.checkBoxActivas.setOnCheckedChangeListener(this);
+        this.btn_add_waitingList.setOnClickListener(this);
     }
 
 
     private void cargarWebService() {
 
-        progress.setMessage(Utilities.MESSAGE_WS_QUERY);
-        progress.show();
+        this.progress.setMessage(Utilities.MESSAGE_WS_QUERY);
+        this.progress.show();
 
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_WS_QUERY_WAITINGLIST, null, this, this);
-        requestQueue.add(jsonObjectRequest);
+        this.jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_WS_QUERY_WAITINGLIST, null, this, this);
+        this.requestQueue.add(jsonObjectRequest);
 
     }
 
@@ -189,7 +237,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     @Override
     public void onErrorResponse(VolleyError error) {
         Toast.makeText(getContext(), Utilities.MESSAGE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_LONG).show();
-        progress.hide();
+        this.progress.hide();
     }
 
     @Override
@@ -200,7 +248,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         JSONArray jsonArray = response.optJSONArray("tt_waiting_list");
 
         try {
-            for (int i = 0; i < jsonArray.length(); i++){
+            for (int i = 0; i < Objects.requireNonNull(jsonArray).length(); i++){
 
                 waitingList = new WaitingList();
 
@@ -218,12 +266,16 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
                 // no carga adecuadamente el boolean, por lo que se tuvo que usar esta solucion
                 boolean reservation;
-                reservation = jsonObject.optInt("is_reservation") == 1? true: false;
+                reservation = jsonObject.optInt("is_reservation") == 1;
                 waitingList.setReservation(reservation);
 
                 waitingList.setPhone(jsonObject.optString("phone"));
 
-                arrayWaitingList.add(waitingList);
+                if(waitingList.getStatus().equals("ACTIVA")){
+                    arrayWaitingListFilterActivas.add(waitingList);
+                }else{
+                    arrayWaitingListFilterCanceladas.add(waitingList);
+                }
 
             }// fin for
 
