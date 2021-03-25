@@ -72,6 +72,8 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     private CheckBox checkBoxCanceladas;
     private CheckBox checkBoxActivas;
 
+    private final int temp = 1111;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -139,21 +141,16 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     }
 
     @Override
-    public void onResume() {
-        validateCheckBox();
-        super.onResume();
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         validateCheckBox();
     }
 
     private void validateCheckBox() {
+
         // Tuve que poner un temporizador para que los arrays de los check se rellenen
         if (this.checkBoxCanceladas.isChecked()){
-            new CountDownTimer(1111, 1000){
+            new CountDownTimer(temp, temp){
 
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -168,7 +165,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         }
 
         if (this.checkBoxActivas.isChecked()){
-            new CountDownTimer(1111, 1000){
+            new CountDownTimer(temp, temp){
 
                 @Override
                 public void onTick(long millisUntilFinished) {
@@ -181,9 +178,6 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                 }
             }.start();
         }
-
-
-
 
     }
 
@@ -271,10 +265,13 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
                 waitingList.setPhone(jsonObject.optString("phone"));
 
-                if(waitingList.getStatus().equals("ACTIVA")){
-                    arrayWaitingListFilterActivas.add(waitingList);
-                }else{
-                    arrayWaitingListFilterCanceladas.add(waitingList);
+                switch (waitingList.getStatus()){
+                    case "ACTIVA":
+                        arrayWaitingListFilterActivas.add(waitingList);
+                        break;
+                    case "CANCELADA":
+                        arrayWaitingListFilterCanceladas.add(waitingList);
+                        break;
                 }
 
             }// fin for
@@ -314,7 +311,6 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
     @Override
     public void onClick(View v) {
-        Snackbar.make(v, "Añadir en Waiting List", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         Intent intent = new Intent(getContext(), NewWaitingListActivity.class);
         startActivity(intent);
     }
@@ -329,7 +325,6 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                 }else{
                     addToArrayChildrenDeleteArrayParent(arrayWaitingList, arrayWaitingListFilterActivas, "ACTIVA");
                 }
-                //this.waitingListAdapter.notifyDataSetChanged();
                 break;
 
             case R.id.frag_waitingList_check_cancelada:
@@ -338,15 +333,30 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                 }else{
                     addToArrayChildrenDeleteArrayParent(arrayWaitingList, arrayWaitingListFilterCanceladas, "CANCELADA");
                 }
-                //this.waitingListAdapter.notifyDataSetChanged();
                 break;
         }
 
     }
 
     private void addToArrayChildrenDeleteArrayParent(ArrayList<WaitingList> parent,ArrayList<WaitingList> child, String status) {
+
         // añade los datos del array padre al hijo
-        for (int i = 0; i < parent.size(); i++) {
+        for (WaitingList w: parent) {
+            if(w.getStatus().equals(status)){
+                child.add(w);
+            }
+        }
+
+        //Borra los datos del array padre
+        for (WaitingList w: child) {
+            parent.remove(w);
+            this.waitingListAdapter.notifyItemRemoved(parent.size());
+            this.linearLayoutManager.scrollToPosition(parent.size());
+        }
+
+        // añade los datos del array padre al hijo
+        // estos for hacen los mismo que los de arriba
+        /*for (int i = 0; i < parent.size(); i++) {
             if(parent.get(i).getStatus().equals(status)){
                 child.add(parent.get(i));
             }
@@ -357,6 +367,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
             this.waitingListAdapter.notifyItemRemoved(parent.size());
             this.linearLayoutManager.scrollToPosition(parent.size());
         }
+         */
 
     }
 
