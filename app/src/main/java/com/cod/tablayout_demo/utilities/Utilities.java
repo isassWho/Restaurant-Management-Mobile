@@ -22,7 +22,9 @@ public class Utilities {
     // Update Reservation
     public static final String URL_WS_UPDATE_RESERVATION = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONUpdateReservation.php?";
     // Register Reservation
-    public static final String URL_WS_REGISTER_RESERVATION  = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONRegisterReservation.php?";
+    public static final String URL_WS_REGISTER_RESERVATION = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONRegisterReservation.php?";
+    // Change Status from tt_waiting_list
+    public static final String URL_WS_CANCEL_WAITINGLIST = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONCancelWaitingList.php?";
 
     
 
@@ -48,6 +50,11 @@ public class Utilities {
     public static final String MESSAGE_WS_DELETE_SUCCESSFULLY = "Se eliminó exitosamente.";
     public static final String MESSAGE_WS_DELETE_FAILED = "No se pudo eliminar.";
 
+    // mensaje Cancelaciones
+    public static final String MESSAGE_WS_CANCEL = "Cancelando ...";
+    public static final String MESSAGE_WS_CANCEL_SUCCESSFULLY = "Se canceló exitosamente.";
+    public static final String MESSAGE_WS_CANCEL_FAILED = "No se pudo cancelar.";
+
     // mensaje registro
     public static final String MESSAGE_WS_REGISTER = "Registrando ...";
     public static final String MESSAGE_WS_REGISTER_SUCCESSFULLY = "Se registró exitosamente.";
@@ -56,6 +63,10 @@ public class Utilities {
     /****************** FORMATS *******************/
     public static final String FORMAT_DATE = "yyyy/MM/dd";
     public static final String FORMAT_TIME = "HH:mm:ss";
+
+    /****************** STATUS WAITINGLIST *******************/
+    public static final String STATUS_ACTIVE = "ACTIVA";
+    public static final String STATUS_CANCELED = "CANCELADA";
 
 
 }

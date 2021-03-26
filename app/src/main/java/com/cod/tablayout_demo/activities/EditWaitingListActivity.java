@@ -2,6 +2,7 @@ package com.cod.tablayout_demo.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -53,6 +54,49 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_waiting_list);
 
+        this.mapping();
+
+        this.disableComponents();
+
+        this.setEvents();
+
+        this.init();
+
+        this.fillFields();
+
+        this.loadWebService();
+
+    }
+
+    private void loadWebService() {
+        requestQueue = Volley.newRequestQueue(this);
+    }
+
+    private void fillFields() {
+        if(bundle != null){
+            waitingList = (WaitingList) bundle.getSerializable("waitinglist");
+            this.editTextAccountOwner.setText(waitingList.getAccountOwner());
+            this.editTextNoAdults.setText(waitingList.getNoAdults());
+            this.editTextNoChildren.setText(waitingList.getNoChildren());
+            this.editTextComments.setText(waitingList.getComments());
+            this.editTextPhone.setText(waitingList.getPhone());
+        }
+    }
+
+    private void init() {
+        bundle = getIntent().getExtras();
+    }
+
+    private void setEvents() {
+        // set Events
+        this.btnSave.setOnClickListener(this);
+        this.btnCancel.setOnClickListener(this);
+        this.btnCreateCommand.setOnClickListener(this);
+
+        this.switchEnable.setOnClickListener(this);
+    }
+
+    private void mapping() {
         // mapping
         this.editTextAccountOwner = findViewById(R.id.act_editWaitingList_edit_accountOwner);
         this.editTextNoAdults = findViewById(R.id.act_editWaitingList_edit_noAdults);
@@ -64,29 +108,6 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
         this.btnSave = findViewById(R.id.act_editWaitingList_btn_save);
         this.btnCancel = findViewById(R.id.act_editWaitingList_btn_cancel);
         this.btnCreateCommand = findViewById(R.id.act_editWaitingList_btn_createCommand);
-
-        this.disableComponents();
-
-        // set Events
-        this.btnSave.setOnClickListener(this);
-        this.btnCancel.setOnClickListener(this);
-        this.btnCreateCommand.setOnClickListener(this);
-
-        this.switchEnable.setOnClickListener(this::onClick);
-
-        bundle = getIntent().getExtras();
-
-        if(bundle != null){
-            waitingList = (WaitingList) bundle.getSerializable("waitinglist");
-            this.editTextAccountOwner.setText(waitingList.getAccountOwner());
-            this.editTextNoAdults.setText(waitingList.getNoAdults());
-            this.editTextNoChildren.setText(waitingList.getNoChildren());
-            this.editTextComments.setText(waitingList.getComments());
-            this.editTextPhone.setText(waitingList.getPhone());
-        }
-
-        requestQueue = Volley.newRequestQueue(this);
-
     }
 
     private void disableComponents() {
@@ -110,38 +131,63 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
         this.flagEnableComponents = true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
+        AlertDialog.Builder alert = null;
+        AlertDialog title = null;
+
         switch (v.getId()){
             case R.id.act_editWaitingList_btn_save:
                 this.cargarWebServiceUpdate();
                 break;
             case R.id.act_editWaitingList_btn_cancel:
-
-                AlertDialog.Builder alert = new AlertDialog.Builder(EditWaitingListActivity.this);
-                alert.setMessage(UtilitiesAlertDialog.ALERT_DIALOG_CANCEL_MESSAGE + "\n" + waitingList.getAccountOwner())
+                // Mensaje de confirmacion
+                alert = new AlertDialog.Builder(EditWaitingListActivity.this);
+                alert.setMessage(UtilitiesAlertDialog.ALERT_DIALOG_CANCEL_WAITINGLIST_MESSAGE + "\n" + waitingList.getAccountOwner())
                         .setCancelable(false)
-                        .setPositiveButton(UtilitiesAlertDialog.ALERT_DIALOG_CANCEL_OPTION_ACCEPT, new DialogInterface.OnClickListener() {
+                        .setPositiveButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_ACCEPT, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         loadWebServiceCancel();
                     }
                 })
-                        .setNegativeButton(UtilitiesAlertDialog.ALERT_DIALOG_CANCEL_OPTION_CANCEL, new DialogInterface.OnClickListener() {
+                        .setNegativeButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_CANCEL, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
                         });
-                AlertDialog title = alert.create();
-                title.setTitle(UtilitiesAlertDialog.ALERT_DIALOG_CANCEL_TITLE);
+                title = alert.create();
+                title.setTitle(UtilitiesAlertDialog.ALERT_DIALOG_CANCEL_WAITINGLIST_TITLE);
                 title.show();
 
+                break;
 
-                break;
                 case R.id.act_editWaitingList_btn_createCommand:
-                Toast.makeText(this, "Crear comanda", Toast.LENGTH_SHORT).show();
+                    // Mensaje de confirmacion
+                    alert = new AlertDialog.Builder(EditWaitingListActivity.this);
+                    alert.setMessage(UtilitiesAlertDialog.ALERT_DIALOG_CREATE_COMMAND_MESSAGE  + waitingList.getAccountOwner())
+                            .setCancelable(false)
+                            .setPositiveButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_ACCEPT, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(EditWaitingListActivity.this, "Creando la comanda", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            })
+                            .setNegativeButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_CANCEL, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            });
+                    title = alert.create();
+                    title.setTitle(UtilitiesAlertDialog.ALERT_DIALOG_CREATE_COMMAND_TITLE);
+                    title.show();
+                // coodigo para crear la comanda
                 break;
+
             case R.id.act_editWaitingList_switch_enable:
                 if(flagEnableComponents){
                     this.disableComponents();
@@ -203,14 +249,56 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
 
     private void loadWebServiceCancel() {
         progress = new ProgressDialog(this);
-        progress.setMessage("Cancelando");
+        progress.setMessage(Utilities.MESSAGE_WS_CANCEL);
+        progress.show();
+
+        String id = waitingList.getId().toString();
+        String status = Utilities.STATUS_CANCELED;
+
+        String url = Utilities.URL_WS_CANCEL_WAITINGLIST +
+                "id=" + id +
+                "&status=" + status;
+
+        // nos permite registrar con espacios
+        url = url.replace(" ", "%20");
+
+        stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progress.hide();
+
+                if(response.trim().equalsIgnoreCase("actualiza")){
+                    Toast.makeText(EditWaitingListActivity.this, Utilities.MESSAGE_WS_CANCEL_SUCCESSFULLY, Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    Toast.makeText(EditWaitingListActivity.this, Utilities.MESSAGE_WS_CANCEL_FAILED, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progress.hide();
+                Toast.makeText(EditWaitingListActivity.this, Utilities.MESSAGE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        // permite la comunicacion con los metodos que se implementaron
+        requestQueue.add(stringRequest);
+
+    }
+
+    private void loadWebServiceCreateCommand() {
+        // Para crear comanda
+        progress = new ProgressDialog(this);
+        progress.setMessage("Creando comanda");
         progress.show();
 
         String id = waitingList.getId().toString();
         String status = "CANCELADA";
 
         String url = Utilities.SERVER_IP + ":" + Utilities.PORT +
-                "/proyectos/Adobes%20Android/WS_V0.2/wsJSONCancelWaitingList.php?" +
+                "Crear la comandeishion" +
                 "id=" + id +
                 "&status=" + status;
 

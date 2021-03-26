@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Adobes v0.2</string>
+    <string name="app_name">Adobes v0.21</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="fragmentWaitingList">LISTA ESPERA</string>
     <string name="fragmentEmpty">VACÍO</string>
