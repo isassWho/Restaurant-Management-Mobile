@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/frag_waitingList_menu_agregar"
-        android:title="Ver" />
+        android:id="@+id/frag_waitingList_createComand"
+        android:title="Crear Comanda" />
 
 </menu>

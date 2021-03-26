@@ -1,11 +1,11 @@
 package com.cod.tablayout_demo.adapters;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,10 +15,11 @@ import androidx.appcompat.widget.PopupMenu;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.cod.tablayout_demo.R;
+import com.cod.tablayout_demo.activities.EditWaitingListActivity;
 import com.cod.tablayout_demo.entities.WaitingList;
+import com.cod.tablayout_demo.utilities.UtilitiesAlertDialog;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 public class WaitingListAdapter extends RecyclerView.Adapter<WaitingListAdapter.ViewHolder> {
 
@@ -137,8 +138,29 @@ public class WaitingListAdapter extends RecyclerView.Adapter<WaitingListAdapter.
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
-                case R.id.frag_waitingList_menu_agregar:
-                    Toast.makeText(itemView.getContext(), "Agregar " + objWaitingList.getAccountOwner(), Toast.LENGTH_LONG).show();
+                case R.id.frag_waitingList_createComand:
+
+                    AlertDialog.Builder alert = new AlertDialog.Builder(itemView.getContext());
+                    alert.setMessage(UtilitiesAlertDialog.ALERT_DIALOG_CREATE_COMMAND_MESSAGE  + objWaitingList.getAccountOwner())
+                            .setCancelable(false)
+                            .setPositiveButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_ACCEPT, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(itemView.getContext(), "Creando la comanda", Toast.LENGTH_SHORT).show();
+
+                                }
+                            })
+                            .setNegativeButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_CANCEL, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(itemView.getContext(), "No se creó", Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog title = alert.create();
+                    title.setTitle(UtilitiesAlertDialog.ALERT_DIALOG_CREATE_COMMAND_TITLE);
+                    title.show();
+
                     return true;
                 default:
                     return false;
