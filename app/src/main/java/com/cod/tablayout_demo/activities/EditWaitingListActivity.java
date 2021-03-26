@@ -2,7 +2,9 @@ package com.cod.tablayout_demo.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.cod.tablayout_demo.R;
 import com.cod.tablayout_demo.entities.WaitingList;
+import com.cod.tablayout_demo.utilities.UtilitiesAlertDialog;
 import com.cod.tablayout_demo.utilities.Utilities;
 
 public class EditWaitingListActivity extends AppCompatActivity implements View.OnClickListener {
@@ -114,7 +117,27 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
                 this.cargarWebServiceUpdate();
                 break;
             case R.id.act_editWaitingList_btn_cancel:
-                Toast.makeText(this, "Cancelar comanda", Toast.LENGTH_SHORT).show();
+
+                AlertDialog.Builder alert = new AlertDialog.Builder(EditWaitingListActivity.this);
+                alert.setMessage(UtilitiesAlertDialog.ALERT_DIALOG_CANCEL_MESSAGE + "\n" + waitingList.getAccountOwner())
+                        .setCancelable(false)
+                        .setPositiveButton(UtilitiesAlertDialog.ALERT_DIALOG_CANCEL_OPTION_ACCEPT, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        loadWebServiceCancel();
+                    }
+                })
+                        .setNegativeButton(UtilitiesAlertDialog.ALERT_DIALOG_CANCEL_OPTION_CANCEL, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog title = alert.create();
+                title.setTitle(UtilitiesAlertDialog.ALERT_DIALOG_CANCEL_TITLE);
+                title.show();
+
+
                 break;
                 case R.id.act_editWaitingList_btn_createCommand:
                 Toast.makeText(this, "Crear comanda", Toast.LENGTH_SHORT).show();
@@ -175,6 +198,50 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
         });
         // permite la comunicacion con los metodos que se implementaron
         requestQueue.add(stringRequest);
+    }
+
+
+    private void loadWebServiceCancel() {
+        progress = new ProgressDialog(this);
+        progress.setMessage("Cancelando");
+        progress.show();
+
+        String id = waitingList.getId().toString();
+        String status = "CANCELADA";
+
+        String url = Utilities.SERVER_IP + ":" + Utilities.PORT +
+                "/proyectos/Adobes%20Android/WS_V0.2/wsJSONCancelWaitingList.php?" +
+                "id=" + id +
+                "&status=" + status;
+
+        // nos permite registrar con espacios
+        url = url.replace(" ", "%20");
+
+        stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progress.hide();
+
+                if(response.trim().equalsIgnoreCase("actualiza")){
+                    Toast.makeText(EditWaitingListActivity.this, Utilities.MESSAGE_WS_UPDATE_SUCCESSFULLY, Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    Toast.makeText(EditWaitingListActivity.this, Utilities.MESSAGE_WS_UPDATE_FAILED, Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progress.hide();
+                Toast.makeText(EditWaitingListActivity.this, Utilities.MESSAGE_WS_ERROR_RESPONSE + error.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        // permite la comunicacion con los metodos que se implementaron
+        requestQueue.add(stringRequest);
 
     }
+
+
 }

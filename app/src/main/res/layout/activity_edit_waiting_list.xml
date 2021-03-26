@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:text="Editar"
             android:layout_gravity="right"
-            />
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 
         <TextView
