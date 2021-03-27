@@ -6,4 +6,42 @@
     <string name="fragmentEmpty">VACÍO</string>
     <string name="fragmentReservations">RESERVACIONES</string>
 
+    <!--WaitingList-->
+                            <!--Fragment-->
+    <string name="act_frag_waitingList_check_active">ACTIVAS</string>
+    <string name="act_frag_waitingList_check_canceled">CANCELADA</string>
+
+    <string name="act_frag_waitingList_field_accountOwner">A nombre de:</string>
+    <string name="act_frag_waitingList_field_hour">Hora</string>
+    <string name="act_frag_waitingList_field_adults">No. adultos</string>
+    <string name="act_frag_waitingList_field_children">No. niños</string>
+    <string name="act_frag_waitingList_field_status">Estatus</string>
+
+    <string name="act_frag_waitingList_fab_descripction">Añade nuevo cliente</string>
+
+                             <!--Edit-->
+    <string name="act_editWaitingList_title">Editar en Lista de Espera</string>
+
+    <string name="act_editWaitingList_switch_edit">Editar registro</string>
+
+    <string name="act_editWaitingList_field_accountOwner">Nombre</string>
+    <string name="act_editWaitingList_field_adults">No. de adultos</string>
+    <string name="act_editWaitingList_field_children">No. de niños</string>
+    <string name="act_editWaitingList_field_comments">Comentarios</string>
+    <string name="act_editWaitingList_field_phone">Teléfono</string>
+
+    <string name="act_editWaitingList_button_cancelCommand">CANCELAR COMANDA</string>
+    <string name="act_editWaitingList_button_saveCommand">GUARDAR</string>
+
+                            <!--Create-->
+    <string name="act_createWaitingList_title">Crear en Lista de Espera</string>
+
+    <string name="act_createWaitingList_field_accountOwner">Nombre</string>
+    <string name="act_createWaitingList_field_adults">No. de adultos</string>
+    <string name="act_createWaitingList_field_children">No. de niños</string>
+    <string name="act_createWaitingList_field_comments">Comentarios</string>
+    <string name="act_createWaitingList_field_phone">Teléfono</string>
+
+    <string name="act_createWaitingList_button_saveCommand">GUARDAR</string>
+
 </resources>

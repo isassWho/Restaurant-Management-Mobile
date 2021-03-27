@@ -7,12 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".fragments.WaitingListFragment"
     android:orientation="vertical"
+
+    android:layout_marginHorizontal="@dimen/layout_parent_margin_horizontal"
+    android:layout_marginVertical="@dimen/layout_parent_margin_vertical"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
 
         <RadioGroup
             android:id="@+id/frag_waitingList_radioGroup_estatus"
@@ -20,13 +24,13 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="right"
-            >
+            tools:ignore="RtlHardcoded">
 
             <CheckBox
                 android:id="@+id/frag_waitingList_check_cancelada"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="CANCELADAS"
+                android:text="@string/act_frag_waitingList_check_canceled"
                 android:checked="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -36,7 +40,7 @@
                 android:id="@+id/frag_waitingList_check_activa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ACTIVAS"
+                android:text="@string/act_frag_waitingList_check_active"
                 android:checked="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -54,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:gravity="center"
-                android:text="A nombre de:"
+                android:text="@string/act_frag_waitingList_field_accountOwner"
                 android:textStyle="bold" />
 
             <TextView
@@ -63,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Hora"
+                android:text="@string/act_frag_waitingList_field_hour"
                 android:textStyle="italic" />
 
             <TextView
@@ -72,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="No. adultos" />
+                android:text="@string/act_frag_waitingList_field_adults" />
 
             <TextView
                 android:id="@+id/frag_waitingList_text_noChildren"
@@ -80,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="No. niños" />
+                android:text="@string/act_frag_waitingList_field_children" />
 
             <TextView
                 android:id="@+id/frag_waitingList_text_status"
@@ -88,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Estatus" />
+                android:text="@string/act_frag_waitingList_field_status" />
 
             <ImageButton
                 android:id="@+id/frag_waitingList_imgBtn_popup_menu"
@@ -96,7 +100,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:gravity="center"
-                />
+                tools:ignore="ContentDescription" />
         </TableRow>
 
     </LinearLayout>
@@ -114,6 +118,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_add"/>
+        app:srcCompat="@drawable/ic_add"
+        android:contentDescription="@string/act_frag_waitingList_fab_descripction"
+        tools:ignore="RtlHardcoded" />
 
 </FrameLayout>
