@@ -1,5 +1,6 @@
 package com.cod.tablayout_demo.adapters;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -135,6 +136,7 @@ public class WaitingListAdapter extends RecyclerView.Adapter<WaitingListAdapter.
             popupMenu.show();
         }
 
+        @SuppressLint("NonConstantResourceId")
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()){
@@ -153,7 +155,6 @@ public class WaitingListAdapter extends RecyclerView.Adapter<WaitingListAdapter.
                             .setNegativeButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_CANCEL, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(itemView.getContext(), "No se creó", Toast.LENGTH_SHORT).show();
                                     dialog.cancel();
                                 }
                             });

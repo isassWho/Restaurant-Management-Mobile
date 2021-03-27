@@ -6,9 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragments.WaitingListFragment"
-    android:paddingBottom="2dp"
-    android:paddingLeft="2dp"
-    android:paddingRight="2dp"
     android:orientation="vertical"
     >
 
@@ -31,6 +28,8 @@
                 android:layout_height="wrap_content"
                 android:text="CANCELADAS"
                 android:checked="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 />
 
             <CheckBox
@@ -39,6 +38,8 @@
                 android:layout_height="wrap_content"
                 android:text="ACTIVAS"
                 android:checked="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 />
         </RadioGroup>
 

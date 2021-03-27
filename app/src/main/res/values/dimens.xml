@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="layout_parent_margin_horizontal">10dp</dimen>
+    <dimen name="layout_parent_margin_vertical">5dp</dimen>
+
+    <dimen name="margin_title_vertical">15dp</dimen>
+    <dimen name="margin_title_horizontal">0dp</dimen> <!--aun no se usa-->
+
+    <dimen name="margin_between_component_vertical">10dp</dimen>
+    <dimen name="margin_between_component_horizontal">0dp</dimen> <!--aun no se usa-->
+
+    <dimen name="margin_horizontal_item_recyclerView">6dp</dimen>
+    <dimen name="margin_top_item_recyclerView">1dp</dimen>
+
+    <dimen name="font_title">20dp</dimen>
+
+
+</resources>

@@ -12,7 +12,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/layout_parent_margin_horizontal"
+        android:layout_marginVertical="@dimen/layout_parent_margin_vertical"
+        >
 
         <TextView
             android:id="@+id/textView4"
@@ -20,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="Editar en Lista de Espera"
+            android:text="Editar reservación"
             android:textSize="20dp" />
 
 

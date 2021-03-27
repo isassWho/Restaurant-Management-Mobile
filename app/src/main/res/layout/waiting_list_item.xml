@@ -3,20 +3,19 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    card_view:cardCornerRadius="6dp"
     card_view:cardBackgroundColor="@color/icons"
     android:focusable="true"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    android:layout_marginRight="6dp"
-    android:layout_marginLeft="6dp"
-    android:layout_marginTop="1dp"
+    android:layout_marginHorizontal="@dimen/margin_horizontal_item_recyclerView"
+    android:layout_marginTop="@dimen/margin_top_item_recyclerView"
     android:orientation="vertical"
     android:background="#e2e2e2"
-    >
+    tools:targetApi="m">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -42,9 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="Hora"
-                android:textSize="15dp"
-                android:textStyle="italic" />
+                android:text="Hora"/>
 
             <TextView
                 android:id="@+id/frag_waitingList_text_noAdults"

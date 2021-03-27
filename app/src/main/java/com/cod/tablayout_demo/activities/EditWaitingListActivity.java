@@ -34,7 +34,6 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
 
     private Button btnSave;
     private Button btnCancel;
-    private Button btnCreateCommand;
 
     private Switch switchEnable;
     private Boolean flagEnableComponents;
@@ -91,7 +90,6 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
         // set Events
         this.btnSave.setOnClickListener(this);
         this.btnCancel.setOnClickListener(this);
-        this.btnCreateCommand.setOnClickListener(this);
 
         this.switchEnable.setOnClickListener(this);
     }
@@ -107,7 +105,6 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
 
         this.btnSave = findViewById(R.id.act_editWaitingList_btn_save);
         this.btnCancel = findViewById(R.id.act_editWaitingList_btn_cancel);
-        this.btnCreateCommand = findViewById(R.id.act_editWaitingList_btn_createCommand);
     }
 
     private void disableComponents() {
@@ -162,30 +159,6 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
                 title.setTitle(UtilitiesAlertDialog.ALERT_DIALOG_CANCEL_WAITINGLIST_TITLE);
                 title.show();
 
-                break;
-
-                case R.id.act_editWaitingList_btn_createCommand:
-                    // Mensaje de confirmacion
-                    alert = new AlertDialog.Builder(EditWaitingListActivity.this);
-                    alert.setMessage(UtilitiesAlertDialog.ALERT_DIALOG_CREATE_COMMAND_MESSAGE  + waitingList.getAccountOwner())
-                            .setCancelable(false)
-                            .setPositiveButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_ACCEPT, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Toast.makeText(EditWaitingListActivity.this, "Creando la comanda", Toast.LENGTH_SHORT).show();
-                                    finish();
-                                }
-                            })
-                            .setNegativeButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_CANCEL, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
-                    title = alert.create();
-                    title.setTitle(UtilitiesAlertDialog.ALERT_DIALOG_CREATE_COMMAND_TITLE);
-                    title.show();
-                // coodigo para crear la comanda
                 break;
 
             case R.id.act_editWaitingList_switch_enable:
