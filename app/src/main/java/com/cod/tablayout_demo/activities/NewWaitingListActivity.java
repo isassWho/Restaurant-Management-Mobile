@@ -2,6 +2,7 @@ package com.cod.tablayout_demo.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -67,13 +68,14 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
         this.initValues();
 
         // Set Event
-        this.btnSave.setOnClickListener(this::onClick);
+        this.btnSave.setOnClickListener(this);
 
         requestQueue = Volley.newRequestQueue(this);
 
     }
 
     // Init the default values
+    @SuppressLint("SimpleDateFormat")
     private void initValues() {
         date = new Date();
 
@@ -89,6 +91,7 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
     }
 
     // Events
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
 

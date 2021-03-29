@@ -145,6 +145,29 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         super.onStart();
         validateCheckBox();
     }
+    /*
+    @Override
+    public void onResume() {
+        if(!getFragmentManager().getFragments().get(0).isHidden()){
+            new CountDownTimer(5000, 1000){
+
+                @Override
+                public void onTick(long millisUntilFinished) {
+
+                }
+
+                @Override
+                public void onFinish() {
+                    Toast.makeText(getContext(), "Actualizando", Toast.LENGTH_SHORT).show();
+                    loadWebService();
+                    onResume();
+                }
+            }.start();
+        }
+        super.onResume();
+    }
+
+     */
 
     private void validateCheckBox() {
 

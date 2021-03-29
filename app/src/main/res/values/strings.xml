@@ -9,7 +9,7 @@
     <!--WaitingList-->
                             <!--Fragment-->
     <string name="act_frag_waitingList_check_active">ACTIVAS</string>
-    <string name="act_frag_waitingList_check_canceled">CANCELADA</string>
+    <string name="act_frag_waitingList_check_canceled">CANCELADAS</string>
 
     <string name="act_frag_waitingList_field_accountOwner">A nombre de:</string>
     <string name="act_frag_waitingList_field_hour">Hora</string>
