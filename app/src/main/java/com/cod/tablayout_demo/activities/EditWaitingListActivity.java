@@ -24,6 +24,9 @@ import com.cod.tablayout_demo.entities.WaitingList;
 import com.cod.tablayout_demo.utilities.UtilitiesAlertDialog;
 import com.cod.tablayout_demo.utilities.Utilities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class EditWaitingListActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editTextAccountOwner;
@@ -35,6 +38,7 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
     private Button btnSave;
     private Button btnCancel;
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
     private Switch switchEnable;
     private Boolean flagEnableComponents;
 
@@ -136,7 +140,10 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
 
         switch (v.getId()){
             case R.id.act_editWaitingList_btn_save:
-                this.cargarWebServiceUpdate();
+                if(this.validateFields()){
+                    this.loadWebServiceUpdate();
+                }
+
                 break;
             case R.id.act_editWaitingList_btn_cancel:
                 // Mensaje de confirmacion
@@ -171,7 +178,7 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
         }
     }
 
-    private void cargarWebServiceUpdate() {
+    private void loadWebServiceUpdate() {
         progress = new ProgressDialog(this);
         progress.setMessage(Utilities.MESSAGE_WS_UPDATE);
         progress.show();
@@ -301,6 +308,40 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
         });
         // permite la comunicacion con los metodos que se implementaron
         requestQueue.add(stringRequest);
+
+    }
+
+    /**
+     * Valida si todos que todos los campos estén rellenos.
+     * @return
+     */
+    private boolean validateFields() {
+        List<EditText> array = new ArrayList<>();
+
+        if(editTextAccountOwner.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextAccountOwner);
+        }
+        if(editTextNoAdults.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextNoAdults);
+        }
+        if(editTextNoChildren.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextNoChildren);
+        }
+        if(editTextComments.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextComments);
+        }
+        if(editTextPhone.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextPhone);
+        }
+
+        if(array.size() == 0){
+            return true;
+        }else{
+            // Pone el foco en el primer editText que esté vacío
+            array.get(0).requestFocus();
+            Toast.makeText(EditWaitingListActivity.this, UtilitiesAlertDialog.TOAST_FIELD_REQUIRED, Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
     }
 

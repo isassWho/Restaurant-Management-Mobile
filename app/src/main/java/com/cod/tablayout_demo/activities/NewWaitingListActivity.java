@@ -4,12 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -22,11 +20,9 @@ import com.cod.tablayout_demo.R;
 import com.cod.tablayout_demo.utilities.Utilities;
 import com.cod.tablayout_demo.utilities.UtilitiesAlertDialog;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -103,7 +99,7 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
             case R.id.act_newWaitingList_btn_save:
 
                 if(this.validateFields()){
-                    this.cargarWebServiceRegister();
+                    this.loadWebServiceRegister();
                 }
 
                 break;
@@ -111,7 +107,7 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
 
     }
 
-    private void cargarWebServiceRegister() {
+    private void loadWebServiceRegister() {
         progress = new ProgressDialog(this);
         progress.setMessage(Utilities.MESSAGE_WS_REGISTER);
         progress.show();
