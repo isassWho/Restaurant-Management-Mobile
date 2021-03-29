@@ -15,5 +15,10 @@ public class UtilitiesAlertDialog {
     public static final String ALERT_DIALOG_CREATE_COMMAND_TITLE = "Crear Comanda";
     public static final String ALERT_DIALOG_CREATE_COMMAND_MESSAGE = "Crear comanda para: \n";
 
+    /******************* TOAST ********************/
+    public static final String TOAST_CONFIRM_EXIT = "Presione de nuevo para salir";
+
+    public static final String TOAST_FIELD_REQUIRED = "Campo Obligatorio";
+
 
 }

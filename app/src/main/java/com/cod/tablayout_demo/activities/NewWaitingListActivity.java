@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,12 +20,15 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.cod.tablayout_demo.R;
 import com.cod.tablayout_demo.utilities.Utilities;
+import com.cod.tablayout_demo.utilities.UtilitiesAlertDialog;
 
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class NewWaitingListActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -70,7 +74,7 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
         // Set Event
         this.btnSave.setOnClickListener(this);
 
-        requestQueue = Volley.newRequestQueue(this);
+        this.requestQueue = Volley.newRequestQueue(this);
 
     }
 
@@ -97,7 +101,11 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
 
         switch (v.getId()){
             case R.id.act_newWaitingList_btn_save:
-                this.cargarWebServiceRegister();
+
+                if(this.validateFields()){
+                    this.cargarWebServiceRegister();
+                }
+
                 break;
         }
 
@@ -111,13 +119,13 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
         String url = Utilities.URL_WS_REGISTER_WAITINGLIST +
                 "date=" + dateFormat.format(date) +
                 "&hour=" + hourFormat.format(date) +
-                "&account_owner=" + this.editTextAccountOwner.getText().toString() +
-                "&no_adults=" + this.editTextNoAdults.getText().toString() +
-                "&no_children=" + this.editTextNoChildren.getText().toString() +
+                "&account_owner=" + this.editTextAccountOwner.getText().toString().trim() +
+                "&no_adults=" + this.editTextNoAdults.getText().toString().trim() +
+                "&no_children=" + this.editTextNoChildren.getText().toString().trim() +
                 "&status=" + this.status +
-                "&comments=" + this.editTextComments.getText().toString() +
+                "&comments=" + this.editTextComments.getText().toString().trim() +
                 "&is_reservation=" + this.is_reservation +
-                "&phone=" + this.editTextPhone.getText().toString();
+                "&phone=" + this.editTextPhone.getText().toString().trim();
 
         url = url.replace(" ", "%20");
 
@@ -145,4 +153,39 @@ public class NewWaitingListActivity extends AppCompatActivity implements View.On
 
 
     }
+
+    /**
+     * Valida si todos que todos los campos estén rellenos.
+     * @return
+     */
+    private boolean validateFields() {
+        List<EditText> array = new ArrayList<>();
+
+        if(editTextAccountOwner.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextAccountOwner);
+        }
+        if(editTextNoAdults.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextNoAdults);
+        }
+        if(editTextNoChildren.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextNoChildren);
+        }
+        if(editTextComments.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextComments);
+        }
+        if(editTextPhone.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextPhone);
+        }
+
+        if(array.size() == 0){
+            return true;
+        }else{
+            // Pone el foco en el primer editText que esté vacío
+            array.get(0).requestFocus();
+            Toast.makeText(NewWaitingListActivity.this, UtilitiesAlertDialog.TOAST_FIELD_REQUIRED, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+    }
+
 }

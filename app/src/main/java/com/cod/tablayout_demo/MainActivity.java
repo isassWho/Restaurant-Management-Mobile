@@ -6,43 +6,45 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.Toast;
 
+import com.cod.tablayout_demo.utilities.UtilitiesAlertDialog;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.cod.tablayout_demo.controllers.PagerController;
 
 public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSelectedListener{
 
-    TabLayout tabLayout;
-    ViewPager viewPager;
-    TabItem tab1, tab2, tab3;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
+    private TabItem tab1, tab2, tab3;
 
-    PagerController pagerAdapter;
+    private PagerController pagerAdapter;
 
     private int count = 0;
+    private static final int TIME_TO_EXIT = 2500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        enforceIcon();
+        this.enforceIcon();
 
-        tabLayout = findViewById(R.id.tablayout);
-        viewPager = findViewById(R.id.viewpager);
+        this.tabLayout = findViewById(R.id.tablayout);
+        this.viewPager = findViewById(R.id.viewpager);
 
         // this not used
-        tab1 = findViewById(R.id.tablistadeespera);
-        tab2 = findViewById(R.id.tabcomandas);
-        tab3 = findViewById(R.id.tabmesas);
+        this.tab1 = findViewById(R.id.tablistadeespera);
+        this.tab2 = findViewById(R.id.tabcomandas);
+        this.tab3 = findViewById(R.id.tabmesas);
 
-        pagerAdapter = new PagerController(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(pagerAdapter);
+        this.pagerAdapter = new PagerController(getSupportFragmentManager(), tabLayout.getTabCount());
+        this.viewPager.setAdapter(pagerAdapter);
 
         // set de eventos
-        tabLayout.setOnTabSelectedListener(this);
+        this.tabLayout.setOnTabSelectedListener(this);
 
         // change the active icon at the tab
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        this.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
     }
 
@@ -55,8 +57,8 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     //EVENTOS
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        viewPager.setCurrentItem(tab.getPosition());
-        pagerAdapter.notifyDataSetChanged();
+        this.viewPager.setCurrentItem(tab.getPosition());
+        this.pagerAdapter.notifyDataSetChanged();
 
         // Toast solo para indentificar los eventos
         //Toast.makeText(MainActivity.this, "onTabSelected", Toast.LENGTH_SHORT).show();
@@ -83,14 +85,14 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     public void onBackPressed() {
 
-        if (count == 0){
-            Toast.makeText(this, "Presione de nuevo para salir", Toast.LENGTH_SHORT).show();
-            count++;
+        if (this.count == 0){
+            Toast.makeText(this, UtilitiesAlertDialog.TOAST_CONFIRM_EXIT, Toast.LENGTH_SHORT).show();
+            this.count++;
         }else{
             super.onBackPressed();
         }
 
-        new CountDownTimer(3000, 1000){
+        new CountDownTimer(TIME_TO_EXIT, 1000){
 
             @Override
             public void onTick(long millisUntilFinished) {
