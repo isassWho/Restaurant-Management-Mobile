@@ -18,10 +18,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.cod.tablayout_demo.R;
 import com.cod.tablayout_demo.utilities.Utilities;
+import com.cod.tablayout_demo.utilities.UtilitiesAlertDialog;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class NewReservationActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -102,7 +105,9 @@ public class NewReservationActivity extends AppCompatActivity implements View.On
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.act_newReservation_btn_save:
-                this.cargarWebServiceRegister();
+                if(this.validateFields()){
+                    this.cargarWebServiceRegister();
+                }
                 break;
         }
     }
@@ -146,6 +151,39 @@ public class NewReservationActivity extends AppCompatActivity implements View.On
         });
 
         requestQueue.add(stringRequest);
+
+    }
+    /**
+     * Valida si todos que todos los campos estén rellenos.
+     * @return
+     */
+    private boolean validateFields() {
+        List<EditText> array = new ArrayList<>();
+
+        if(editTextAccountOwner.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextAccountOwner);
+        }
+        if(editTextNoAdults.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextNoAdults);
+        }
+        if(editTextNoChildren.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextNoChildren);
+        }
+        if(editTextComments.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextComments);
+        }
+        if(editTextPhone.getText().toString().trim().equals("") || editTextAccountOwner.getText().toString().trim() == null){
+            array.add(editTextPhone);
+        }
+
+        if(array.size() == 0){
+            return true;
+        }else{
+            // Pone el foco en el primer editText que esté vacío
+            array.get(0).requestFocus();
+            Toast.makeText(NewReservationActivity.this, UtilitiesAlertDialog.TOAST_FIELD_REQUIRED, Toast.LENGTH_SHORT).show();
+            return false;
+        }
 
     }
 }
