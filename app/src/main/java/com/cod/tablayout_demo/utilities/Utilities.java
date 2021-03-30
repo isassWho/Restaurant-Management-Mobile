@@ -26,6 +26,8 @@ public class Utilities {
     public static final String URL_WS_REGISTER_RESERVATION = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONRegisterReservation.php?";
     // Change Status from tt_waiting_list
     public static final String URL_WS_CANCEL_WAITINGLIST = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONCancelWaitingList.php?";
+    // Change Status from tt_waiting_list
+    public static final String URL_WS_CANCEL_RESERVATION = SERVER_IP + ":" + PORT + "/proyectos/Adobes%20Android/WS_V0.2/wsJSONCancelReservation.php?";
 
     
 

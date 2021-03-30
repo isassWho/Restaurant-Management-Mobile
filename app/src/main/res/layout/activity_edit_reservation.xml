@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activities.EditReservationActivity">
-
+    tools:context=".activities.EditReservationActivity"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,112 +14,133 @@
         android:orientation="vertical"
         android:layout_marginHorizontal="@dimen/layout_parent_margin_horizontal"
         android:layout_marginVertical="@dimen/layout_parent_margin_vertical"
-        >
+        tools:ignore="UselessParent">
 
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginVertical="@dimen/margin_title_vertical"
             android:gravity="center"
-            android:text="Editar reservación"
-            android:textSize="20dp" />
+            android:text="@string/act_editReservation_title"
+            android:textSize="@dimen/font_title"
+            android:textStyle="bold"
+            tools:ignore="SpUsage" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <Switch
+            android:id="@+id/act_editReservation_switch_enable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/act_editReservation_switch_edit"
+            android:layout_gravity="right"
+            tools:ignore="RtlHardcoded,UseSwitchCompatOrMaterialXml"
+            android:layout_marginBottom="@dimen/margin_between_component_vertical"/>
 
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Propietario:" />
+            android:text="@string/act_editReservation_field_accountOwner" />
 
         <EditText
             android:id="@+id/act_editReservation_edit_accountOwner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Propietario"
-            android:inputType="textPersonName" />
+            android:hint="@string/act_editReservation_field_accountOwner"
+            android:inputType="textPersonName"
+            android:layout_marginBottom="@dimen/margin_between_component_vertical"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No. de adultos:" />
+            android:text="@string/act_editReservation_field_adults" />
 
         <EditText
             android:id="@+id/act_editReservation_edit_noAdults"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="No. de adultos"
-            android:inputType="number" />
+            android:hint="@string/act_editReservation_field_adults"
+            android:inputType="number"
+            android:layout_marginBottom="@dimen/margin_between_component_vertical"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No. de niños:" />
+            android:text="@string/act_editReservation_field_children" />
 
         <EditText
             android:id="@+id/act_editReservation_edit_noChildren"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="No. de niños"
-            android:inputType="number" />
+            android:hint="@string/act_editReservation_field_children"
+            android:inputType="number"
+            android:layout_marginBottom="@dimen/margin_between_component_vertical"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Comentarios:" />
+            android:text="@string/act_editReservation_field_comments" />
 
         <EditText
             android:id="@+id/act_editReservation_edit_comments"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="start|top"
-            android:hint="Comentarios"
-            android:inputType="textMultiLine" />
+            android:hint="@string/act_editReservation_field_comments"
+            android:inputType="textMultiLine"
+            android:layout_marginBottom="@dimen/margin_between_component_vertical"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/textView13"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Teléfono:" />
+            android:text="@string/act_editReservation_field_phone" />
 
         <EditText
             android:id="@+id/act_editReservation_edit_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:baselineAligned="false"
-            android:hint="Teléfono"
-            android:inputType="phone" />
+            android:hint="@string/act_editReservation_field_phone"
+            android:inputType="phone"
+            android:importantForAutofill="no" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/act_editReservation_btn_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/act_editReservation_button_cancelCommand" />
+
+            <Button
+                android:id="@+id/act_editReservation_btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/act_editReservation_button_saveCommand" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/act_editReservation_btn_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CANCELAR" />
-
-        <Button
-            android:id="@+id/act_editReservation_btn_save"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="GUARDAR" />
-
-        <Button
-            android:id="@+id/act_editReservation_btn_createCommand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="CREAR COMANDA" />
-
-
-    </LinearLayout>
-
-</RelativeLayout>
+</FrameLayout>

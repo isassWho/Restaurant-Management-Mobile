@@ -30,7 +30,7 @@
                 android:id="@+id/frag_reservation_check_cancelada"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/act_frag_waitingList_check_canceled"
+                android:text="No sirven aun los filtros"
                 android:checked="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"

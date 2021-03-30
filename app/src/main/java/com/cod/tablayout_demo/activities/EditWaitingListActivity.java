@@ -119,8 +119,11 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
         this.editTextPhone.setEnabled(false);
         this.btnSave.setEnabled(false);
 
+        this.btnCancel.setEnabled(true);
+
         this.flagEnableComponents = false;
     }
+
     private void enableComponents() {
         this.editTextAccountOwner.setEnabled(true);
         this.editTextNoAdults.setEnabled(true);
@@ -129,14 +132,16 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
         this.editTextPhone.setEnabled(true);
         this.btnSave.setEnabled(true);
 
+        this.btnCancel.setEnabled(false);
+
         this.flagEnableComponents = true;
     }
 
     @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View v) {
-        AlertDialog.Builder alert = null;
-        AlertDialog title = null;
+        AlertDialog.Builder alert;
+        AlertDialog title;
 
         switch (v.getId()){
             case R.id.act_editWaitingList_btn_save:
@@ -154,6 +159,7 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         loadWebServiceCancel();
+                        finish();
                     }
                 })
                         .setNegativeButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_CANCEL, new DialogInterface.OnClickListener() {

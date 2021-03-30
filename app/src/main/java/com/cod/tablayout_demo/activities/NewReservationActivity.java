@@ -2,6 +2,7 @@ package com.cod.tablayout_demo.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
@@ -51,7 +52,26 @@ public class NewReservationActivity extends AppCompatActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_reservation);
 
-        // Mapping
+        this.mapping();
+
+        // Init values
+        this.initValuesDefaults();
+
+        this.setEvents();
+
+        this.loadWebServiceQuery();
+
+    }
+
+    private void loadWebServiceQuery() {
+        requestQueue = Volley.newRequestQueue(this);
+    }
+
+    private void setEvents() {
+        this.btnSave.setOnClickListener(this);
+    }
+
+    private void mapping() {
         this.editTextAccountOwner = findViewById(R.id.act_newReservation_edit_accountOwner);
         this.editTextNoAdults = findViewById(R.id.act_newReservation_edit_noAdults);
         this.editTextNoChildren = findViewById(R.id.act_newReservation_edit_noChildren);
@@ -59,18 +79,11 @@ public class NewReservationActivity extends AppCompatActivity implements View.On
         this.editTextPhone = findViewById(R.id.act_newReservation_edit_phone);
 
         this.btnSave = findViewById(R.id.act_newReservation_btn_save);
-
-        // Init values
-        this.initValues();
-
-        // Set Event
-        this.btnSave.setOnClickListener(this::onClick);
-
-        requestQueue = Volley.newRequestQueue(this);
     }
 
     // Init the default values
-    private void initValues() {
+    @SuppressLint("SimpleDateFormat")
+    private void initValuesDefaults() {
         date = new Date();
 
         // date
