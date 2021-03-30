@@ -72,7 +72,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     private CheckBox checkBoxCanceladas;
     private CheckBox checkBoxActivas;
 
-    private final int temp = 1100;
+    private final int temp = 1500;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -134,8 +134,6 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
         this.setEvents();
 
-        this.loadWebService();
-
         // Inflate the layout for this fragment
         return vista;
     }
@@ -143,31 +141,16 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     @Override
     public void onStart() {
         super.onStart();
+        this.clearArrayList();
+        this.loadWebService();
         this.validateCheckBox();
     }
-    /*
-    @Override
-    public void onResume() {
-        if(!getFragmentManager().getFragments().get(0).isHidden()){
-            new CountDownTimer(5000, 1000){
 
-                @Override
-                public void onTick(long millisUntilFinished) {
-
-                }
-
-                @Override
-                public void onFinish() {
-                    Toast.makeText(getContext(), "Actualizando", Toast.LENGTH_SHORT).show();
-                    loadWebService();
-                    onResume();
-                }
-            }.start();
-        }
-        super.onResume();
+    private void clearArrayList() {
+        this.arrayWaitingList.clear();
+        this.arrayWaitingListFilterCanceladas.clear();
+        this.arrayWaitingListFilterActivas.clear();
     }
-
-     */
 
     private void validateCheckBox() {
 

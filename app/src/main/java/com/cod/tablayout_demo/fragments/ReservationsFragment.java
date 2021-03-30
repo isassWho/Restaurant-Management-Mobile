@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -117,8 +118,6 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
 
         this.setEvents();
 
-        this.loadWebService();
-
         return vista;
     }
 
@@ -156,6 +155,17 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
         this.jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_WS_QUERY_RESERVATIONS, null, this, this);
         this.requestQueue.add(jsonObjectRequest);
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        clearArrayList();
+        loadWebService();
+    }
+
+    private void clearArrayList() {
+        this.arrayReservations.clear();
     }
 
 
@@ -210,7 +220,6 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
 
                     bundle.putSerializable("reservation", reservation);
                     intent.putExtras(bundle);
-
                     startActivity(intent);
                 }
 
