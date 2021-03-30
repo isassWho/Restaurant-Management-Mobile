@@ -325,7 +325,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                 if (isChecked){
                     addToArrayParentDeleteArrayChildren(arrayWaitingList, arrayWaitingListFilterActivas);
                 }else{
-                    addToArrayChildrenDeleteArrayParent(arrayWaitingList, arrayWaitingListFilterActivas, "ACTIVA");
+                    addToArrayChildrenDeleteArrayParent(arrayWaitingList, arrayWaitingListFilterActivas, Utilities.STATUS_ACTIVE);
                 }
                 break;
 
@@ -333,7 +333,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
                 if (isChecked){
                     addToArrayParentDeleteArrayChildren(arrayWaitingList, arrayWaitingListFilterCanceladas);
                 }else{
-                    addToArrayChildrenDeleteArrayParent(arrayWaitingList, arrayWaitingListFilterCanceladas, "CANCELADA");
+                    addToArrayChildrenDeleteArrayParent(arrayWaitingList, arrayWaitingListFilterCanceladas, Utilities.STATUS_CANCELED);
                 }
                 break;
         }

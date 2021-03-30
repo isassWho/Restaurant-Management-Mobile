@@ -29,6 +29,30 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
 
         this.enforceIcon();
 
+        this.mapping();
+
+        this.init();
+
+        this.setProperties();
+
+        this.setEvents();
+
+    }
+
+    private void init() {
+        this.pagerAdapter = new PagerController(getSupportFragmentManager(), tabLayout.getTabCount());
+    }
+
+    private void setEvents() {
+        this.tabLayout.setOnTabSelectedListener(this);
+        this.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+    }
+
+    private void setProperties() {
+        this.viewPager.setAdapter(pagerAdapter);
+    }
+
+    private void mapping() {
         this.tabLayout = findViewById(R.id.tablayout);
         this.viewPager = findViewById(R.id.viewpager);
 
@@ -36,16 +60,6 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         this.tab1 = findViewById(R.id.tablistadeespera);
         this.tab2 = findViewById(R.id.tabcomandas);
         this.tab3 = findViewById(R.id.tabmesas);
-
-        this.pagerAdapter = new PagerController(getSupportFragmentManager(), tabLayout.getTabCount());
-        this.viewPager.setAdapter(pagerAdapter);
-
-        // set de eventos
-        this.tabLayout.setOnTabSelectedListener(this);
-
-        // change the active icon at the tab
-        this.viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
     }
 
     private void enforceIcon() {

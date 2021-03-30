@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Aquí no hay nada"
+        android:text="Parece que estás pérdido. \nVuelve a casa!"
         android:gravity="center"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
