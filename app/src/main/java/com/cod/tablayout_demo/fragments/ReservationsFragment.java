@@ -13,6 +13,7 @@ import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -46,6 +47,8 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
     // Variables
     private ReservationAdapter reservationAdapter;
     private RecyclerView recyclerView;
+
+    private LinearLayoutManager linearLayoutManager;
 
     private ArrayList<Reservation> arrayReservations;
 
@@ -104,35 +107,54 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        this.init();
 
-        // Inflate the layout for this fragment
         View vista = inflater.inflate(R.layout.fragment_reservations, container, false);
 
-        btn_add_reservation = vista.findViewById(R.id.fab_mesas);
-        btn_add_reservation.setOnClickListener(this::onClick);
+        this.mapping(vista);
 
-        arrayReservations = new ArrayList<>();
+        this.setProperties();
 
-        recyclerView = vista.findViewById(R.id.recyclerReservations);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setHasFixedSize(true);
+        this.setEvents();
 
-        // Web service
-        requestQueue = Volley.newRequestQueue(getContext());
-
-        this.cargarWebService();
+        this.loadWebService();
 
         return vista;
     }
 
-    private void cargarWebService() {
-        progress = new ProgressDialog(getContext());
-        progress.setMessage(Utilities.MESSAGE_WS_QUERY);
-        progress.show();
+    private void setProperties() {
+        this.recyclerView.setLayoutManager(linearLayoutManager);
+        this.recyclerView.setHasFixedSize(true);
+    }
 
-        jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_WS_QUERY_RESERVATIONS, null, this, this);
-        requestQueue.add(jsonObjectRequest);
+    private void setEvents() {
+        this.btn_add_reservation.setOnClickListener(this);
+
+    }
+
+    private void mapping(View vista) {
+        this.progress = new ProgressDialog(getContext());
+        this.btn_add_reservation = vista.findViewById(R.id.fab_Reservations);
+        this.recyclerView = vista.findViewById(R.id.recyclerReservations);
+    }
+
+    private void init() {
+        this.vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
+        this.arrayReservations = new ArrayList<>();
+        this.linearLayoutManager = new LinearLayoutManager(getContext());
+
+    }
+
+    private void loadWebService() {
+
+        // Web service
+        this.requestQueue = Volley.newRequestQueue(getContext());
+
+        this.progress.setMessage(Utilities.MESSAGE_WS_QUERY);
+        this.progress.show();
+
+        this.jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, Utilities.URL_WS_QUERY_RESERVATIONS, null, this, this);
+        this.requestQueue.add(jsonObjectRequest);
 
     }
 
@@ -170,7 +192,7 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
 
                 // no carga adecuadamente el boolean, por lo que se tuvo que usar esta solucion
                 boolean isReservation;
-                isReservation = jsonObject.optInt("is_reservation") == 1? true: false;
+                isReservation = jsonObject.optInt("is_reservation") == 1;
                 reservation.setReservation(isReservation);
 
                 reservation.setPhone(jsonObject.optString("phone"));

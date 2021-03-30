@@ -1,27 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    android:id="@+id/coordinator_mesas"
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ReservationsFragment">
+    tools:context=".fragments.ReservationsFragment"
+    android:orientation="vertical"
 
+    android:layout_marginHorizontal="@dimen/layout_parent_margin_horizontal"
+    android:layout_marginVertical="@dimen/layout_parent_margin_vertical"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <RadioGroup
+            android:id="@+id/frag_reservation_radioGroup_estatus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="right"
+            tools:ignore="RtlHardcoded">
+
+            <CheckBox
+                android:id="@+id/frag_reservation_check_cancelada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/act_frag_waitingList_check_canceled"
+                android:checked="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <CheckBox
+                android:id="@+id/frag_reservation_check_activa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/act_frag_waitingList_check_active"
+                android:checked="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                />
+        </RadioGroup>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/frag_reservation_text_accountOwner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="center"
+                android:text="@string/act_frag_waitingList_field_accountOwner"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/frag_reservation_text_hour"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/act_frag_waitingList_field_hour"
+                android:textStyle="italic" />
+
+            <TextView
+                android:id="@+id/frag_reservation_text_noAdults"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/act_frag_waitingList_field_adults" />
+
+            <TextView
+                android:id="@+id/frag_reservation_text_noChildren"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/act_frag_waitingList_field_children" />
+
+            <TextView
+                android:id="@+id/frag_reservation_text_status"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/act_frag_waitingList_field_status" />
+
+            <ImageButton
+                android:id="@+id/frag_reservation_imgBtn_popup_menu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center"
+                tools:ignore="ContentDescription" />
+        </TableRow>
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerReservations"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="83dp"
+        app:fastScrollHorizontalThumbDrawable="@drawable/thumb_drawable"
+        app:fastScrollHorizontalTrackDrawable="@drawable/line_drawable"
+        app:fastScrollVerticalThumbDrawable="@drawable/thumb_drawable"
+        app:fastScrollVerticalTrackDrawable="@drawable/line_drawable"
+        app:fastScrollEnabled="true"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_mesas"
+        android:id="@+id/fab_Reservations"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_add"/>
+        app:srcCompat="@drawable/ic_add"
+        android:contentDescription="@string/act_frag_waitingList_fab_descripction"
+        tools:ignore="RtlHardcoded" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>

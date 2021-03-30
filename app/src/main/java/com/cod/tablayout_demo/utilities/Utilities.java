@@ -4,7 +4,7 @@ public class Utilities {
 
     /**********  SERVIDOR ************/
     // Servidor
-    public static final String SERVER_IP = "http://192.168.3.105";
+    public static final String SERVER_IP = "http://192.168.0.102";
     //adobes
     //public static final String SERVER_IP = "http://192.168.3.118";
     // Puerto

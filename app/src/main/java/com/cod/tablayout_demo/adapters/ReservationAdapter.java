@@ -75,31 +75,21 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            this.txtId = itemView.findViewById(R.id.frag_reservation_text_id);
-            this.txtDate = itemView.findViewById(R.id.frag_reservation_text_date);
             this.txtHour = itemView.findViewById(R.id.frag_reservation_text_hour);
             this.txtAccountOwner = itemView.findViewById(R.id.frag_reservation_text_accountOwner);
             this.txtNoAdults = itemView.findViewById(R.id.frag_reservation_text_noAdults);
             this.txtNoChildren = itemView.findViewById(R.id.frag_reservation_text_noChildren);
             this.txtStatus = itemView.findViewById(R.id.frag_reservation_text_status);
-            this.txtComments = itemView.findViewById(R.id.frag_reservation_text_comments);
-            this.txtIsReservation = itemView.findViewById(R.id.frag_reservation_text_isReservation);
-            this.txtPhone = itemView.findViewById(R.id.frag_reservation_text_phone);
 
             this.imageButton = itemView.findViewById(R.id.frag_reservation_imgBtn_popup_menu);
         }
 
         public void bind(final Reservation reservation, final OnItemClickListener listener){
-            this.txtId.setText(reservation.getId().toString());
-            this.txtDate.setText(reservation.getDate().toString());
             this.txtHour.setText(reservation.getHour().toString());
             this.txtAccountOwner.setText(reservation.getAccountOwner().toString());
             this.txtNoAdults.setText(reservation.getNoAdults().toString());
             this.txtNoChildren.setText(reservation.getNoChildren().toString());
             this.txtStatus.setText(reservation.getStatus().toString());
-            this.txtComments.setText(reservation.getComments().toString());
-            this.txtIsReservation.setText(String.valueOf(reservation.isReservation()));
-            this.txtPhone.setText(reservation.getPhone());
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

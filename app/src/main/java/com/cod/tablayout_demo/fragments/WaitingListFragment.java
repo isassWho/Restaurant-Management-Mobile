@@ -124,17 +124,17 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        init();
+        this.init();
 
         View vista = inflater.inflate(R.layout.fragment_waiting_list, container, false);
 
-        mapping(vista);
+        this.mapping(vista);
 
-        setProperties();
+        this.setProperties();
 
-        setEvents();
+        this.setEvents();
 
-        loadWebService();
+        this.loadWebService();
 
         // Inflate the layout for this fragment
         return vista;
@@ -143,7 +143,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     @Override
     public void onStart() {
         super.onStart();
-        validateCheckBox();
+        this.validateCheckBox();
     }
     /*
     @Override
