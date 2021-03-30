@@ -5,9 +5,4 @@
         android:id="@+id/menu_create_comand"
         android:title="Crear Comanda" />
 
-    <item
-        android:id="@+id/menu_cancel_comand"
-        android:title="Cancelar Comanda"
-        />
-
 </menu>

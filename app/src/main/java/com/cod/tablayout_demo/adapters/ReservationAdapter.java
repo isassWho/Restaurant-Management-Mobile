@@ -136,9 +136,6 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
                 case R.id.menu_create_comand:
                     Toast.makeText(itemView.getContext(), "Crear comanda para:  " + objReservation.getAccountOwner() +" - " + getAdapterPosition(), Toast.LENGTH_LONG).show();
                     return true;
-                case R.id.menu_cancel_comand:
-                    Toast.makeText(itemView.getContext(), "Cancelar: para:  " + objReservation.getAccountOwner() + " - " + getAdapterPosition(), Toast.LENGTH_LONG).show();
-                    return true;
                 default:
                     return false;
             }

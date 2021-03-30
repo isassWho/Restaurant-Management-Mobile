@@ -158,6 +158,7 @@ public class EditWaitingListActivity extends AppCompatActivity implements View.O
                         .setPositiveButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_ACCEPT, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        // primero se carga el ws y luego se finaliza
                         loadWebServiceCancel();
                         finish();
                     }

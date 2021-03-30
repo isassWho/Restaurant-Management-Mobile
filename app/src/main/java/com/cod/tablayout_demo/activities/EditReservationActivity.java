@@ -149,8 +149,8 @@ public class EditReservationActivity extends AppCompatActivity implements View.O
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // codigo para cancelar la comanda
-                                finish();
                                 loadWebServiceCancel();
+                                finish();
                             }
                         })
                         .setNegativeButton(UtilitiesAlertDialog.ALERT_DIALOG_OPTION_CANCEL, new DialogInterface.OnClickListener() {
