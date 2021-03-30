@@ -3,7 +3,7 @@
     <string name="app_name">Adobes v0.21</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="fragmentWaitingList">LISTA ESPERA</string>
-    <string name="fragmentEmpty">VACÍO</string>
+    <string name="fragmentEmpty">MESAS</string>
     <string name="fragmentReservations">RESERVACIONES</string>
 
     <!--WaitingList-->

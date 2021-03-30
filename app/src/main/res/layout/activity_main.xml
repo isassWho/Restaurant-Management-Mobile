@@ -16,7 +16,7 @@
         android:background="@color/accent">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tablistadeespera"
+            android:id="@+id/tab_waiting_list"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/icons"
@@ -24,14 +24,14 @@
             android:text="@string/fragmentWaitingList" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabcomandas"
+            android:id="@+id/tab_tables"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/icono_comandas"
+            android:icon="@drawable/ic_tables"
             android:text="@string/fragmentEmpty" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/tabmesas"
+            android:id="@+id/tab_reservations"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:icon="@drawable/ic_reservations"

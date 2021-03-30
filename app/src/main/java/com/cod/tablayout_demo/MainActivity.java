@@ -57,9 +57,9 @@ public class MainActivity extends AppCompatActivity implements TabLayout.OnTabSe
         this.viewPager = findViewById(R.id.viewpager);
 
         // this not used
-        this.tab1 = findViewById(R.id.tablistadeespera);
-        this.tab2 = findViewById(R.id.tabcomandas);
-        this.tab3 = findViewById(R.id.tabmesas);
+        this.tab1 = findViewById(R.id.tab_waiting_list);
+        this.tab2 = findViewById(R.id.tab_tables);
+        this.tab3 = findViewById(R.id.tab_reservations);
     }
 
     private void enforceIcon() {

@@ -12,10 +12,10 @@ import com.cod.tablayout_demo.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link EmptyFragment#newInstance} factory method to
+ * Use the {@link TablesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class EmptyFragment extends Fragment{
+public class TablesFragment extends Fragment{
 
 
 
@@ -28,7 +28,7 @@ public class EmptyFragment extends Fragment{
     private String mParam1;
     private String mParam2;
 
-    public EmptyFragment() {
+    public TablesFragment() {
         // Required empty public constructor
     }
 
@@ -38,11 +38,11 @@ public class EmptyFragment extends Fragment{
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment EmptyFragment.
+     * @return A new instance of fragment TablesFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static EmptyFragment newInstance(String param1, String param2) {
-        EmptyFragment fragment = new EmptyFragment();
+    public static TablesFragment newInstance(String param1, String param2) {
+        TablesFragment fragment = new TablesFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,7 +68,7 @@ public class EmptyFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // infla la vista para el fragment
-        View vista = inflater.inflate(R.layout.fragment_empty, container, false);
+        View vista = inflater.inflate(R.layout.fragment_tables, container, false);
 
         return vista;
     }
