@@ -15,8 +15,8 @@ import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -30,7 +30,6 @@ import com.cod.tablayout_demo.activities.EditReservationActivity;
 import com.cod.tablayout_demo.activities.NewReservationActivity;
 import com.cod.tablayout_demo.adapters.ReservationAdapter;
 import com.cod.tablayout_demo.entities.Reservation;
-import com.cod.tablayout_demo.entities.WaitingList;
 import com.cod.tablayout_demo.utilities.Utilities;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -68,8 +67,8 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
 
     private FloatingActionButton btn_add_reservation;
 
-    private CheckBox checkBoxCanceladas;
-    private CheckBox checkBoxActivas;
+    private RadioButton radioButtonCanceled;
+    private RadioButton radioButtonActive;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -136,8 +135,8 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
 
     private void setEvents() {
         this.btn_add_reservation.setOnClickListener(this);
-        this.checkBoxCanceladas.setOnCheckedChangeListener(this);
-        this.checkBoxActivas.setOnCheckedChangeListener(this);
+        this.radioButtonCanceled.setOnCheckedChangeListener(this);
+        this.radioButtonActive.setOnCheckedChangeListener(this);
 
     }
 
@@ -146,8 +145,8 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
         this.btn_add_reservation = vista.findViewById(R.id.fab_Reservations);
         this.recyclerView = vista.findViewById(R.id.recyclerReservations);
 
-        this.checkBoxActivas = vista.findViewById(R.id.frag_reservation_check_activa);
-        this.checkBoxCanceladas = vista.findViewById(R.id.frag_reservation_check_cancelada);
+        this.radioButtonActive = vista.findViewById(R.id.frag_reservation_check_activa);
+        this.radioButtonCanceled = vista.findViewById(R.id.frag_reservation_check_cancelada);
     }
 
     private void init() {
@@ -188,12 +187,10 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
     private void validateCheckBox() {
 
         // Tuve que poner un temporizador para que los arrays de los check se rellenen
-        if (this.checkBoxCanceladas.isChecked()){
-            this.timer(arrayReservations, arrayWaitingListFilterCanceladas);
-        }
-
-        if (this.checkBoxActivas.isChecked()){
+        if (this.radioButtonActive.isChecked()){
             this.timer(arrayReservations, arrayWaitingListFilterActivas);
+        }else if(this.radioButtonCanceled.isChecked()){
+            this.timer(arrayReservations, arrayWaitingListFilterCanceladas);
         }
 
 

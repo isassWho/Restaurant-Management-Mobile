@@ -15,8 +15,8 @@ import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -70,8 +70,8 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
     private RadioGroup radioGroup;
 
-    private CheckBox checkBoxCanceladas;
-    private CheckBox checkBoxActivas;
+    private RadioButton radioButtonCanceled;
+    private RadioButton radioButtonActive;
 
     private final int temp = 2000;
 
@@ -156,12 +156,10 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     private void validateCheckBox() {
 
         // Tuve que poner un temporizador para que los arrays de los check se rellenen
-        if (this.checkBoxCanceladas.isChecked()){
-            this.timer(arrayWaitingList, arrayWaitingListFilterCanceladas);
-        }
-
-        if (this.checkBoxActivas.isChecked()){
+        if (this.radioButtonActive.isChecked()){
             this.timer(arrayWaitingList, arrayWaitingListFilterActivas);
+        }else if(this.radioButtonCanceled.isChecked()){
+            this.timer(arrayWaitingList, arrayWaitingListFilterCanceladas);
         }
 
 
@@ -191,14 +189,14 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     private void mapping(View vista) {
         this.recyclerViewWaitingList = vista.findViewById(R.id.recyclerListaEspera);
         this.radioGroup = vista.findViewById(R.id.frag_waitingList_radioGroup_estatus);
-        this.checkBoxActivas = vista.findViewById(R.id.frag_waitingList_check_activa);
-        this.checkBoxCanceladas = vista.findViewById(R.id.frag_waitingList_check_cancelada);
+        this.radioButtonActive = vista.findViewById(R.id.frag_waitingList_check_activa);
+        this.radioButtonCanceled = vista.findViewById(R.id.frag_waitingList_check_cancelada);
         this.btn_add_waitingList = vista.findViewById(R.id.fab_listaEspera);
     }
 
     private void setEvents() {
-        this.checkBoxCanceladas.setOnCheckedChangeListener(this);
-        this.checkBoxActivas.setOnCheckedChangeListener(this);
+        this.radioButtonCanceled.setOnCheckedChangeListener(this);
+        this.radioButtonActive.setOnCheckedChangeListener(this);
         this.btn_add_waitingList.setOnClickListener(this);
     }
 

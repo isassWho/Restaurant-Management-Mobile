@@ -26,17 +26,16 @@
             android:gravity="right"
             tools:ignore="RtlHardcoded">
 
-            <CheckBox
+            <RadioButton
                 android:id="@+id/frag_reservation_check_cancelada"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/act_frag_waitingList_check_canceled"
-                android:checked="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                />
+                android:checked="true"
+                android:text="@string/act_frag_waitingList_check_canceled" />
 
-            <CheckBox
+            <RadioButton
                 android:id="@+id/frag_reservation_check_activa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
