@@ -47,7 +47,7 @@ import java.util.Objects;
  * Use the {@link WaitingListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class WaitingListFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject>, View.OnClickListener,CompoundButton.OnCheckedChangeListener {
+public class WaitingListFragment extends Fragment implements Response.ErrorListener, Response.Listener<JSONObject>, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     // variables
     private WaitingListAdapter waitingListAdapter;

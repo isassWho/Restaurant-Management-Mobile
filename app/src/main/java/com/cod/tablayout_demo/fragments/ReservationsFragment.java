@@ -1,20 +1,22 @@
 package com.cod.tablayout_demo.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -28,22 +30,23 @@ import com.cod.tablayout_demo.activities.EditReservationActivity;
 import com.cod.tablayout_demo.activities.NewReservationActivity;
 import com.cod.tablayout_demo.adapters.ReservationAdapter;
 import com.cod.tablayout_demo.entities.Reservation;
+import com.cod.tablayout_demo.entities.WaitingList;
 import com.cod.tablayout_demo.utilities.Utilities;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ReservationsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ReservationsFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener {
+public class ReservationsFragment extends Fragment implements Response.Listener<JSONObject>, Response.ErrorListener, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     // Variables
     private ReservationAdapter reservationAdapter;
@@ -51,7 +54,9 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
 
     private LinearLayoutManager linearLayoutManager;
 
-    private ArrayList<Reservation> arrayReservations;
+    private List<Reservation> arrayReservations;
+    private List<Reservation> arrayWaitingListFilterActivas;
+    private List<Reservation> arrayWaitingListFilterCanceladas;
 
     private ProgressDialog progress;
 
@@ -62,6 +67,9 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
     private Vibrator vibrator;
 
     private FloatingActionButton btn_add_reservation;
+
+    private CheckBox checkBoxCanceladas;
+    private CheckBox checkBoxActivas;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -128,6 +136,8 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
 
     private void setEvents() {
         this.btn_add_reservation.setOnClickListener(this);
+        this.checkBoxCanceladas.setOnCheckedChangeListener(this);
+        this.checkBoxActivas.setOnCheckedChangeListener(this);
 
     }
 
@@ -135,11 +145,16 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
         this.progress = new ProgressDialog(getContext());
         this.btn_add_reservation = vista.findViewById(R.id.fab_Reservations);
         this.recyclerView = vista.findViewById(R.id.recyclerReservations);
+
+        this.checkBoxActivas = vista.findViewById(R.id.frag_reservation_check_activa);
+        this.checkBoxCanceladas = vista.findViewById(R.id.frag_reservation_check_cancelada);
     }
 
     private void init() {
         this.vibrator = (Vibrator) getActivity().getSystemService(Context.VIBRATOR_SERVICE);
         this.arrayReservations = new ArrayList<>();
+        this.arrayWaitingListFilterActivas = new ArrayList<>();
+        this.arrayWaitingListFilterCanceladas = new ArrayList<>();
         this.linearLayoutManager = new LinearLayoutManager(getContext());
 
     }
@@ -156,16 +171,32 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
         this.requestQueue.add(jsonObjectRequest);
 
     }
-
     @Override
     public void onStart() {
         super.onStart();
         clearArrayList();
         loadWebService();
+        this.validateCheckBox();
     }
 
     private void clearArrayList() {
         this.arrayReservations.clear();
+        this.arrayWaitingListFilterCanceladas.clear();
+        this.arrayWaitingListFilterActivas.clear();
+    }
+
+    private void validateCheckBox() {
+
+        // Tuve que poner un temporizador para que los arrays de los check se rellenen
+        if (this.checkBoxCanceladas.isChecked()){
+            this.timer(arrayReservations, arrayWaitingListFilterCanceladas);
+        }
+
+        if (this.checkBoxActivas.isChecked()){
+            this.timer(arrayReservations, arrayWaitingListFilterActivas);
+        }
+
+
     }
 
 
@@ -206,8 +237,16 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
                 reservation.setReservation(isReservation);
 
                 reservation.setPhone(jsonObject.optString("phone"));
+                // Rellena los arrays que van ligados con los checks.
+                switch (reservation.getStatus()){
+                    case "ACTIVA":
+                        arrayWaitingListFilterActivas.add(reservation);
+                        break;
+                    case "CANCELADA":
+                        arrayWaitingListFilterCanceladas.add(reservation);
+                        break;
+                }
 
-                arrayReservations.add(reservation);
             }
 
             reservationAdapter = new ReservationAdapter(arrayReservations, R.layout.reservations_item, new ReservationAdapter.OnItemClickListener() {
@@ -253,5 +292,75 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
 
         startActivity(i);
 
+    }
+
+    // chekbox, FILTROS
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+        switch (buttonView.getId()){
+            case R.id.frag_reservation_check_activa:
+                if (isChecked){
+                    addToArrayParentDeleteArrayChildren(arrayReservations, arrayWaitingListFilterActivas);
+                }else{
+                    addToArrayChildrenDeleteArrayParent(arrayReservations, arrayWaitingListFilterActivas, Utilities.STATUS_ACTIVE);
+                }
+                break;
+
+            case R.id.frag_reservation_check_cancelada:
+                if (isChecked){
+                    addToArrayParentDeleteArrayChildren(arrayReservations, arrayWaitingListFilterCanceladas);
+                }else{
+                    addToArrayChildrenDeleteArrayParent(arrayReservations, arrayWaitingListFilterCanceladas, Utilities.STATUS_CANCELED);
+                }
+                break;
+        }
+
+    }
+
+    private void addToArrayChildrenDeleteArrayParent(List<Reservation> parent, List<Reservation> child, String status) {
+
+        // añade los datos del array padre al hijo
+        for (Reservation w: parent) {
+            if(w.getStatus().equals(status)){
+                child.add(w);
+            }
+        }
+
+        //Borra los datos del array padre
+        for (Reservation w: child) {
+            parent.remove(w);
+            //this.waitingListAdapter.notifyItemRemoved(parent.size());
+        }
+        this.reservationAdapter.notifyDataSetChanged();
+        this.linearLayoutManager.scrollToPosition(parent.size());
+
+    }
+
+
+    private void addToArrayParentDeleteArrayChildren(List<Reservation> parent, List<Reservation> child) {
+
+        for (int i = 0; i < child.size(); i++) {
+            parent.add(child.get(i));
+            this.reservationAdapter.notifyDataSetChanged();
+        }
+        this.linearLayoutManager.scrollToPosition(parent.size()-1);
+        child.clear();
+    }
+
+    private void timer(List<Reservation> parent, List<Reservation> child){
+        new CountDownTimer(2000, 2000){
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // vacio
+            }
+
+            @Override
+            public void onFinish() {
+                addToArrayParentDeleteArrayChildren(parent, child);
+            }
+        }.start();
     }
 }
