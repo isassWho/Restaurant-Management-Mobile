@@ -39,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -53,9 +54,9 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     private RecyclerView recyclerViewWaitingList;
     private LinearLayoutManager linearLayoutManager;
 
-    private ArrayList<WaitingList> arrayWaitingList;
-    private ArrayList<WaitingList> arrayWaitingListFilterActivas;
-    private ArrayList<WaitingList> arrayWaitingListFilterCanceladas;
+    private List<WaitingList> arrayWaitingList;
+    private List<WaitingList> arrayWaitingListFilterActivas;
+    private List<WaitingList> arrayWaitingListFilterCanceladas;
 
     private ProgressDialog progress;
 
@@ -72,7 +73,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
     private CheckBox checkBoxCanceladas;
     private CheckBox checkBoxActivas;
 
-    private final int temp = 1500;
+    private final int temp = 2000;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -162,6 +163,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         if (this.checkBoxActivas.isChecked()){
             this.timer(arrayWaitingList, arrayWaitingListFilterActivas);
         }
+
 
     }
 
@@ -286,6 +288,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
             recyclerViewWaitingList.setAdapter(waitingListAdapter);
 
+
         } catch (JSONException | NullPointerException e) {
             Toast.makeText(getContext(), Utilities.MESSAGE_WS_CONNECTION_FAILED + response, Toast.LENGTH_LONG).show();
         }finally {
@@ -323,7 +326,7 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
 
     }
 
-    private void addToArrayChildrenDeleteArrayParent(ArrayList<WaitingList> parent,ArrayList<WaitingList> child, String status) {
+    private void addToArrayChildrenDeleteArrayParent(List<WaitingList> parent, List<WaitingList> child, String status) {
 
         // añade los datos del array padre al hijo
         for (WaitingList w: parent) {
@@ -335,40 +338,25 @@ public class WaitingListFragment extends Fragment implements Response.ErrorListe
         //Borra los datos del array padre
         for (WaitingList w: child) {
             parent.remove(w);
-            this.waitingListAdapter.notifyItemRemoved(parent.size());
-            this.linearLayoutManager.scrollToPosition(parent.size());
+            //this.waitingListAdapter.notifyItemRemoved(parent.size());
         }
-
-        // añade los datos del array padre al hijo
-        // estos for hacen los mismo que los de arriba
-        /*for (int i = 0; i < parent.size(); i++) {
-            if(parent.get(i).getStatus().equals(status)){
-                child.add(parent.get(i));
-            }
-        }// fin for
-        //Borra los datos del array padre
-        for (int i = 0; i < child.size(); i++) {
-            parent.remove(child.get(i));
-            this.waitingListAdapter.notifyItemRemoved(parent.size());
-            this.linearLayoutManager.scrollToPosition(parent.size());
-        }
-         */
+        this.waitingListAdapter.notifyDataSetChanged();
+        this.linearLayoutManager.scrollToPosition(parent.size());
 
     }
 
 
-    private void addToArrayParentDeleteArrayChildren(ArrayList<WaitingList> parent,ArrayList<WaitingList> child) {
+    private void addToArrayParentDeleteArrayChildren(List<WaitingList> parent, List<WaitingList> child) {
 
         for (int i = 0; i < child.size(); i++) {
             parent.add(child.get(i));
-            this.waitingListAdapter.notifyItemInserted(parent.size()-1);
-            this.linearLayoutManager.scrollToPosition(parent.size()-1);
+            this.waitingListAdapter.notifyDataSetChanged();
         }
-
+        this.linearLayoutManager.scrollToPosition(parent.size()-1);
         child.clear();
     }
 
-    private void timer(ArrayList<WaitingList> parent, ArrayList<WaitingList> child){
+    private void timer(List<WaitingList> parent, List<WaitingList> child){
         new CountDownTimer(this.temp, this.temp){
 
             @Override

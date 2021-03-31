@@ -253,6 +253,5 @@ public class ReservationsFragment extends Fragment implements Response.Listener<
 
         startActivity(i);
 
-        Snackbar.make(v, "Añadir mesa", Snackbar.LENGTH_LONG).setAction("Action", null).show();
     }
 }
